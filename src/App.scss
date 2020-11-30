@@ -51,9 +51,13 @@ header {
     align-items: center;
     justify-content: space-between;
     .logo {
+      display: flex;
       font-weight: 900;
       letter-spacing: 2px;
       color: #fff;
+      .dot {
+        color: #171717;
+      }
     }
     nav {
       ul {
@@ -62,20 +66,22 @@ header {
         display: flex;
         li {
           list-style: none;
-          margin: 0 60px;
+          margin: 0 3vw;
           &.btn {
             a {
               color: #fff;
               font-weight: 600;
               background: #23232a;
-              padding: 16px 24px;
+              padding: 0.5rem 1rem;
               border-radius: 10px;
+              font-size: 1rem;
             }
           }
           a {
             text-transform: capitalize;
             text-decoration: none;
             color: #fff;
+            font-size: 1.5rem;
           }
         }
       }

@@ -1,6 +1,6 @@
-import { Html, useGLTFLoader } from "drei";
+import { Html } from "drei";
 import { Suspense, useEffect, useRef } from "react";
-import InView, { useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 import { Canvas } from "react-three-fiber";
 import "./App.scss";
 import Header from "./components/header";
@@ -36,8 +36,8 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   const [refItem, InView] = useInView({ threshold: 0 });
 
   useEffect(() => {
-    InView && (document.body.style.background =  bgColor );
-  },[InView]);
+    InView && (document.body.style.background = bgColor);
+  }, [InView]);
 
   return (
     <Section factor={1.5} offset={1}>
@@ -51,7 +51,14 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
     </Section>
   );
 };
-
+const Cube = () => {
+  return(
+    <mesh>
+      <boxBufferGeometry attach='geometry' args={[3,3,3]}/>
+      <meshStandardMaterial attach='material'/>
+    </mesh>
+  )
+};
 function App() {
   const domContent = useRef();
   const scrollArea = useRef();
