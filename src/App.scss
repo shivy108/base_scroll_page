@@ -32,13 +32,14 @@ body,
 }
 
 .container {
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
-  max-width: 100%;
+  max-width: 100vw;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 header {
@@ -50,13 +51,20 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .logo1 {
+      display: flex;
+      .logo2 {
+        color: #fff;
+      }
+    }
+
     .logo {
       display: flex;
       font-weight: 900;
       letter-spacing: 2px;
-      color: #fff;
+      color: #171717;
       .dot {
-        color: #171717;
+        color: #fff;
       }
     }
     nav {
@@ -102,6 +110,16 @@ header {
     font-size: 6rem;
   }
 }
+.subtitle {
+  font-size: 5rem;
+  color: #171717;
+  span {
+    display: block;
+  }
+  @media (max-width: 1440px) {
+    font-size: 3rem;
+  }
+}
 
 .loading {
   position: absolute;
@@ -125,4 +143,44 @@ header {
 .loading-bar {
   height: 32px;
   background: #f15946;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  margin: 1vh 0;
+  padding: 0;
+  text-transform: uppercase;
+  .tech {
+    margin: 0 1vw;
+    font-size: 3rem;
+    color: #171717;
+    span {
+      display: block;
+    }
+    @media (max-width: 1440px) {
+      font-size: 2rem;
+    }
+  }
+  .tech:nth-child(1),
+  .tech:nth-child(3),
+  .tech:nth-child(5) {
+    color: #fff;
+  }
+}
+.description{
+  margin: 1rem;
+  padding: 1rem;
+  h4{
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  p{
+    margin: 0;
+    font-size: 1.2rem;
+    
+  }
+}
+img{
+  width: 60vw;
 }
