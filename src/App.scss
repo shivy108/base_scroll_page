@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "hollow";
+  src: url("./assets/Arialic\ Hollow.ttf") format("truetype");
+}
 * {
   box-sizing: border-box;
 }
@@ -99,6 +103,7 @@ header {
 
 .title {
   font-size: 10rem;
+  font-family: "hollow";
   text-align: center;
   width: 100%;
   margin: 0 auto;
@@ -184,6 +189,7 @@ img {
   width: 60vw;
 }
 .arrow {
+  font-family: "hollow";
   display: flex;
   flex-direction: column;
   justify-content: center;

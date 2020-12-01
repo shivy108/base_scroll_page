@@ -9,6 +9,8 @@ import { Section } from "./components/section";
 import state from "./components/state";
 import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
+import nike from "./assets/nike-1.gif";
+import scholl from "./assets/SVGLogo.svg";
 
 const Lights = () => {
   return (
@@ -48,7 +50,7 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
     <Section factor={1.5} offset={1}>
       <group position={position}>
         <Html portal={domContent} fullscreen>
-          <div className='container' ref={refItem}>
+          <div className="container" ref={refItem}>
             {children}
           </div>
         </Html>
@@ -106,10 +108,11 @@ function App() {
           <HTMLContent
             bgColor={"#f15946"}
             domContent={domContent}
-            position={[0, 250, 0]}>
-            <h1 className='title'>Welcome</h1>
-            <h4 className='subtitle'> Take a look around</h4>
-            <div className='arrow'>
+            position={[0, 250, 0]}
+          >
+            <h1 className="title">Welcome</h1>
+            <h4 className="subtitle"> Take a look around</h4>
+            <div className="arrow">
               <div>ro</div>
               <div>ar</div>
               <div>wd</div>
@@ -124,61 +127,64 @@ function App() {
           <HTMLContent
             bgColor={"#229235"}
             domContent={domContent}
-            position={[0, 0, 0]}>
-            <h1 className='title'>jobtracker.ai</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>django</li>
-              <li className='tech'>redux</li>
-              <li className='tech'>react-pdf</li>
-              <li className='tech'>docker</li>
+            position={[0, 0, 0]}
+          >
+            <h1 className="title">jobtracker.ai</h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">styled components</li>
+              <li className="tech">django</li>
+              <li className="tech">redux</li>
+              <li className="tech">react-pdf</li>
+              <li className="tech">docker</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 jobtracker.ai is a tool to help developers find and apply for
                 jobs. The objective was to add automatic cv and cover letter
-                generation from the user and job data. I worked on the frontend
-                to create the user profile UI as well as cv and cover letter
+                generation from the user data. I worked on the frontend UI which
+                updates the user profile as well as creating cv and cover letter
                 templates.{" "}
               </p>
             </div>
-            <img src={laptop} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={laptop} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#a33838"}
             domContent={domContent}
-            position={[0, -250, 0]}>
-            <h1 className='title'>netflix clone</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>typescript</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>firebase</li>
+            position={[0, -250, 0]}
+          >
+            <h1 className="title">netflix clone</h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">typescript</li>
+              <li className="tech">styled components</li>
+              <li className="tech">firebase</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 a clone of the netflix web application. This clone does not play
                 full movies, instead it plays a trailer from youtbe{" "}
               </p>
             </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={netflix} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#7aa338"}
             domContent={domContent}
-            position={[0, -500, 0]}>
-            <h1 className='title'>scholl garten und dach</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>react-spring</li>
-              <li className='tech'>firebase</li>
+            position={[0, -500, 0]}
+          >
+            <h1 className="title">scholl garten und dach</h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">react-spring</li>
+              <li className="tech">firebase</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 a static webpage built to be mobile friendly and stand out from
@@ -186,69 +192,72 @@ function App() {
                 with Netlify.{" "}
               </p>
             </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={scholl} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#6d6565"}
             domContent={domContent}
-            position={[0, -750, 0]}>
-            <h1 className='title'>online shop</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>firebase</li>
+            position={[0, -750, 0]}
+          >
+            <h1 className="title">online shop</h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">styled components</li>
+              <li className="tech">firebase</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>fully functional online shop </p>
             </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={nike} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#5857ac"}
             domContent={domContent}
-            position={[0, -1000, 0]}>
-            <h1 className='title'>discovery</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>redux</li>
-              <li className='tech'>material ui</li>
+            position={[0, -1000, 0]}
+          >
+            <h1 className="title">discovery</h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">redux</li>
+              <li className="tech">material ui</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 Inspired by COVID-19. Created to encourage medical research and
                 increase medical data.{" "}
               </p>
             </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={nike} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#a1a338"}
             domContent={domContent}
-            position={[0, -1250, 0]}>
-            <h1 className='title'>stundä</h1>
-            <ul className='list'>
-              <li className='tech'>Angular</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>firebase</li>
+            position={[0, -1250, 0]}
+          >
+            <h1 className="title">stundä</h1>
+            <ul className="list">
+              <li className="tech">Angular</li>
+              <li className="tech">styled components</li>
+              <li className="tech">firebase</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 Inspired by my time working as a garden. This is an app used to
                 record working hours{" "}
               </p>
             </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>arrowdown</div>
+            <img src={netflix} alt="" />
+            <div className="arrow">arrowdown</div>
           </HTMLContent>
         </Suspense>
       </Canvas>
-      <div className='scrollArea' ref={scrollArea} onScroll={onScroll}>
+      <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
         <div style={{ position: "sticky", top: 0 }} ref={domContent}></div>
         <div style={{ height: `${state.sections * 100}vh` }}></div>
       </div>
