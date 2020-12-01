@@ -109,7 +109,17 @@ function App() {
             position={[0, 250, 0]}>
             <h1 className='title'>Welcome</h1>
             <h4 className='subtitle'> Take a look around</h4>
-            <div className='arrow'>arrowdown</div>
+            <div className='arrow'>
+              <div>ro</div>
+              <div>ar</div>
+              <div>wd</div>
+              <div>scrolldown</div>
+              <div>arowdwn</div>
+              <div>arwdn</div>
+              <div>rowd</div>
+              <div>wd</div>
+              <div>d</div>
+            </div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#229235"}

@@ -168,19 +168,25 @@ header {
     color: #fff;
   }
 }
-.description{
+.description {
   margin: 1rem;
   padding: 1rem;
-  h4{
+  h4 {
     margin: 0;
     font-size: 1.2rem;
   }
-  p{
+  p {
     margin: 0;
     font-size: 1.2rem;
-    
   }
 }
-img{
+img {
   width: 60vw;
+}
+.arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
 }
