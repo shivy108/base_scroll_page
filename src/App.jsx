@@ -1,4 +1,4 @@
-import { Html } from "drei";
+import { Html, MeshWobbleMaterial } from "drei";
 import { Suspense, useEffect, useRef, useState } from "react";
 import InView, { useInView } from "react-intersection-observer";
 import { useSpring, a } from "react-spring/three";
@@ -18,7 +18,7 @@ const Lights = () => {
       {/* Ambient Light illuminates lights for all objects */}
       <ambientLight intensity={0.3} />
       {/* Diretion light */}
-      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <directionalLight position={[-10, -10, 5]} intensity={1} />
       <pointLight position={[0, 10, 5]} />
       <pointLight position={[0, -10, -5]} />
       <directionalLight
@@ -39,18 +39,56 @@ const Lights = () => {
   );
 };
 
+const SpinningMesh = ({ position, color, speed, args }) => {
+  //ref to target the mesh
+  const mesh = useRef();
+
+  //useFrame allows us to re-render/update rotation on each frame
+  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+
+  //Basic expand state
+  const [expand, setExpand] = useState(false);
+  // React spring expand animation
+  const props = useSpring({
+    scale: expand ? [1.4, 1.4, 1.4] : [50, 50, 50],
+  });
+  return (
+    <a.mesh
+      position={position}
+      ref={mesh}
+      onClick={() => setExpand(!expand)}
+      scale={props.scale}
+      castShadow
+    >
+      <sphereGeometry args={[1, 16, 16]} />
+      <MeshWobbleMaterial
+        color={color}
+        speed={speed}
+        attach="material"
+        factor={3}
+        wireframe
+      />
+    </a.mesh>
+  );
+};
+
 const HTMLContent = ({ bgColor, domContent, children, position }) => {
   const [refItem, InView] = useInView({ threshold: 0 });
+  const [color, setColor] = useState(bgColor);
 
   useEffect(() => {
-    InView && (document.body.style.background = bgColor);
-  }, [InView]);
+    InView && (document.body.style.background = color);
+  }, [InView, color]);
 
   return (
     <Section factor={1.5} offset={1}>
       <group position={position}>
         <Html portal={domContent} fullscreen>
-          <div className="container" ref={refItem}>
+          <div
+            className="container"
+            onClick={() => setColor("#000")}
+            ref={refItem}
+          >
             {children}
           </div>
         </Html>
@@ -58,39 +96,6 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
     </Section>
   );
 };
-
-// const Box = ({ position, color, speed, args }) => {
-//   const mesh = useRef();
-
-//   //useFrame allows us to re-render/update rotation on each frame
-//   useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
-
-//   //Basic expand state
-//   const [expand, setExpand] = useState(false);
-//   // React spring expand animation
-//   const props = useSpring({
-//     scale: expand ? [50, 50, 50] : [50, 50, 50],
-//   });
-//   return (
-//     <group>
-//       <a.mesh
-//         position={position}
-//         ref={mesh}
-//         onClick={() => setExpand(!expand)}
-//         scale={props.scale}
-//         castShadow>
-//         <boxBufferGeometry attach='geometry' args={args} />
-//         <MeshWobbleMaterial
-//           color={color}
-//           speed={speed}
-//           attach='material'
-//           factor={0.6}
-//         />
-//       </a.mesh>
-//     </group>
-
-//   );
-// };
 
 function App() {
   const domContent = useRef();
@@ -101,12 +106,22 @@ function App() {
   return (
     <>
       <Header />
-      <Canvas colorManagement camera={{ position: [0, 0, 120], fov: 70 }}>
+      <Canvas
+        shadowMap
+        colorManagement
+        camera={{ position: [0, 0, 120], fov: 70 }}
+      >
         <Lights />
         <Suspense fallback={null}>
-          {/* <Box position={[0, 0, 0]} color='black' speed={1} args={[3, 2, 1]} /> */}
+          <SpinningMesh
+            position={[0, 1, 0]}
+            color="#353030"
+            args={[3, 2, 1]}
+            speed={0.2}
+          />
+
           <HTMLContent
-            bgColor={"#f15946"}
+            bgColor={"#4e4e46"}
             domContent={domContent}
             position={[0, 250, 0]}
           >
@@ -125,7 +140,7 @@ function App() {
             </div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#229235"}
+            bgColor={"#a38a38"}
             domContent={domContent}
             position={[0, 0, 0]}
           >
@@ -174,7 +189,7 @@ function App() {
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#7aa338"}
+            bgColor={"#38a36d"}
             domContent={domContent}
             position={[0, -500, 0]}
           >
@@ -182,21 +197,20 @@ function App() {
             <ul className="list">
               <li className="tech">react</li>
               <li className="tech">react-spring</li>
-              <li className="tech">firebase</li>
+              <li className="tech">Netlify</li>
             </ul>
             <div className="description">
               <h4>description</h4>
               <p>
                 a static webpage built to be mobile friendly and stand out from
-                the crowd. The domain was bought from hostpoint.ch and deployed
-                with Netlify.{" "}
+                the crowd.
               </p>
             </div>
             <img src={scholl} alt="" />
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#6d6565"}
+            bgColor={"#687567"}
             domContent={domContent}
             position={[0, -750, 0]}
           >
@@ -214,7 +228,7 @@ function App() {
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#5857ac"}
+            bgColor={"#3851a3"}
             domContent={domContent}
             position={[0, -1000, 0]}
           >
@@ -223,6 +237,7 @@ function App() {
               <li className="tech">react</li>
               <li className="tech">redux</li>
               <li className="tech">material ui</li>
+              <li className="tech">django</li>
             </ul>
             <div className="description">
               <h4>description</h4>
@@ -235,25 +250,33 @@ function App() {
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#a1a338"}
+            bgColor={"#a3387f"}
             domContent={domContent}
             position={[0, -1250, 0]}
           >
             <h1 className="title">stundä</h1>
             <ul className="list">
               <li className="tech">Angular</li>
-              <li className="tech">styled components</li>
-              <li className="tech">firebase</li>
+              <li className="tech">Django</li>
+              <li className="tech">AWS</li>
             </ul>
             <div className="description">
               <h4>description</h4>
               <p>
-                Inspired by my time working as a garden. This is an app used to
-                record working hours{" "}
+                Inspired by my time working as a gardener. This is an app used
+                to record working hours{" "}
               </p>
             </div>
             <img src={netflix} alt="" />
             <div className="arrow">arrowdown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#a33838"}
+            domContent={domContent}
+            position={[0, -1500, 0]}
+          >
+            <h1 className="title">like what you see?</h1>
+            <h4 className="subtitle"> Get in touch...</h4>
           </HTMLContent>
         </Suspense>
       </Canvas>

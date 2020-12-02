@@ -12,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f15946;
+  background: #cac7c7;
   transition: 0.4s ease-in-out;
 }
 
@@ -189,10 +189,22 @@ img {
   width: 60vw;
 }
 .arrow {
-  font-family: "hollow";
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  opacity: 0.4;
 }
+.arrow:hover {
+  scale: 1.1;
+  transition: 0.3s;
+}
+div.arrow:nth-child(3) > div:nth-child(4) {
+  color: rgb(255, 123, 145);
+  opacity: 1.8;
+ }
+ 
