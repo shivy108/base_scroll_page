@@ -117,7 +117,19 @@ function App() {
             position={[0, 1, 0]}
             color="#353030"
             args={[3, 2, 1]}
-            speed={0.2}
+            speed={0.1}
+          />
+          <SpinningMesh
+            position={[-10, -10, -10]}
+            color="#221c1c"
+            args={[3, 2, 1]}
+            speed={0.01}
+          />
+          <SpinningMesh
+            position={[10, 10, 10]}
+            color="#221c1c"
+            args={[3, 2, 1]}
+            speed={0.01}
           />
 
           <HTMLContent
