@@ -39,18 +39,24 @@ const Lights = () => {
   );
 };
 
-const SpinningMesh = ({ position, color, speed, args }) => {
+const SpinningMesh = ({ factor, position, color, speed, args }) => {
   //ref to target the mesh
   const mesh = useRef();
 
   //useFrame allows us to re-render/update rotation on each frame
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+  useFrame(
+    () => (
+      (mesh.current.rotation.z += 0.01),
+      (mesh.current.rotation.x += 0.002),
+      (mesh.current.rotation.y += 0.001)
+    )
+  );
 
   //Basic expand state
   const [expand, setExpand] = useState(false);
   // React spring expand animation
   const props = useSpring({
-    scale: expand ? [1.4, 1.4, 1.4] : [50, 50, 50],
+    scale: expand ? [1.4, 1.4, 1.4] : [40, 40, 40],
   });
   return (
     <a.mesh
@@ -65,7 +71,7 @@ const SpinningMesh = ({ position, color, speed, args }) => {
         color={color}
         speed={speed}
         attach="material"
-        factor={3}
+        factor={factor}
         wireframe
       />
     </a.mesh>
@@ -118,18 +124,21 @@ function App() {
             color="#353030"
             args={[3, 2, 1]}
             speed={0.1}
+            factor={0.1}
           />
           <SpinningMesh
             position={[-10, -10, -10]}
             color="#221c1c"
             args={[3, 2, 1]}
             speed={0.01}
+            factor={3}
           />
           <SpinningMesh
             position={[10, 10, 10]}
             color="#221c1c"
             args={[3, 2, 1]}
             speed={0.01}
+            factor={2}
           />
 
           <HTMLContent
