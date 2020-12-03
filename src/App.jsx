@@ -81,6 +81,18 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
 const HTMLContent = ({ bgColor, domContent, children, position }) => {
   const [refItem, InView] = useInView({ threshold: 0 });
   const [color, setColor] = useState(bgColor);
+  const pallete = [
+    "#ff7f50",
+    "#87cefa",
+    "#da70d6",
+    "#32cd32",
+    "#6495ed",
+    "#ff69b4",
+    "#ba55d3",
+    "#cd5c5c",
+    "#ffa500",
+    "#40e0d0",
+  ];
 
   useEffect(() => {
     InView && (document.body.style.background = color);
@@ -92,7 +104,9 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
         <Html portal={domContent} fullscreen>
           <div
             className="container"
-            onClick={() => setColor("#000")}
+            onClick={() =>
+              setColor(pallete[Math.floor(Math.random() * pallete.length)])
+            }
             ref={refItem}
           >
             {children}
@@ -210,7 +224,7 @@ function App() {
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#38a36d"}
+            bgColor={"#38a3a3"}
             domContent={domContent}
             position={[0, -500, 0]}
           >
@@ -249,7 +263,7 @@ function App() {
             <div className="arrow">arrowdown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#3851a3"}
+            bgColor={"#6a38a3"}
             domContent={domContent}
             position={[0, -1000, 0]}
           >
