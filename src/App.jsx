@@ -83,15 +83,24 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   const [color, setColor] = useState(bgColor);
   const pallete = [
     "#ff7f50",
-    "#87cefa",
-    "#da70d6",
+    "#25485e",
+    "#a0559d",
     "#32cd32",
-    "#6495ed",
+    "#02318a",
     "#ff69b4",
     "#ba55d3",
     "#cd5c5c",
     "#ffa500",
-    "#40e0d0",
+    "#38635e",
+    "#655469",
+    "#501f1f",
+    "#856d42",
+    "#98bbb7",
+    "#446338",
+    "#a78836",
+    "#8b1757",
+    "#991414",
+    "#9e3a3a",
   ];
 
   useEffect(() => {
@@ -117,6 +126,54 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   );
 };
 
+const Arrow = () => {
+  const [x,setX]=useState('ar')
+  const scrambleWords = () => {
+    const array = [
+      "?",
+      "#",
+      "+",
+      "*",
+      "ü",
+      "ö",
+      "l",
+      "ä",
+      "-",
+      "%",
+      "$",
+      "§",
+      "!",
+      "µ",
+      "|",
+      "€",
+      "@",
+      "~",
+      
+    ];
+  };
+  return (
+    <div className="arrow">
+      <div onMouseOver={scrambleWords}>ro</div>
+      <div>ar</div>
+      <div>wd</div>
+      <div>scrolldown</div>
+      <div>arowdwn</div>
+      <div>arwdn</div>
+      <div>rowd</div>
+      <div>wd</div>
+      <div>d</div>
+    </div>
+  );
+};
+
+const Loading = () => {
+  return (
+    <>
+      <div className="loading">Loading...</div>
+    </>
+  );
+};
+
 function App() {
   const domContent = useRef();
   const scrollArea = useRef();
@@ -132,7 +189,7 @@ function App() {
         camera={{ position: [0, 0, 120], fov: 70 }}
       >
         <Lights />
-        <Suspense fallback={null}>
+        <Suspense fallback={Loading}>
           <SpinningMesh
             position={[0, 1, 0]}
             color="#353030"
@@ -162,17 +219,7 @@ function App() {
           >
             <h1 className="title">Welcome</h1>
             <h4 className="subtitle"> Take a look around</h4>
-            <div className="arrow">
-              <div>ro</div>
-              <div>ar</div>
-              <div>wd</div>
-              <div>scrolldown</div>
-              <div>arowdwn</div>
-              <div>arwdn</div>
-              <div>rowd</div>
-              <div>wd</div>
-              <div>d</div>
-            </div>
+            <Arrow />
           </HTMLContent>
           <HTMLContent
             bgColor={"#a38a38"}
