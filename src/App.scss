@@ -6,6 +6,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -32,7 +34,9 @@ body,
   left: 0;
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
 }
 
 .container {
@@ -118,6 +122,7 @@ header {
 .subtitle {
   font-size: 5rem;
   color: #171717;
+  opacity: 0.8;
   span {
     display: block;
   }
@@ -199,14 +204,14 @@ img {
   color: #fff;
   font-size: 1.2rem;
   transition: 0.3s;
-  
 }
 .arrow:hover {
   scale: 1.1;
   transition: 0.3s;
 }
 div.arrow:nth-child(3) > div:nth-child(4) {
-  color: rgb(255, 123, 145);
+  color:#171717;
   opacity: 1.8;
- }
- 
+  background-color: #cac7c7;
+  
+}

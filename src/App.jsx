@@ -85,7 +85,7 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
     "#ff7f50",
     "#25485e",
     "#a0559d",
-    "#32cd32",
+    "#3e573e",
     "#02318a",
     "#ff69b4",
     "#ba55d3",
@@ -127,7 +127,10 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
 };
 
 const Arrow = () => {
-  const [x,setX]=useState('ar')
+  const [x, setX] = useState("r");
+  const [y, setY] = useState("w");
+  const [z, setZ] = useState("o");
+  const [a, setA] = useState("a");
   const scrambleWords = () => {
     const array = [
       "?",
@@ -148,20 +151,58 @@ const Arrow = () => {
       "€",
       "@",
       "~",
-      
     ];
+    return (
+      setX(array[Math.floor(Math.random() * array.length)]),
+      setY(array[Math.floor(Math.random() * array.length)]),
+      setZ(array[Math.floor(Math.random() * array.length)]),
+      setA(array[Math.floor(Math.random() * array.length)])
+    );
   };
   return (
     <div className="arrow">
-      <div onMouseOver={scrambleWords}>ro</div>
-      <div>ar</div>
-      <div>wd</div>
+      <div onMouseOver={scrambleWords}>
+        {x}
+        {y}
+      </div>
+      <div>
+        {a}
+        {z}
+      </div>
+      <div>
+        {x}
+        {z}
+      </div>
       <div>scrolldown</div>
-      <div>arowdwn</div>
-      <div>arwdn</div>
-      <div>rowd</div>
-      <div>wd</div>
-      <div>d</div>
+      <div>
+        {x}
+        {z}
+        {y}
+        {a}
+        {a}
+        {z}
+        {x}
+        {y}
+      </div>
+      <div>
+        {x}
+        {a}
+        {a}
+        {y}
+        {x}
+        {z}
+      </div>
+      <div>
+        {x}
+        {a}
+        {z}
+        {y}
+      </div>
+      <div>
+        {y}
+        {z}
+      </div>
+      <div>{x}</div>
     </div>
   );
 };
@@ -246,7 +287,7 @@ function App() {
               </p>
             </div>
             <img src={laptop} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#a33838"}
@@ -268,7 +309,7 @@ function App() {
               </p>
             </div>
             <img src={netflix} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#38a3a3"}
@@ -289,7 +330,7 @@ function App() {
               </p>
             </div>
             <img src={scholl} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#687567"}
@@ -307,7 +348,7 @@ function App() {
               <p>fully functional online shop </p>
             </div>
             <img src={nike} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#6a38a3"}
@@ -329,7 +370,7 @@ function App() {
               </p>
             </div>
             <img src={nike} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#a3387f"}
@@ -350,7 +391,7 @@ function App() {
               </p>
             </div>
             <img src={netflix} alt="" />
-            <div className="arrow">arrowdown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#a33838"}
