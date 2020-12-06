@@ -275,7 +275,7 @@ function App() {
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#83aaaa"}
+            bgColor={"#83aa9a"}
             domContent={domContent}
             position={[0, -250, 0]}>
             <h1 className='title'>netflix clone</h1>
