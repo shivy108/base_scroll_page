@@ -122,37 +122,32 @@ const Arrow = () => {
   const [y, setY] = useState("w");
   const [z, setZ] = useState("o");
   const [a, setA] = useState("a");
-  const scrambleWords = () => {
-    const array = [
-      "?",
-      "#",
-      "+",
-      "*",
-      "ü",
-      "ö",
-      "l",
-      "ä",
-      "-",
-      "%",
-      "$",
-      "§",
-      "!",
-      "µ",
-      "|",
-      "€",
-      "@",
-      "~",
-    ];
-    return (
-      setX(array[Math.floor(Math.random() * array.length)]),
-      setY(array[Math.floor(Math.random() * array.length)]),
-      setZ(array[Math.floor(Math.random() * array.length)]),
-      setA(array[Math.floor(Math.random() * array.length)])
-    );
+  const [b, setB] = useState("s");
+  const [c, setC] = useState("p");
+  const [d, setD] = useState("q");
+  const [e, setE] = useState("g");
+
+  let characters =
+    "!@#$%^&*0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+  const charList = characters.split("");
+
+  const scrambleWords = (e) => {
+    if (e) {
+      return (
+        setX(charList[Math.floor(Math.random() * charList.length)]),
+        setA(charList[Math.floor(Math.random() * charList.length)]),
+        setB(charList[Math.floor(Math.random() * charList.length)]),
+        setC(charList[Math.floor(Math.random() * charList.length)]),
+        setD(charList[Math.floor(Math.random() * charList.length)]),
+        setE(charList[Math.floor(Math.random() * charList.length)]),
+        setZ(charList[Math.floor(Math.random() * charList.length)]),
+        setY(charList[Math.floor(Math.random() * charList.length)])
+      );
+    }
   };
   return (
-    <div className='arrow'>
-      <div onMouseOver={scrambleWords}>
+    <div onMouseOver={scrambleWords} className="arrow">
+      <div >
         {x}
         {y}
       </div>
@@ -161,39 +156,39 @@ const Arrow = () => {
         {z}
       </div>
       <div>
-        {x}
-        {z}
+        {b}
+        {c}
       </div>
       <div>scrolldown</div>
       <div>
-        {x}
+        {d}
         {z}
-        {y}
+        {e}
         {a}
-        {a}
-        {z}
-        {x}
-        {y}
-      </div>
-      <div>
-        {x}
-        {a}
-        {a}
-        {y}
-        {x}
-        {z}
-      </div>
-      <div>
-        {x}
-        {a}
-        {z}
+        {b}
+        {d}
+        {c}
         {y}
       </div>
       <div>
-        {y}
+        {x}
+        {a}
+        {d}
+        {e}
+        {b}
         {z}
       </div>
-      <div>{x}</div>
+      <div>
+        {c}
+        {a}
+        {z}
+        {d}
+      </div>
+      <div>
+        {d}
+        {e}
+      </div>
+      <div>{a}</div>
     </div>
   );
 };
