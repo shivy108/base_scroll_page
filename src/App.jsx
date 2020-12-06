@@ -64,13 +64,12 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
       ref={mesh}
       onClick={() => setExpand(!expand)}
       scale={props.scale}
-      castShadow
-    >
+      castShadow>
       <sphereGeometry args={[1, 16, 16]} />
       <MeshWobbleMaterial
         color={color}
         speed={speed}
-        attach="material"
+        attach='material'
         factor={factor}
         wireframe
       />
@@ -82,25 +81,18 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   const [refItem, InView] = useInView({ threshold: 0 });
   const [color, setColor] = useState(bgColor);
   const pallete = [
-    "#ff7f50",
-    "#25485e",
-    "#a0559d",
-    "#3e573e",
-    "#02318a",
-    "#ff69b4",
-    "#ba55d3",
-    "#cd5c5c",
-    "#ffa500",
-    "#38635e",
-    "#655469",
-    "#501f1f",
-    "#856d42",
-    "#98bbb7",
-    "#446338",
-    "#a78836",
-    "#8b1757",
-    "#991414",
-    "#9e3a3a",
+    "#f89672",
+    "#4b7c9b",
+    "#796c58",
+    "#667c66",
+    "#486292",
+    "#be759a",
+    "#487c78",
+    "#753e3e",
+    "#887719",
+    "#948114",
+    "#51856b",
+   
   ];
 
   useEffect(() => {
@@ -112,12 +104,11 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
       <group position={position}>
         <Html portal={domContent} fullscreen>
           <div
-            className="container"
+            className='container'
             onClick={() =>
               setColor(pallete[Math.floor(Math.random() * pallete.length)])
             }
-            ref={refItem}
-          >
+            ref={refItem}>
             {children}
           </div>
         </Html>
@@ -156,7 +147,7 @@ const Arrow = () => {
   };
   return (
     <div onMouseOver={scrambleWords} className="arrow">
-      <div>
+      <div >
         {x}
         {y}
       </div>
@@ -205,7 +196,7 @@ const Arrow = () => {
 const Loading = () => {
   return (
     <>
-      <div className="loading">Loading...</div>
+      <div className='loading'>Loading...</div>
     </>
   );
 };
@@ -222,56 +213,53 @@ function App() {
       <Canvas
         shadowMap
         colorManagement
-        camera={{ position: [0, 0, 120], fov: 70 }}
-      >
+        camera={{ position: [0, 0, 120], fov: 70 }}>
         <Lights />
         <Suspense fallback={Loading}>
           <SpinningMesh
             position={[0, 1, 0]}
-            color="#353030"
+            color='#353030'
             args={[3, 2, 1]}
             speed={0.1}
             factor={0.1}
           />
           <SpinningMesh
             position={[-10, -10, -10]}
-            color="#221c1c"
+            color='#221c1c'
             args={[3, 2, 1]}
             speed={0.01}
             factor={3}
           />
           <SpinningMesh
             position={[10, 10, 10]}
-            color="#221c1c"
+            color='#221c1c'
             args={[3, 2, 1]}
             speed={0.01}
             factor={2}
           />
 
           <HTMLContent
-            bgColor={"#4e4e46"}
+            bgColor={"#6d6d60"}
             domContent={domContent}
-            position={[0, 250, 0]}
-          >
-            <h1 className="title">Welcome</h1>
-            <h4 className="subtitle"> Take a look around</h4>
+            position={[0, 250, 0]}>
+            <h1 className='title'>Welcome</h1>
+            <h4 className='subtitle'> Take a look around</h4>
             <Arrow />
           </HTMLContent>
           <HTMLContent
             bgColor={"#a38a38"}
             domContent={domContent}
-            position={[0, 0, 0]}
-          >
-            <h1 className="title">jobtracker.ai</h1>
-            <ul className="list">
-              <li className="tech">react</li>
-              <li className="tech">styled components</li>
-              <li className="tech">django</li>
-              <li className="tech">redux</li>
-              <li className="tech">react-pdf</li>
-              <li className="tech">docker</li>
+            position={[0, 0, 0]}>
+            <h1 className='title'>jobtracker.ai</h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>styled components</li>
+              <li className='tech'>django</li>
+              <li className='tech'>redux</li>
+              <li className='tech'>react-pdf</li>
+              <li className='tech'>docker</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>
                 jobtracker.ai is a tool to help developers find and apply for
@@ -281,124 +269,118 @@ function App() {
                 templates.{" "}
               </p>
             </div>
-            <img src={laptop} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={laptop} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#a33838"}
+            bgColor={"#83aaaa"}
             domContent={domContent}
-            position={[0, -250, 0]}
-          >
-            <h1 className="title">netflix clone</h1>
-            <ul className="list">
-              <li className="tech">react</li>
-              <li className="tech">typescript</li>
-              <li className="tech">styled components</li>
-              <li className="tech">firebase</li>
+            position={[0, -250, 0]}>
+            <h1 className='title'>netflix clone</h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>typescript</li>
+              <li className='tech'>styled components</li>
+              <li className='tech'>firebase</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>
                 a clone of the netflix web application. This clone does not play
                 full movies, instead it plays a trailer from youtbe{" "}
               </p>
             </div>
-            <img src={netflix} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={netflix} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#38a3a3"}
+            bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -500, 0]}
-          >
-            <h1 className="title">scholl garten und dach</h1>
-            <ul className="list">
-              <li className="tech">react</li>
-              <li className="tech">react-spring</li>
-              <li className="tech">Netlify</li>
+            position={[0, -500, 0]}>
+            <h1 className='title'>scholl garten und dach</h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>react-spring</li>
+              <li className='tech'>Netlify</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>
                 a static webpage built to be mobile friendly and stand out from
                 the crowd.
               </p>
             </div>
-            <img src={scholl} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={scholl} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -750, 0]}
-          >
-            <h1 className="title">online shop</h1>
-            <ul className="list">
-              <li className="tech">react</li>
-              <li className="tech">styled components</li>
-              <li className="tech">firebase</li>
+            position={[0, -750, 0]}>
+            <h1 className='title'>online shop</h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>styled components</li>
+              <li className='tech'>firebase</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>fully functional online shop </p>
             </div>
-            <img src={nike} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={nike} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#6a38a3"}
+            bgColor={"#9e92ac"}
             domContent={domContent}
-            position={[0, -1000, 0]}
-          >
-            <h1 className="title">discovery</h1>
-            <ul className="list">
-              <li className="tech">react</li>
-              <li className="tech">redux</li>
-              <li className="tech">material ui</li>
-              <li className="tech">django</li>
+            position={[0, -1000, 0]}>
+            <h1 className='title'>discovery</h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>redux</li>
+              <li className='tech'>material ui</li>
+              <li className='tech'>django</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>
                 Inspired by COVID-19. Created to encourage medical research and
                 increase medical data.{" "}
               </p>
             </div>
-            <img src={nike} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={nike} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#a3387f"}
+            bgColor={"#9c5c87"}
             domContent={domContent}
-            position={[0, -1250, 0]}
-          >
-            <h1 className="title">stundä</h1>
-            <ul className="list">
-              <li className="tech">Angular</li>
-              <li className="tech">Django</li>
-              <li className="tech">AWS</li>
+            position={[0, -1250, 0]}>
+            <h1 className='title'>stundä</h1>
+            <ul className='list'>
+              <li className='tech'>Angular</li>
+              <li className='tech'>Django</li>
+              <li className='tech'>AWS</li>
             </ul>
-            <div className="description">
+            <div className='description'>
               <h4>description</h4>
               <p>
                 Inspired by my time working as a gardener. This is an app used
                 to record working hours{" "}
               </p>
             </div>
-            <img src={netflix} alt="" />
-            <div className="arrow">scrolldown</div>
+            <img src={netflix} alt='' />
+            <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#a33838"}
+            bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1500, 0]}
-          >
-            <h1 className="title">like what you see?</h1>
-            <h4 className="subtitle"> Get in touch...</h4>
+            position={[0, -1500, 0]}>
+            <h1 className='title'>like what you see?</h1>
+            <h4 className='subtitle'> Get in touch...</h4>
           </HTMLContent>
         </Suspense>
       </Canvas>
-      <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
+      <div className='scrollArea' ref={scrollArea} onScroll={onScroll}>
         <div style={{ position: "sticky", top: 0 }} ref={domContent}></div>
         <div style={{ height: `${state.sections * 100}vh` }}></div>
       </div>
