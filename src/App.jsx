@@ -11,6 +11,7 @@ import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
 import nike from "./assets/nike-1.gif";
 import scholl from "./assets/SVGLogo.svg";
+import { Physics, useSphere } from "use-cannon";
 
 const Lights = () => {
   return (
@@ -42,6 +43,12 @@ const Lights = () => {
 const SpinningMesh = ({ factor, position, color, speed, args }) => {
   //ref to target the mesh
   const mesh = useRef();
+  const [ref, api] = useBox(() => ({ mass: 1, args: [4, 4, 4], isKinematic: true }))
+  useFrame(state => {
+    const t = state.clock.getElapsedTime()
+    api.position.set(Math.sin(t * 2) * 5, Math.cos(t * 2) * 5, 3)
+    api.rotation.set(Math.sin(t * 6), Math.cos(t * 6), 0)
+  })
 
   //useFrame allows us to re-render/update rotation on each frame
   useFrame(
@@ -52,18 +59,12 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
     )
   );
 
-  //Basic expand state
-  const [expand, setExpand] = useState(false);
-  // React spring expand animation
-  const props = useSpring({
-    scale: expand ? [1.4, 1.4, 1.4] : [40, 40, 40],
-  });
+  
   return (
-    <a.mesh
+    <mesh
       position={position}
       ref={mesh}
-      onClick={() => setExpand(!expand)}
-      scale={props.scale}
+      scale={[40, 40, 40]}
       castShadow>
       <sphereGeometry args={[1, 16, 16]} />
       <MeshWobbleMaterial
@@ -73,7 +74,7 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
         factor={factor}
         wireframe
       />
-    </a.mesh>
+    </mesh>
   );
 };
 
@@ -216,6 +217,7 @@ function App() {
         camera={{ position: [0, 0, 120], fov: 70 }}>
         <Lights />
         <Suspense fallback={Loading}>
+          <Physics/>
           <SpinningMesh
             position={[0, 1, 0]}
             color='#353030'
