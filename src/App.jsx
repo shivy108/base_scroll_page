@@ -10,8 +10,6 @@ import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
 import nike from "./assets/nike-1.gif";
 import scholl from "./assets/SVGLogo.svg";
-import { Physics, useSphere } from "use-cannon";
-import * as THREE from "three";
 
 const Lights = () => {
   return (
@@ -207,7 +205,7 @@ function App() {
       >
         <Lights />
         <Suspense fallback={Loading}>
-          <Physics />
+          
           <SpinningMesh
             position={[0, 1, 0]}
             color="#353030"
