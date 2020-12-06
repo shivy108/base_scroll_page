@@ -64,7 +64,7 @@ header {
   position: absolute;
   z-index: 99;
   width: 100%;
-  padding: 60px;
+  padding: 2vw;
   .header-inner {
     display: flex;
     align-items: center;
@@ -119,6 +119,7 @@ header {
   font-size: 9rem;
   font-family: "hollow";
   text-align: center;
+
   width: 100%;
   margin: 0 auto;
   color: #fff;
@@ -126,18 +127,19 @@ header {
     display: block;
   }
   @media (max-width: 1440px) {
-    font-size: 5rem;
+    font-size: 10vw;
   }
 }
 .subtitle {
   font-size: 5rem;
   color: #171717;
+  text-align: center;
   opacity: 0.8;
   span {
     display: block;
   }
   @media (max-width: 1440px) {
-    font-size: 3rem;
+    font-size: 4vw;
   }
 }
 
@@ -179,7 +181,7 @@ header {
       display: block;
     }
     @media (max-width: 1440px) {
-      font-size: 2rem;
+      font-size: 3vw;
     }
   }
   .tech:nth-child(1),
@@ -196,10 +198,16 @@ header {
   h4 {
     margin: 0;
     font-size: 1.2rem;
+    @media (max-width: 1440px) {
+      font-size: 2vw;
+    }
   }
   p {
     margin: 0;
     font-size: 1.2rem;
+    @media (max-width: 1440px) {
+      font-size: 2vw;
+    }
   }
 }
 img {
