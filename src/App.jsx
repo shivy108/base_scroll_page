@@ -8,7 +8,6 @@ import { Section } from "./components/section";
 import state from "./components/state";
 import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
-import nike from "./assets/nike-1.gif";
 import scholl from "./assets/SVGLogo.svg";
 
 const Lights = () => {
