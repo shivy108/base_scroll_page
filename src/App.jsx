@@ -1,6 +1,6 @@
 import { Html, MeshWobbleMaterial } from "drei";
 import { Suspense, useEffect, useRef, useState } from "react";
-import InView, { useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 import { Canvas, useFrame } from "react-three-fiber";
 import "./App.scss";
 import Header from "./components/header";
@@ -42,13 +42,7 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
   const mesh = useRef();
 
   //useFrame allows us to re-render/update rotation on each frame
-  useFrame(
-    () => (
-      (mesh.current.rotation.z += 0.001),
-      (mesh.current.rotation.x -= 0.002),
-      (mesh.current.rotation.y -= 0.001)
-    )
-  );
+  useFrame(() => (mesh.current.rotation.z += 0.001));
 
   return (
     <mesh position={position} ref={mesh} scale={[40, 40, 40]} castShadow>
