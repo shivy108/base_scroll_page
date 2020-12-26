@@ -289,7 +289,7 @@ function App() {
             position={[0, -500, 0]}>
             <h1 className='title'>
               <a
-                href='https://netflix-clone130678.web.app/'
+                href='https://netflix130678.web.app/'
                 rel='noreferrer'
                 target='_blank'>
                 netflix clone
