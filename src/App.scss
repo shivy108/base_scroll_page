@@ -224,8 +224,11 @@ img {
   align-content: center;
   text-align: center;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1vw;
   transition: 0.3s;
+  @media (max-width: 1440px) {
+    font-size: 2rem;
+  }
 }
 .arrow:hover {
   scale: 1.1;

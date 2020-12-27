@@ -46,7 +46,7 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
 
   return (
     <mesh position={position} ref={mesh} scale={[40, 40, 40]} castShadow>
-      <sphereGeometry args={[1, 16, 16]} />
+      <sphereGeometry args={[1, 16, 16]} /> 
       <MeshWobbleMaterial
         color={color}
         speed={speed}
