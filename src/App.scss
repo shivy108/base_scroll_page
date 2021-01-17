@@ -116,7 +116,7 @@ header {
 }
 
 .title {
-  font-size: 9rem;
+  font-size: 5rem;
   font-family: "hollow";
   text-align: center;
 
@@ -131,19 +131,19 @@ header {
     display: block;
   }
   @media (max-width: 1440px) {
-    font-size: 10vw;
+    font-size: 7rem;
   }
 }
 .subtitle {
   font-size: 5rem;
   color: #171717;
   text-align: center;
-  opacity: 0.8;
+  opacity: 0.9;
   span {
     display: block;
   }
   @media (max-width: 1440px) {
-    font-size: 4vw;
+    font-size: 6rem;
   }
 }
 
@@ -179,13 +179,13 @@ header {
   text-transform: uppercase;
   .tech {
     margin: 0 1vw;
-    font-size: 3rem;
+    font-size: 2rem;
     color: #171717;
     span {
       display: block;
     }
     @media (max-width: 1440px) {
-      font-size: 3vw;
+      font-size: 4rem;
     }
   }
   .tech:nth-child(1),
@@ -196,9 +196,9 @@ header {
 }
 .description {
   margin: 1rem;
+  margin-right: 2rem;
   padding: 1rem;
-  background-color: #fff;
-  opacity: 0.7;
+  background-color: rgb(214, 213, 213);
   h4 {
     margin: 0;
     font-size: 1.2rem;
@@ -208,14 +208,15 @@ header {
   }
   p {
     margin: 0;
-    font-size: 1.2rem;
+    line-height: 1.5;
+    font-size: 1rem;
     @media (max-width: 1440px) {
       font-size: 2vw;
     }
   }
 }
 img {
-  width: 60vw;
+  width: 50vw;
 }
 .arrow {
   display: flex;

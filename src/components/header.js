@@ -37,7 +37,7 @@ export default function Header() {
               </a>
             </li>
             <li className='btn'>
-              <a href='/'>play</a>
+              <a href='/cv_shivesh_dindayal.pdf'>Resume</a>
             </li>
           </ul>
         </nav>

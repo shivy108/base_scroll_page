@@ -9,6 +9,7 @@ import state from "./components/state";
 import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
+import nike from "./assets/nike-1.gif";
 
 const Lights = () => {
   return (
@@ -46,7 +47,7 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
 
   return (
     <mesh position={position} ref={mesh} scale={[40, 40, 40]} castShadow>
-      <sphereGeometry args={[1, 16, 16]} /> 
+      <sphereGeometry args={[1, 16, 16]} />
       <MeshWobbleMaterial
         color={color}
         speed={speed}
@@ -231,7 +232,7 @@ function App() {
             domContent={domContent}
             position={[0, 0, 0]}>
             <h1 className='title'>
-              <a href='https://jobtracker.ai/' rel='noreferrer' target='_blank'>
+              <a href='https://jobtracker.ai/' >
                 jobtracker.ai
               </a>
             </h1>
@@ -248,24 +249,53 @@ function App() {
               <p>
                 jobtracker.ai is a tool to help developers find and apply for
                 jobs. The objective was to add automatic cv and cover letter
-                generation from the user data. I worked on the frontend UI which
-                updates the user profile as well as created cv and cover letter
-                templates.{" "}
+                generation from the user data. Please download my resume for an example of the resume.
+                The key skills gained from this
+                project were working with redux state, interacting with the django
+                server to update the user profile ,implementing react-pdf to
+                add customisation of pdf documents and dockerizing the app
+                 which is being served on a linux container {" "}
               </p>
             </div>
             <img src={laptop} alt='' />
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#527252"}
+            bgColor={"#687567"}
             domContent={domContent}
             position={[0, -250, 0]}>
+            <h1 className='title'><a href="http://167.99.252.53/" rel='noreferrer' target='_blank'>base.</a></h1>
+            <ul className='list'>
+              <li className='tech'>angular 9</li>
+              <li className='tech'>sass</li>
+              <li className='tech'>bootsrap</li>
+              <li className='tech'>redis</li>
+              <li className='tech'>typescript</li>
+              <li className='tech'>c#</li>
+              <li className='tech'>asp.net core</li>
+              <li className='tech'>stripe</li>
+            </ul>
+            <div className='description'>
+              <h4>description</h4>
+              <p>A fully functional online shop with stripe credit card payments. please excuse the http status, this verison
+              is only for demonstration purposes. Testing of the credit card payment can be done with the card number 4242 4242 4242 4242 for success
+              and 4000000000000002 for a card declined response. Sign up can be done with a fake email address. A possible extension to this website could be
+              an audit proof accounting system
+                recording inventory movements, sales, purchases and monthly management reports</p>
+            </div>
+            <img src={nike} alt='' />
+            <div className='arrow'>scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#527252"}
+            domContent={domContent}
+            position={[0, -500, 0]}>
             <h1 className='title'>
               <a
                 href='https://scholl-garten-dach.ch/'
                 target='_blank'
                 rel='noreferrer'>
-                scholl garten und dach
+                scholl garten und dachservice
               </a>
             </h1>
             <ul className='list'>
@@ -276,8 +306,9 @@ function App() {
             <div className='description'>
               <h4>description</h4>
               <p>
-                a static webpage built to be mobile friendly and stand out from
-                the crowd.
+                A static webpage built to be mobile friendly and stand out from
+                the crowd. The domain was aquired from hostpoint and the site
+                is deployed using netlify. Also added to the Google SEO.
               </p>
             </div>
             <img src={scholl} alt='' />
@@ -286,7 +317,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -500, 0]}>
+            position={[0, -750, 0]}>
             <h1 className='title'>
               <a
                 href='https://netflix130678.web.app/'
@@ -304,76 +335,17 @@ function App() {
             <div className='description'>
               <h4>description</h4>
               <p>
-                a clone of the netflix web application. This clone does not play
+                A clone of the netflix web application. This clone does not play
                 full movies, instead it plays a trailer from youtbe{" "}
               </p>
             </div>
             <img src={netflix} alt='' />
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
-
-          {/* <HTMLContent
-            bgColor={"#687567"}
-            domContent={domContent}
-            position={[0, -750, 0]}>
-            <h1 className='title'>online shop</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>firebase</li>
-            </ul>
-            <div className='description'>
-              <h4>description</h4>
-              <p>fully functional online shop </p>
-            </div>
-            <img src={nike} alt='' />
-            <div className='arrow'>scrolldown</div>
-          </HTMLContent>
-          <HTMLContent
-            bgColor={"#9e92ac"}
-            domContent={domContent}
-            position={[0, -1000, 0]}>
-            <h1 className='title'>discovery</h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>redux</li>
-              <li className='tech'>material ui</li>
-              <li className='tech'>django</li>
-            </ul>
-            <div className='description'>
-              <h4>description</h4>
-              <p>
-                Inspired by COVID-19. Created to encourage medical research and
-                increase medical data.{" "}
-              </p>
-            </div>
-            <img src={nike} alt='' />
-            <div className='arrow'>scrolldown</div>
-          </HTMLContent> */}
-          {/* <HTMLContent
-            bgColor={"#9c5c87"}
-            domContent={domContent}
-            position={[0, -1250, 0]}>
-            <h1 className='title'>stundä</h1>
-            <ul className='list'>
-              <li className='tech'>Angular</li>
-              <li className='tech'>Django</li>
-              <li className='tech'>AWS</li>
-            </ul>
-            <div className='description'>
-              <h4>description</h4>
-              <p>
-                Inspired by my time working as a gardener. This is an app used
-                to record working hours{" "}
-              </p>
-            </div>
-            <img src={netflix} alt='' />
-            <div className='arrow'>scrolldown</div>
-          </HTMLContent> */}
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -750, 0]}>
+            position={[0, -1000, 0]}>
             <h1 className='title'>like what you see?</h1>
             <h4 className='subtitle'> Get in touch...</h4>
           </HTMLContent>
