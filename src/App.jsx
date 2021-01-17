@@ -281,7 +281,7 @@ function App() {
               is only for demonstration purposes. Testing of the credit card payment can be done with the card number 4242 4242 4242 4242 for success
               and 4000000000000002 for a card declined response. Sign up can be done with a fake email address. A possible extension to this website could be
               an audit proof accounting system
-                recording inventory movements, sales, purchases and monthly management reports</p>
+                recording inventory movements, sales, purchases and monthly management reports. At the moment it is not a responsive design. Please view on desktop</p>
             </div>
             <img src={nike} alt='' />
             <div className='arrow'>scrolldown</div>
