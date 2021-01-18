@@ -35,7 +35,7 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+ 
 }
 
 .scrollArea {
@@ -44,8 +44,8 @@ body,
   left: 0;
   width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+ 
+ 
 }
 
 .container {
@@ -174,7 +174,7 @@ header {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
-  margin: 1vh 0;
+  width: 80%;
   padding: 0;
   text-transform: uppercase;
   .tech {
@@ -190,7 +190,8 @@ header {
   }
   .tech:nth-child(1),
   .tech:nth-child(3),
-  .tech:nth-child(5) {
+  .tech:nth-child(5),
+  .tech:nth-child(7) {
     color: #fff;
   }
 }
