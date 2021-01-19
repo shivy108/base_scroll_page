@@ -134,7 +134,7 @@ header {
   }
 }
 .title:hover{
-  scale: 1.08;
+  scale: 1.0;
   transition: 0.5s;
 }
 .subtitle {
@@ -183,11 +183,11 @@ header {
   justify-content: center;
   padding: 1rem;
   text-transform: uppercase;
-  background-color: #525050cc;
+  background-color: #171717cc;
   .tech {
     margin: 0 1vw;
     font-size: 2rem;
-    color: #171717;
+    color: #817f7f;
     span {
       display: block;
     }
