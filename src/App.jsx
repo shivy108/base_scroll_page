@@ -232,7 +232,8 @@ function App() {
             domContent={domContent}
             position={[0, 0, 0]}>
             <h1 className='title'>
-              <a href='https://jobtracker.ai/' >
+              <a href='https://jobtracker.ai/' target='_blank'
+                rel='noreferrer' >
                 jobtracker.ai
               </a>
             </h1>
@@ -257,7 +258,11 @@ function App() {
                  which is being served on a linux container {" "}
               </p>
             </div>
-            <img src={laptop} alt='' />
+            <a href='https://jobtracker.ai/' target='_blank'
+              rel='noreferrer'>
+              <img src={laptop} alt='' />
+            </a>
+
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
@@ -283,7 +288,8 @@ function App() {
               an audit proof accounting system
                 recording inventory movements, sales, purchases and monthly management reports. At the moment it is not a responsive design. Please view on desktop</p>
             </div>
-            <img src={nike} alt='' />
+            <a href="http://167.99.252.53/" rel='noreferrer' target='_blank'><img src={nike} alt='' /></a>
+
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
@@ -310,8 +316,13 @@ function App() {
                 the crowd. The domain was aquired from hostpoint and the site
                 is deployed using netlify. Also added to the Google SEO.
               </p>
-            </div>
-            <img src={scholl} alt='' />
+            </div> <a
+              href='https://scholl-garten-dach.ch/'
+              target='_blank'
+              rel='noreferrer'>
+              <img src={scholl} alt='' />
+            </a>
+
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
@@ -339,7 +350,13 @@ function App() {
                 full movies, instead it plays a trailer from youtbe{" "}
               </p>
             </div>
-            <img src={netflix} alt='' />
+            <a
+              href='https://netflix130678.web.app/'
+              rel='noreferrer'
+              target='_blank'>
+              <img src={netflix} alt='' />
+            </a>
+
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
           <HTMLContent
