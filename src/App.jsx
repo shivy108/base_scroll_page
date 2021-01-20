@@ -10,6 +10,7 @@ import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
+import sudoku from "./assets/sudoku.png"
 
 const Lights = () => {
   return (
@@ -298,6 +299,40 @@ function App() {
             position={[0, -500, 0]}>
             <h1 className='title'>
               <a
+                href='https://clever-goldstine-f77b19.netlify.app/'
+                target='_blank'
+                rel='noreferrer'>
+                sudoku
+              </a>
+            </h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>redux</li>
+              <li className='tech'>Netlify</li>
+              <li className='tech'>typescript</li>
+              <li className='tech'>styled components</li>
+            </ul>
+            <div className='description'>
+              <h4>description</h4>
+              <p>
+                A complete version of sudoku built with react and typescript, the app works in offline mode
+                and all functions have been tested. The array shuffling is done with the Fisher-Yates algorithm.
+              </p>
+            </div> <a
+              href='https://clever-goldstine-f77b19.netlify.app/'
+              target='_blank'
+              rel='noreferrer'>
+              <img src={sudoku} alt='' />
+            </a>
+
+            <div className='arrow'>scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#527252"}
+            domContent={domContent}
+            position={[0, -750, 0]}>
+            <h1 className='title'>
+              <a
                 href='https://scholl-garten-dach.ch/'
                 target='_blank'
                 rel='noreferrer'>
@@ -328,7 +363,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -750, 0]}>
+            position={[0, -1000, 0]}>
             <h1 className='title'>
               <a
                 href='https://netflix130678.web.app/'
@@ -362,7 +397,7 @@ function App() {
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1000, 0]}>
+            position={[0, -1250, 0]}>
             <h1 className='title'>like what you see?</h1>
             <h4 className='subtitle'> Get in touch...</h4>
           </HTMLContent>
