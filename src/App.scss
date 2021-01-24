@@ -35,7 +35,6 @@ body,
   height: 100vh;
   margin: 0;
   padding: 0;
- 
 }
 
 .scrollArea {
@@ -44,8 +43,7 @@ body,
   left: 0;
   width: 100vw;
   height: 100vh;
- overflow-y: auto;
- 
+  overflow-y: auto;
 }
 
 .container {
@@ -133,8 +131,8 @@ header {
     font-size: 2rem;
   }
 }
-.title:hover{
-  scale: 1.0;
+.title:hover {
+  scale: 1.05;
   transition: 0.5s;
 }
 .subtitle {
@@ -227,7 +225,7 @@ img {
   width: 50vw;
   transition: 0.5s;
 }
-img:hover{
+img:hover {
   scale: 1.03;
   transition: 0.5s;
 }
