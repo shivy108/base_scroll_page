@@ -11,6 +11,8 @@ import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
 import sudoku from "./assets/sudoku.png"
+import r2 from "./assets/r2.png"
+
 
 const Lights = () => {
   return (
@@ -366,6 +368,43 @@ function App() {
             position={[0, -1000, 0]}>
             <h1 className='title'>
               <a
+                href='/'
+                rel='noreferrer'
+                target='_blank'>
+                R2-D2 Crypto
+              </a>
+            </h1>
+            <ul className='list'>
+              <li className='tech'>react</li>
+              <li className='tech'>express</li>
+              <li className='tech'>node</li>
+              <li className='tech'>heroku</li>
+              <li className='tech'>redis</li>
+              <li className='tech'>parcel</li>
+              <li className='tech'>babel</li>
+            </ul>
+            <div className='description'>
+              <h4>description</h4>
+              <p>
+                A complete blockchain and cryptocurreny.
+                
+              </p>
+            </div>
+            <a
+              href='/'
+              rel='noreferrer'
+              target='_blank'>
+              <img src={r2} alt='' />
+            </a>
+
+            <div className='arrow'>scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#83aa9a"}
+            domContent={domContent}
+            position={[0, -1250, 0]}>
+            <h1 className='title'>
+              <a
                 href='https://netflix130678.web.app/'
                 rel='noreferrer'
                 target='_blank'>
@@ -397,7 +436,7 @@ function App() {
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1250, 0]}>
+            position={[0, -1500, 0]}>
             <h1 className='title'>like what you see?</h1>
             <h4 className='subtitle'> Get in touch...</h4>
           </HTMLContent>
