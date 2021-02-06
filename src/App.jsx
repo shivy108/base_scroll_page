@@ -11,7 +11,6 @@ import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
 import sudoku from "./assets/sudoku.png"
-import r2 from "./assets/r2.png"
 
 
 const Lights = () => {
@@ -362,7 +361,7 @@ function App() {
 
             <div className='arrow'>scrolldown</div>
           </HTMLContent>
-          <HTMLContent
+          {/* <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
             position={[0, -1000, 0]}>
@@ -398,11 +397,11 @@ function App() {
             </a>
 
             <div className='arrow'>scrolldown</div>
-          </HTMLContent>
+          </HTMLContent> */}
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1250, 0]}>
+            position={[0, -1000, 0]}>
             <h1 className='title'>
               <a
                 href='https://netflix130678.web.app/'
@@ -436,7 +435,7 @@ function App() {
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1500, 0]}>
+            position={[0, -1250, 0]}>
             <h1 className='title'>like what you see?</h1>
             <h4 className='subtitle'> Get in touch...</h4>
           </HTMLContent>
