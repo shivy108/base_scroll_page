@@ -10,8 +10,7 @@ import laptop from "./assets/laptop.png";
 import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
-import sudoku from "./assets/sudoku.png"
-
+import sudoku from "./assets/sudoku.png";
 
 const Lights = () => {
   return (
@@ -53,7 +52,7 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
       <MeshWobbleMaterial
         color={color}
         speed={speed}
-        attach='material'
+        attach="material"
         factor={factor}
         wireframe
       />
@@ -87,11 +86,12 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
       <group position={position}>
         <Html portal={domContent} fullscreen>
           <div
-            className='container'
+            className="container"
             onClick={() =>
               setColor(pallete[Math.floor(Math.random() * pallete.length)])
             }
-            ref={refItem}>
+            ref={refItem}
+          >
             {children}
           </div>
         </Html>
@@ -129,7 +129,7 @@ const Arrow = () => {
     }
   };
   return (
-    <div onMouseOver={scrambleWords} className='arrow'>
+    <div onMouseOver={scrambleWords} className="arrow">
       <div>
         {x}
         {y}
@@ -179,7 +179,7 @@ const Arrow = () => {
 const Loading = () => {
   return (
     <>
-      <div className='loading'>Loading...</div>
+      <div className="loading">Loading...</div>
     </>
   );
 };
@@ -196,26 +196,27 @@ function App() {
       <Canvas
         shadowMap
         colorManagement
-        camera={{ position: [0, 0, 120], fov: 70 }}>
+        camera={{ position: [0, 0, 120], fov: 70 }}
+      >
         <Lights />
         <Suspense fallback={Loading}>
           <SpinningMesh
             position={[0, 1, 0]}
-            color='#353030'
+            color="#353030"
             args={[3, 2, 1]}
             speed={0.1}
             factor={0.1}
           />
           <SpinningMesh
             position={[-10, -10, -10]}
-            color='#221c1c'
+            color="#221c1c"
             args={[3, 2, 1]}
             speed={0.01}
             factor={3}
           />
           <SpinningMesh
             position={[10, 10, 10]}
-            color='#221c1c'
+            color="#221c1c"
             args={[3, 2, 1]}
             speed={0.01}
             factor={2}
@@ -224,199 +225,223 @@ function App() {
           <HTMLContent
             bgColor={"#6d6d60"}
             domContent={domContent}
-            position={[0, 250, 0]}>
-            <h1 className='title'>Welcome</h1>
-            <h4 className='subtitle'> Take a look around</h4>
+            position={[0, 250, 0]}
+          >
+            <h1 className="title">Welcome</h1>
+            <h4 className="subtitle"> Take a look around</h4>
             <Arrow />
           </HTMLContent>
           <HTMLContent
             bgColor={"#a38a38"}
             domContent={domContent}
-            position={[0, 0, 0]}>
-            <h1 className='title'>
-              <a href='https://jobtracker.ai/' target='_blank'
-                rel='noreferrer' >
+            position={[0, 0, 0]}
+          >
+            <h1 className="title">
+              <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
                 jobtracker.ai
               </a>
             </h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>django</li>
-              <li className='tech'>redux</li>
-              <li className='tech'>react-pdf</li>
-              <li className='tech'>docker</li>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">styled components</li>
+              <li className="tech">django</li>
+              <li className="tech">redux</li>
+              <li className="tech">react-pdf</li>
+              <li className="tech">docker</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 jobtracker.ai is a tool to help developers find and apply for
                 jobs. The objective was to add automatic cv and cover letter
-                generation from the user data. Please download my resume for an example of the resume.
-                The key skills gained from this
-                project were working with redux state, interacting with the django
-                server to update the user profile ,implementing react-pdf to
-                add customisation of pdf documents and dockerizing the app
-                 which is being served on a linux container {" "}
+                generation from the user data. Please download my resume for an
+                example of the resume. The key skills gained from this project
+                were working with redux state, interacting with the django
+                server to update the user profile ,implementing react-pdf to add
+                customisation of pdf documents and dockerizing the app which is
+                being served on a linux container{" "}
               </p>
             </div>
-            <a href='https://jobtracker.ai/' target='_blank'
-              rel='noreferrer'>
-              <img src={laptop} alt='' />
+            <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
+              <img src={laptop} alt="" />
             </a>
 
-            <div className='arrow'>scrolldown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -250, 0]}>
-            <h1 className='title'><a href="http://167.99.252.53/" rel='noreferrer' target='_blank'>base.</a></h1>
-            <ul className='list'>
-              <li className='tech'>angular 9</li>
-              <li className='tech'>sass</li>
-              <li className='tech'>bootsrap</li>
-              <li className='tech'>redis</li>
-              <li className='tech'>typescript</li>
-              <li className='tech'>c#</li>
-              <li className='tech'>asp.net core</li>
-              <li className='tech'>stripe</li>
+            position={[0, -250, 0]}
+          >
+            <h1 className="title">
+              <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
+                base.
+              </a>
+            </h1>
+            <ul className="list">
+              <li className="tech">angular 9</li>
+              <li className="tech">sass</li>
+              <li className="tech">bootsrap</li>
+              <li className="tech">redis</li>
+              <li className="tech">typescript</li>
+              <li className="tech">c#</li>
+              <li className="tech">asp.net core</li>
+              <li className="tech">stripe</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
-              <p>A fully functional online shop with stripe credit card payments. please excuse the http status, this verison
-              is only for demonstration purposes. Testing of the credit card payment can be done with the card number 4242 4242 4242 4242 for success
-              and 4000000000000002 for a card declined response. Sign up can be done with a fake email address. A possible extension to this website could be
-              an audit proof accounting system
-                recording inventory movements, sales, purchases and monthly management reports. At the moment it is not a responsive design. Please view on desktop</p>
+              <p>
+                A fully functional online shop with stripe credit card payments.
+                please excuse the http status, this verison is only for
+                demonstration purposes. Testing of the credit card payment can
+                be done with the card number 4242 4242 4242 4242 for success and
+                4000000000000002 for a card declined response. Sign up can be
+                done with a fake email address. A possible extension to this
+                website could be an audit proof accounting system recording
+                inventory movements, sales, purchases and monthly management
+                reports. At the moment it is not a responsive design. Please
+                view on desktop
+              </p>
             </div>
-            <a href="http://167.99.252.53/" rel='noreferrer' target='_blank'><img src={nike} alt='' /></a>
+            <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
+              <img src={nike} alt="" />
+            </a>
 
-            <div className='arrow'>scrolldown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -500, 0]}>
-            <h1 className='title'>
+            position={[0, -500, 0]}
+          >
+            <h1 className="title">
               <a
-                href='https://clever-goldstine-f77b19.netlify.app/'
-                target='_blank'
-                rel='noreferrer'>
+                href="https://clever-goldstine-f77b19.netlify.app/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 sudoku
               </a>
             </h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>redux</li>
-              <li className='tech'>Netlify</li>
-              <li className='tech'>typescript</li>
-              <li className='tech'>styled components</li>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">redux</li>
+              <li className="tech">Netlify</li>
+              <li className="tech">typescript</li>
+              <li className="tech">styled components</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
-                A complete version of sudoku built with react and typescript, the app works in offline mode
-                and all functions have been tested. The array shuffling is done with the Fisher-Yates algorithm.
+                A complete version of sudoku built with react and typescript,
+                the app works in offline mode and all functions have been
+                tested. The array shuffling is done with the Fisher-Yates
+                algorithm.
               </p>
-            </div> <a
-              href='https://clever-goldstine-f77b19.netlify.app/'
-              target='_blank'
-              rel='noreferrer'>
-              <img src={sudoku} alt='' />
+            </div>{" "}
+            <a
+              href="https://clever-goldstine-f77b19.netlify.app/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={sudoku} alt="" />
             </a>
-
-            <div className='arrow'>scrolldown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -750, 0]}>
-            <h1 className='title'>
+            position={[0, -750, 0]}
+          >
+            <h1 className="title">
               <a
-                href='https://scholl-garten-dach.ch/'
-                target='_blank'
-                rel='noreferrer'>
+                href="https://scholl-garten-dach.ch/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 scholl garten und dachservice
               </a>
             </h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>react-spring</li>
-              <li className='tech'>Netlify</li>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">react-spring</li>
+              <li className="tech">Netlify</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 A static webpage built to be mobile friendly and stand out from
-                the crowd. The domain was aquired from hostpoint and the site
-                is deployed using netlify. Also added to the Google SEO.
+                the crowd. The domain was aquired from hostpoint and the site is
+                deployed using netlify. Also added to the Google SEO.
               </p>
-            </div> <a
-              href='https://scholl-garten-dach.ch/'
-              target='_blank'
-              rel='noreferrer'>
-              <img src={scholl} alt='' />
-            </a>
-
-            <div className='arrow'>scrolldown</div>
-          </HTMLContent>
-          {/* <HTMLContent
-            bgColor={"#83aa9a"}
-            domContent={domContent}
-            position={[0, -1000, 0]}>
-            <h1 className='title'>
-              <a
-                href='/'
-                rel='noreferrer'
-                target='_blank'>
-                R2-D2 Crypto
-              </a>
-            </h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>express</li>
-              <li className='tech'>node</li>
-              <li className='tech'>heroku</li>
-              <li className='tech'>redis</li>
-              <li className='tech'>parcel</li>
-              <li className='tech'>babel</li>
-            </ul>
-            <div className='description'>
-              <h4>description</h4>
-              <p>
-                A complete blockchain and cryptocurreny.
-                
-              </p>
-            </div>
+            </div>{" "}
             <a
-              href='/'
-              rel='noreferrer'
-              target='_blank'>
-              <img src={r2} alt='' />
+              href="https://scholl-garten-dach.ch/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={scholl} alt="" />
             </a>
-
-            <div className='arrow'>scrolldown</div>
-          </HTMLContent> */}
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1000, 0]}>
-            <h1 className='title'>
+            position={[0, -1000, 0]}
+          >
+            <h1 className="title">
               <a
-                href='https://netflix130678.web.app/'
-                rel='noreferrer'
-                target='_blank'>
+                href="https://github.com/shivy108/cryptochain"
+                rel="noreferrer"
+                target="_blank"
+              >
+                R2-D2 Crypto
+              </a>
+            </h1>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">express</li>
+              <li className="tech">node</li>
+              <li className="tech">heroku</li>
+              <li className="tech">redis</li>
+              <li className="tech">parcel</li>
+              <li className="tech">babel</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>A complete blockchain and cryptocurreny. UNDER MAINTENANCE.</p>
+            </div>
+            <a
+              href="https://github.com/shivy108/cryptochain"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src={r2} alt="" />
+            </a>
+
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#83aa9a"}
+            domContent={domContent}
+            position={[0, -1000, 0]}
+          >
+            <h1 className="title">
+              <a
+                href="https://netflix130678.web.app/"
+                rel="noreferrer"
+                target="_blank"
+              >
                 netflix clone
               </a>
             </h1>
-            <ul className='list'>
-              <li className='tech'>react</li>
-              <li className='tech'>typescript</li>
-              <li className='tech'>styled components</li>
-              <li className='tech'>firebase</li>
+            <ul className="list">
+              <li className="tech">react</li>
+              <li className="tech">typescript</li>
+              <li className="tech">styled components</li>
+              <li className="tech">firebase</li>
             </ul>
-            <div className='description'>
+            <div className="description">
               <h4>description</h4>
               <p>
                 A clone of the netflix web application. This clone does not play
@@ -424,24 +449,26 @@ function App() {
               </p>
             </div>
             <a
-              href='https://netflix130678.web.app/'
-              rel='noreferrer'
-              target='_blank'>
-              <img src={netflix} alt='' />
+              href="https://netflix130678.web.app/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src={netflix} alt="" />
             </a>
 
-            <div className='arrow'>scrolldown</div>
+            <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1250, 0]}>
-            <h1 className='title'>like what you see?</h1>
-            <h4 className='subtitle'> Get in touch...</h4>
+            position={[0, -1250, 0]}
+          >
+            <h1 className="title">like what you see?</h1>
+            <h4 className="subtitle"> Get in touch...</h4>
           </HTMLContent>
         </Suspense>
       </Canvas>
-      <div className='scrollArea' ref={scrollArea} onScroll={onScroll}>
+      <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
         <div style={{ position: "sticky", top: 0 }} ref={domContent}></div>
         <div style={{ height: `${state.sections * 100}vh` }}></div>
       </div>
