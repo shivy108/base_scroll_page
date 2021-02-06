@@ -11,6 +11,8 @@ import netflix from "./assets/netflix.jpg";
 import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
 import sudoku from "./assets/sudoku.png";
+import r2 from "./assets/r2.png";
+
 
 const Lights = () => {
   return (
@@ -271,7 +273,7 @@ function App() {
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -250, 0]}
+            position={[0, -200, 0]}
           >
             <h1 className="title">
               <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
@@ -312,7 +314,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -500, 0]}
+            position={[0, -400, 0]}
           >
             <h1 className="title">
               <a
@@ -351,7 +353,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -750, 0]}
+            position={[0, -600, 0]}
           >
             <h1 className="title">
               <a
@@ -387,7 +389,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1000, 0]}
+            position={[0, -800, 0]}
           >
             <h1 className="title">
               <a
