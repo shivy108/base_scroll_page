@@ -13,7 +13,6 @@ import nike from "./assets/nike-1.gif";
 import sudoku from "./assets/sudoku.png";
 import r2 from "./assets/r2.png";
 
-
 const Lights = () => {
   return (
     <>
@@ -80,7 +79,8 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   ];
 
   useEffect(() => {
-    InView && (document.body.style.background = color);
+    InView && (document.body.style.background = color)
+     
   }, [InView, color]);
 
   return (
@@ -281,7 +281,7 @@ function App() {
               </a>
             </h1>
             <ul className="list">
-              <li className="tech">angular 9</li>
+              <li id="tech" className="tech">angular 9</li>
               <li className="tech">sass</li>
               <li className="tech">bootsrap</li>
               <li className="tech">redis</li>
