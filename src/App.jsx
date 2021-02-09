@@ -79,8 +79,7 @@ const HTMLContent = ({ bgColor, domContent, children, position }) => {
   ];
 
   useEffect(() => {
-    InView && (document.body.style.background = color)
-     
+    InView && (document.body.style.background = color);
   }, [InView, color]);
 
   return (
@@ -189,6 +188,27 @@ const Loading = () => {
 function App() {
   const domContent = useRef();
   const scrollArea = useRef();
+  const pallete = [
+    "#f89672",
+    "#4b7c9b",
+    "#796c58",
+    "#667c66",
+    "#486292",
+    "#be759a",
+    "#487c78",
+    "#753e3e",
+    "#887719",
+    "#948114",
+    "#51856b",
+  ];
+  const [color, setColor] = useState(
+    pallete[Math.floor(Math.random() * pallete.length)]
+  );
+
+  function changeColor() {
+    setColor(pallete[Math.floor(Math.random() * pallete.length)]);
+  }
+
   const onScroll = (e) => (state.top.current = e.target.scrollTop);
   useEffect(() => void onScroll({ target: scrollArea.current }, []));
 
@@ -238,12 +258,16 @@ function App() {
             domContent={domContent}
             position={[0, 0, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
                 jobtracker.ai
               </a>
             </h1>
-            <ul className="list">
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
               <li className="tech">react</li>
               <li className="tech">styled components</li>
               <li className="tech">django</li>
@@ -275,13 +299,19 @@ function App() {
             domContent={domContent}
             position={[0, -200, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
                 base.
               </a>
             </h1>
-            <ul className="list">
-              <li id="tech" className="tech">angular 9</li>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li id="tech" className="tech">
+                angular 9
+              </li>
               <li className="tech">sass</li>
               <li className="tech">bootsrap</li>
               <li className="tech">redis</li>
@@ -316,7 +346,7 @@ function App() {
             domContent={domContent}
             position={[0, -400, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a
                 href="https://clever-goldstine-f77b19.netlify.app/"
                 target="_blank"
@@ -325,7 +355,11 @@ function App() {
                 sudoku
               </a>
             </h1>
-            <ul className="list">
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
               <li className="tech">react</li>
               <li className="tech">redux</li>
               <li className="tech">Netlify</li>
@@ -355,7 +389,7 @@ function App() {
             domContent={domContent}
             position={[0, -600, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a
                 href="https://scholl-garten-dach.ch/"
                 target="_blank"
@@ -364,7 +398,11 @@ function App() {
                 scholl garten und dachservice
               </a>
             </h1>
-            <ul className="list">
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
               <li className="tech">react</li>
               <li className="tech">react-spring</li>
               <li className="tech">Netlify</li>
@@ -391,7 +429,7 @@ function App() {
             domContent={domContent}
             position={[0, -800, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a
                 href="https://github.com/shivy108/cryptochain"
                 rel="noreferrer"
@@ -400,7 +438,11 @@ function App() {
                 R2-D2 Crypto
               </a>
             </h1>
-            <ul className="list">
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
               <li className="tech">react</li>
               <li className="tech">express</li>
               <li className="tech">node</li>
@@ -428,7 +470,7 @@ function App() {
             domContent={domContent}
             position={[0, -1000, 0]}
           >
-            <h1 className="title">
+            <h1 className="title" onClick={changeColor}>
               <a
                 href="https://netflix130678.web.app/"
                 rel="noreferrer"
@@ -437,7 +479,11 @@ function App() {
                 netflix clone
               </a>
             </h1>
-            <ul className="list">
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
               <li className="tech">react</li>
               <li className="tech">typescript</li>
               <li className="tech">styled components</li>
@@ -472,7 +518,7 @@ function App() {
       </Canvas>
       <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
         <div style={{ position: "sticky", top: 0 }} ref={domContent}></div>
-        <div style={{ height: `${state.sections * 100}vh` }}></div>
+        <div style={{ height: `${state.sections * 100}%` }}></div>
       </div>
     </>
   );
