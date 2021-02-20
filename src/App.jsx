@@ -12,6 +12,7 @@ import scholl from "./assets/SVGLogo.svg";
 import nike from "./assets/nike-1.gif";
 import sudoku from "./assets/sudoku.png";
 import r2 from "./assets/r2.png";
+import eth from "./assets/ethereum.webp";
 
 const Lights = () => {
   return (
@@ -111,8 +112,7 @@ const Arrow = () => {
   const [d, setD] = useState("q");
   const [e, setE] = useState("g");
 
-  let characters =
-    "!@#$%^&*0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+  let characters = "!@#$%^&*0123456789";
   const charList = characters.split("");
 
   const scrambleWords = (e) => {
@@ -280,12 +280,12 @@ function App() {
               <p>
                 jobtracker.ai is a tool to help developers find and apply for
                 jobs. The objective was to add automatic cv and cover letter
-                generation from the user data. Please download my resume for an
-                example of the resume. The key skills gained from this project
-                were working with redux state, interacting with the django
-                server to update the user profile ,implementing react-pdf to add
-                customisation of pdf documents and dockerizing the app which is
-                being served on a linux container{" "}
+                generation from the users profile. Download my resume above for
+                an example. The key skills gained from this project were working
+                with redux state, interacting with the django API to update the
+                user profile ,implementing react-pdf to add customisation of pdf
+                documents and dockerizing the app which is being served on a
+                linux container{" "}
               </p>
             </div>
             <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
@@ -348,6 +348,93 @@ function App() {
           >
             <h1 className="title" onClick={changeColor}>
               <a
+                href="https://scholl-garten-dach.ch/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                scholl garten und dachservice
+              </a>
+            </h1>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li className="tech">react</li>
+              <li className="tech">react-spring</li>
+              <li className="tech">Netlify</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>
+                A static webpage built to be mobile friendly and stand out from
+                the crowd. The domain was aquired from hostpoint and the site is
+                deployed using netlify. Also added to the Google SEO.
+              </p>
+            </div>{" "}
+            <a
+              href="https://scholl-garten-dach.ch/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={scholl} alt="" />
+            </a>
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+
+          <HTMLContent
+            bgColor={"#527252"}
+            domContent={domContent}
+            position={[0, -600, 0]}
+          >
+            <h1 className="title" onClick={changeColor}>
+              <a
+                href="https://ecstatic-shirley-636939.netlify.app/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                r2-d2 crypto exchange
+              </a>
+            </h1>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li className="tech">react</li>
+              <li className="tech">redux</li>
+              <li className="tech">truffle</li>
+              <li className="tech">bootstrap</li>
+              <li className="tech">solidity</li>
+              <li className="tech">ganache</li>
+              <li className="tech">ethereum</li>
+              <li className="tech">jest</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>
+                a dapp built on the ethereum network. The smart contracts were
+                created with solidity and deployed onto the Kovan test network.
+                The token is ERC20 compliant. You need to have metamask to
+                interact with the web application.
+              </p>
+            </div>{" "}
+            <a
+              href="https://ecstatic-shirley-636939.netlify.app/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={eth} alt="" />
+            </a>
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#527252"}
+            domContent={domContent}
+            position={[0, -800, 0]}
+          >
+            <h1 className="title" onClick={changeColor}>
+              <a
                 href="https://clever-goldstine-f77b19.netlify.app/"
                 target="_blank"
                 rel="noreferrer"
@@ -384,50 +471,11 @@ function App() {
             </a>
             <div className="arrow">scrolldown</div>
           </HTMLContent>
-          <HTMLContent
-            bgColor={"#527252"}
-            domContent={domContent}
-            position={[0, -600, 0]}
-          >
-            <h1 className="title" onClick={changeColor}>
-              <a
-                href="https://scholl-garten-dach.ch/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                scholl garten und dachservice
-              </a>
-            </h1>
-            <ul
-              className="list"
-              style={{ color: `${color}` }}
-              onClick={changeColor}
-            >
-              <li className="tech">react</li>
-              <li className="tech">react-spring</li>
-              <li className="tech">Netlify</li>
-            </ul>
-            <div className="description">
-              <h4>description</h4>
-              <p>
-                A static webpage built to be mobile friendly and stand out from
-                the crowd. The domain was aquired from hostpoint and the site is
-                deployed using netlify. Also added to the Google SEO.
-              </p>
-            </div>{" "}
-            <a
-              href="https://scholl-garten-dach.ch/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src={scholl} alt="" />
-            </a>
-            <div className="arrow">scrolldown</div>
-          </HTMLContent>
+
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -800, 0]}
+            position={[0, -1000, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -446,14 +494,17 @@ function App() {
               <li className="tech">react</li>
               <li className="tech">express</li>
               <li className="tech">node</li>
-              <li className="tech">heroku</li>
               <li className="tech">redis</li>
               <li className="tech">parcel</li>
               <li className="tech">babel</li>
             </ul>
             <div className="description">
               <h4>description</h4>
-              <p>A complete blockchain and cryptocurreny. UNDER MAINTENANCE.</p>
+              <p>
+                A complete blockchain. Create transactions between peers, mine
+                transactions, watch the blockchain update, inspect blocks
+                created.
+              </p>
             </div>
             <a
               href="https://github.com/shivy108/cryptochain"
@@ -468,7 +519,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1000, 0]}
+            position={[0, -1200, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -509,7 +560,7 @@ function App() {
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1250, 0]}
+            position={[0, -1500, 0]}
           >
             <h1 className="title">like what you see?</h1>
             <h4 className="subtitle"> Get in touch...</h4>
@@ -517,7 +568,7 @@ function App() {
         </Suspense>
       </Canvas>
       <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
-        <div style={{ position: "sticky", top: 0 }} ref={domContent}></div>
+        <div style={{ position: "sticky", top: 0, bottom:0 }} ref={domContent}></div>
         <div style={{ height: `${state.sections * 100}%` }}></div>
       </div>
     </>
