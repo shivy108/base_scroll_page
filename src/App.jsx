@@ -361,7 +361,7 @@ function App() {
               onClick={changeColor}
             >
               <li className="tech">react</li>
-              <li className="tech">react-spring</li>
+              <li className="tech">next.js</li>
               <li className="tech">Netlify</li>
             </ul>
             <div className="description">
