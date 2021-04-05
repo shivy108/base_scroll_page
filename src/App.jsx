@@ -259,6 +259,46 @@ function App() {
             position={[0, 0, 0]}
           >
             <h1 className="title" onClick={changeColor}>
+              <a
+                href="https://github.com/shivy108/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                atma-bhog.com
+              </a>
+            </h1>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li className="tech">ionic</li>
+              <li className="tech">angular</li>
+              <li className="tech">django</li>
+              <li className="tech">sass</li>
+              <li className="tech">docker</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>
+                Currently working on a music platform for artists to store and
+                create music. Functionality will include chord transposition and
+                chords for piano and guitar. A live version will soon be
+                available...
+              </p>
+            </div>
+            <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
+              <img src={laptop} alt="" />
+            </a>
+
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#a38a38"}
+            domContent={domContent}
+            position={[0, -200, 0]}
+          >
+            <h1 className="title" onClick={changeColor}>
               <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
                 jobtracker.ai
               </a>
@@ -297,7 +337,7 @@ function App() {
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -200, 0]}
+            position={[0, -400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
@@ -344,7 +384,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -400, 0]}
+            position={[0, -600, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -385,7 +425,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -600, 0]}
+            position={[0, -800, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -431,7 +471,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -800, 0]}
+            position={[0, -1000, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -475,7 +515,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1000, 0]}
+            position={[0, -1200, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -519,7 +559,7 @@ function App() {
           <HTMLContent
             bgColor={"#83aa9a"}
             domContent={domContent}
-            position={[0, -1200, 0]}
+            position={[0, -1400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -560,7 +600,7 @@ function App() {
           <HTMLContent
             bgColor={"#c47c7c"}
             domContent={domContent}
-            position={[0, -1500, 0]}
+            position={[0, -1550, 0]}
           >
             <h1 className="title">like what you see?</h1>
             <h4 className="subtitle"> Get in touch...</h4>
@@ -568,7 +608,10 @@ function App() {
         </Suspense>
       </Canvas>
       <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
-        <div style={{ position: "sticky", top: 0, bottom:0 }} ref={domContent}></div>
+        <div
+          style={{ position: "sticky", top: 0, bottom: 0 }}
+          ref={domContent}
+        ></div>
         <div style={{ height: `${state.sections * 100}%` }}></div>
       </div>
     </>
