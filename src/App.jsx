@@ -130,7 +130,7 @@ const Arrow = () => {
     }
   };
   return (
-    <div onMouseOver={scrambleWords} className="arrow">
+    <a href="#start" onMouseOver={scrambleWords} className="arrow">
       <div>
         {x}
         {y}
@@ -173,7 +173,7 @@ const Arrow = () => {
         {e}
       </div>
       <div>{a}</div>
-    </div>
+    </a>
   );
 };
 
@@ -258,9 +258,9 @@ function App() {
             domContent={domContent}
             position={[0, 0, 0]}
           >
-            <h1 className="title" onClick={changeColor}>
+            <h1 id="start" className="title" onClick={changeColor}>
               <a
-                href="https://github.com/shivy108/"
+                href="https://github.com/shivy108/atma-bhog"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -287,7 +287,11 @@ function App() {
                 available...
               </p>
             </div>
-            <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/shivy108/atma-bhog"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={laptop} alt="" />
             </a>
 
@@ -340,7 +344,11 @@ function App() {
             position={[0, -400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
-              <a href="https://github.com/shivy108/angularShop" rel="noreferrer" target="_blank">
+              <a
+                href="https://github.com/shivy108/angularShop"
+                rel="noreferrer"
+                target="_blank"
+              >
                 base.
               </a>
             </h1>
@@ -369,7 +377,11 @@ function App() {
                 purchases and monthly management reports. No longer online
               </p>
             </div>
-            <a href="https://github.com/shivy108/angularShop" rel="noreferrer" target="_blank">
+            <a
+              href="https://github.com/shivy108/angularShop"
+              rel="noreferrer"
+              target="_blank"
+            >
               <img src={nike} alt="" />
             </a>
 
