@@ -340,7 +340,7 @@ function App() {
             position={[0, -400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
-              <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
+              <a href="https://github.com/shivy108/angularShop" rel="noreferrer" target="_blank">
                 base.
               </a>
             </h1>
@@ -364,18 +364,12 @@ function App() {
               <h4>description</h4>
               <p>
                 A fully functional online shop with stripe credit card payments.
-                please excuse the http status, this verison is only for
-                demonstration purposes. Testing of the credit card payment can
-                be done with the card number 4242 4242 4242 4242 for success and
-                4000000000000002 for a card declined response. Sign up can be
-                done with a fake email address. A possible extension to this
-                website could be an audit proof accounting system recording
-                inventory movements, sales, purchases and monthly management
-                reports. At the moment it is not a responsive design. Please
-                view on desktop
+                A possible extension to this website could be an audit proof
+                accounting system, recording inventory movements, sales,
+                purchases and monthly management reports. No longer online
               </p>
             </div>
-            <a href="http://165.22.64.60/" rel="noreferrer" target="_blank">
+            <a href="https://github.com/shivy108/angularShop" rel="noreferrer" target="_blank">
               <img src={nike} alt="" />
             </a>
 
