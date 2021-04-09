@@ -298,9 +298,49 @@ function App() {
             <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#a38a38"}
+            bgColor={"#f89672"}
             domContent={domContent}
             position={[0, -200, 0]}
+          >
+            <h1 className="title" onClick={changeColor}>
+              <a
+                href="https://scholl-garten-dach.ch/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                scholl garten und dachservice
+              </a>
+            </h1>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li className="tech">react</li>
+              <li className="tech">next.js</li>
+              <li className="tech">Netlify</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>
+                A static webpage built to be mobile friendly and stand out from
+                the crowd. The domain was aquired from hostpoint and the site is
+                deployed using netlify. Also added to the Google SEO.
+              </p>
+            </div>{" "}
+            <a
+              href="https://scholl-garten-dach.ch/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={scholl} alt="" />
+            </a>
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+          <HTMLContent
+            bgColor={"#a38a38"}
+            domContent={domContent}
+            position={[0, -400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
@@ -341,7 +381,7 @@ function App() {
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -400, 0]}
+            position={[0, -600, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -387,47 +427,7 @@ function App() {
 
             <div className="arrow">scrolldown</div>
           </HTMLContent>
-          <HTMLContent
-            bgColor={"#527252"}
-            domContent={domContent}
-            position={[0, -600, 0]}
-          >
-            <h1 className="title" onClick={changeColor}>
-              <a
-                href="https://scholl-garten-dach.ch/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                scholl garten und dachservice
-              </a>
-            </h1>
-            <ul
-              className="list"
-              style={{ color: `${color}` }}
-              onClick={changeColor}
-            >
-              <li className="tech">react</li>
-              <li className="tech">next.js</li>
-              <li className="tech">Netlify</li>
-            </ul>
-            <div className="description">
-              <h4>description</h4>
-              <p>
-                A static webpage built to be mobile friendly and stand out from
-                the crowd. The domain was aquired from hostpoint and the site is
-                deployed using netlify. Also added to the Google SEO.
-              </p>
-            </div>{" "}
-            <a
-              href="https://scholl-garten-dach.ch/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src={scholl} alt="" />
-            </a>
-            <div className="arrow">scrolldown</div>
-          </HTMLContent>
-
+          
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
@@ -475,7 +475,7 @@ function App() {
             <div className="arrow">scrolldown</div>
           </HTMLContent>
           <HTMLContent
-            bgColor={"#527252"}
+            bgColor={"#753e3e"}
             domContent={domContent}
             position={[0, -1000, 0]}
           >
