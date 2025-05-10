@@ -221,6 +221,15 @@ img {
   max-width: 800px;
   margin: 1rem;
 }
+
+// Add specific style for h2o image
+.h2o-logo {
+  height: 40vh ;
+  width: auto ;
+  max-width: none;
+  object-fit: contain;
+}
+
 img:hover {
   scale: 1.03;
   transition: 0.5s;

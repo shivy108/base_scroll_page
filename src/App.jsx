@@ -1,16 +1,17 @@
-import { Html, MeshWobbleMaterial } from "drei";
+import { Html } from "@react-three/drei";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { Canvas, useFrame } from "react-three-fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import "./App.scss";
 import Header from "./components/header";
 import { Section } from "./components/section";
 import state from "./components/state";
 import laptop from "./assets/laptop.png";
+import ahimsahof from "./assets/ahimsahof.png";
 import netflix from "./assets/netflix.jpg";
-import scholl from "./assets/SVGLogo.svg";
-import nike from "./assets/nike-1.gif";
-import sudoku from "./assets/sudoku.png";
+import scholl from "./assets/scholl.png";
+import neobiota from "./assets/neobiota.png";
+import h2o from "./assets/h20.gif";
 import r2 from "./assets/r2.png";
 import eth from "./assets/ethereum.webp";
 
@@ -51,11 +52,9 @@ const SpinningMesh = ({ factor, position, color, speed, args }) => {
   return (
     <mesh position={position} ref={mesh} scale={[40, 40, 40]} castShadow>
       <sphereGeometry args={[1, 16, 16]} />
-      <MeshWobbleMaterial
+      <meshStandardMaterial
         color={color}
-        speed={speed}
         attach="material"
-        factor={factor}
         wireframe
       />
     </mesh>
@@ -253,18 +252,19 @@ function App() {
             <h4 className="subtitle"> Take a look around</h4>
             <Arrow />
           </HTMLContent>
+
           <HTMLContent
-            bgColor={"#a38a38"}
+            bgColor={"#753e3e"}
             domContent={domContent}
             position={[0, 0, 0]}
           >
-            <h1 id="start" className="title" onClick={changeColor}>
+            <h1 className="title" onClick={changeColor}>
               <a
-                href="https://github.com/shivy108/atma-bhog"
+                href="https://github.com/shivy108"
                 target="_blank"
                 rel="noreferrer"
               >
-                atma-bhog.com
+                H2O - Water Tracker
               </a>
             </h1>
             <ul
@@ -272,27 +272,67 @@ function App() {
               style={{ color: `${color}` }}
               onClick={changeColor}
             >
-              <li className="tech">ionic</li>
-              <li className="tech">angular</li>
-              <li className="tech">django</li>
-              <li className="tech">sass</li>
-              <li className="tech">docker</li>
+              <li className="tech">iOS</li>
+              <li className="tech">Swift 6</li>
+              <li className="tech">SwiftUI</li>
+              <li className="tech">iPadOS</li>
             </ul>
             <div className="description">
               <h4>description</h4>
               <p>
-                Currently working on a music platform for artists to store and
-                create music. Functionality will include chord transposition and
-                chords for piano and guitar. A live version will soon be
-                available...
+                An iOS App soon to be released. Allows users to track their water intake and set reminders.
+                Integration with apple watch coming soon with paid plans.
               </p>
-            </div>
+            </div>{" "}
             <a
-              href="https://github.com/shivy108/atma-bhog"
+              href="https://github.com/shivy108"
               target="_blank"
               rel="noreferrer"
             >
-              <img src={laptop} alt="" />
+              <img src={h2o} alt="" className = "h2o-logo"/>
+            </a>
+            <div className="arrow">scrolldown</div>
+          </HTMLContent>
+
+          <HTMLContent
+            bgColor={"#a38a38"}
+            domContent={domContent}
+            position={[0, -200, 0]}
+          >
+            <h1 id="start" className="title" onClick={changeColor}>
+              <a
+                href="https://ahimsahof.ch/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ahimsahof.ch
+              </a>
+            </h1>
+            <ul
+              className="list"
+              style={{ color: `${color}` }}
+              onClick={changeColor}
+            >
+              <li className="tech">Wordpress</li>
+              <li className="tech">Elementor</li>
+              <li className="tech">Stripe</li>
+              <li className="tech">WooCommerce</li>
+              <li className="tech">Digital Ocean</li>
+            </ul>
+            <div className="description">
+              <h4>description</h4>
+              <p>
+                Developed ahimsahof.ch, an online cheese shop which promotes ethical farming.
+                Implemented a user-friendly interface, multilingual support, 
+                and optimized performance for both desktop and mobile users.
+              </p>
+            </div>
+            <a
+              href="https://ahimsahof.ch/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={ahimsahof} alt="" />
             </a>
 
             <div className="arrow">scrolldown</div>
@@ -300,7 +340,7 @@ function App() {
           <HTMLContent
             bgColor={"#f89672"}
             domContent={domContent}
-            position={[0, -200, 0]}
+            position={[0, -400, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -340,7 +380,7 @@ function App() {
           <HTMLContent
             bgColor={"#a38a38"}
             domContent={domContent}
-            position={[0, -400, 0]}
+            position={[0, -600, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a href="https://jobtracker.ai/" target="_blank" rel="noreferrer">
@@ -381,15 +421,15 @@ function App() {
           <HTMLContent
             bgColor={"#687567"}
             domContent={domContent}
-            position={[0, -600, 0]}
+            position={[0, -800, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
-                href="https://github.com/shivy108/angularShop"
+                href="https://neobiota.ch"
                 rel="noreferrer"
                 target="_blank"
               >
-                base.
+                neobiota.ch
               </a>
             </h1>
             <ul
@@ -398,31 +438,28 @@ function App() {
               onClick={changeColor}
             >
               <li id="tech" className="tech">
-                angular 9
+                angular
               </li>
-              <li className="tech">sass</li>
-              <li className="tech">bootsrap</li>
-              <li className="tech">redis</li>
+              <li className="tech">angular</li>
+              <li className="tech">material ui</li>
+              <li className="tech">angular</li>
               <li className="tech">typescript</li>
-              <li className="tech">c#</li>
-              <li className="tech">asp.net core</li>
-              <li className="tech">stripe</li>
+              <li className="tech">firebase</li>
             </ul>
             <div className="description">
               <h4>description</h4>
               <p>
-                A fully functional online shop with stripe credit card payments.
-                A possible extension to this website could be an audit proof
-                accounting system, recording inventory movements, sales,
-                purchases and monthly management reports. No longer online
+              Developed neobiota.ch, a secure web-based management tool for members of a Swiss environmental association.
+              The platform streamlines internal processes, supports member communication,
+              and offers tools for project coordination and data management
               </p>
             </div>
             <a
-              href="https://github.com/shivy108/angularShop"
+              href="https://neobiota.ch"
               rel="noreferrer"
               target="_blank"
             >
-              <img src={nike} alt="" />
+              <img src={neobiota} alt="" />
             </a>
 
             <div className="arrow">scrolldown</div>
@@ -431,7 +468,7 @@ function App() {
           <HTMLContent
             bgColor={"#527252"}
             domContent={domContent}
-            position={[0, -800, 0]}
+            position={[0, -1000, 0]}
           >
             <h1 className="title" onClick={changeColor}>
               <a
@@ -471,49 +508,6 @@ function App() {
               rel="noreferrer"
             >
               <img src={eth} alt="" />
-            </a>
-            <div className="arrow">scrolldown</div>
-          </HTMLContent>
-          <HTMLContent
-            bgColor={"#753e3e"}
-            domContent={domContent}
-            position={[0, -1000, 0]}
-          >
-            <h1 className="title" onClick={changeColor}>
-              <a
-                href="https://clever-goldstine-f77b19.netlify.app/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                sudoku
-              </a>
-            </h1>
-            <ul
-              className="list"
-              style={{ color: `${color}` }}
-              onClick={changeColor}
-            >
-              <li className="tech">react</li>
-              <li className="tech">redux</li>
-              <li className="tech">Netlify</li>
-              <li className="tech">typescript</li>
-              <li className="tech">styled components</li>
-            </ul>
-            <div className="description">
-              <h4>description</h4>
-              <p>
-                A complete version of sudoku built with react and typescript,
-                the app works in offline mode and all functions have been
-                tested. The array shuffling is done with the Fisher-Yates
-                algorithm.
-              </p>
-            </div>{" "}
-            <a
-              href="https://clever-goldstine-f77b19.netlify.app/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src={sudoku} alt="" />
             </a>
             <div className="arrow">scrolldown</div>
           </HTMLContent>
