@@ -1009,6 +1009,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var source   = item.source || (item.source && item.source.name) || '';
       if (typeof source === 'object') source = source.name || '';
       var sent = (item.sentiment || item.sentimentLabel || '').toLowerCase();
+      // Map our API's bullish/bearish to pos/neg
+      if (sent === 'bullish') sent = 'positive';
+      if (sent === 'bearish') sent = 'negative';
       var dotCls = sent === 'positive' ? 'dot-pos' : sent === 'negative' ? 'dot-neg' : 'dot-neu';
 
       html += '<div class="news-item">'
@@ -1031,6 +1034,114 @@ document.addEventListener('DOMContentLoaded', function() {
     renderHalving();
     renderFunding();
     renderNews();
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     DATA NORMALIZER — maps API shapes to render expectations
+  ───────────────────────────────────────────────────────── */
+  function normalizeState() {
+    // crypto/overview: {tickers:[{symbol,price,change24h,...}]} → flat array
+    if (state.crypto && state.crypto.tickers) {
+      state.crypto = state.crypto.tickers;
+    }
+
+    // fear-greed: {data:[{value,value_classification}]} → {value, classification}
+    if (state.fearGreed && state.fearGreed.data && state.fearGreed.data[0]) {
+      var fg = state.fearGreed.data[0];
+      state.fearGreed = {
+        value: parseFloat(fg.value),
+        classification: fg.value_classification,
+        raw: state.fearGreed
+      };
+    }
+
+    // macro/summary: {rates:{latest:{value}}, inflation:{latest:{value}}, gdp, unemployment}
+    if (state.macro && state.macro.rates) {
+      var ratesVal = state.macro.rates.latest ? parseFloat(state.macro.rates.latest.value) : null;
+      var inflVal  = state.macro.inflation && state.macro.inflation.latest ? parseFloat(state.macro.inflation.latest.value) : null;
+      var gdpVal   = state.macro.gdp && state.macro.gdp.latest ? parseFloat(state.macro.gdp.latest.value) : null;
+      var unempVal = state.macro.unemployment && state.macro.unemployment.latest ? parseFloat(state.macro.unemployment.latest.value) : null;
+      state.macro = {
+        federalFundsRate: ratesVal,
+        inflation: inflVal,
+        gdp: gdpVal,
+        unemployment: unempVal,
+        raw: state.macro
+      };
+    }
+
+    // yield-curve: {twoYear:{latest:{value}}, tenYear:{latest:{value}}}
+    if (state.yieldCurve && state.yieldCurve.twoYear) {
+      var y2  = state.yieldCurve.twoYear.latest  ? parseFloat(state.yieldCurve.twoYear.latest.value)  : null;
+      var y10 = state.yieldCurve.tenYear && state.yieldCurve.tenYear.latest ? parseFloat(state.yieldCurve.tenYear.latest.value) : null;
+      state.yieldCurve = {
+        twoYear: y2,
+        tenYear: y10,
+        spread: (y10 !== null && y2 !== null) ? Math.round((y10 - y2) * 100) / 100 : null,
+        raw: state.yieldCurve
+      };
+    }
+
+    // stocks/watchlist: {watchlist:[...]} → flat array
+    if (state.stocks && state.stocks.watchlist) {
+      state.stocks = state.stocks.watchlist;
+    }
+
+    // stocks/indices: {indices:[...]} → flat array
+    if (state.indices && state.indices.indices) {
+      state.indices = state.indices.indices;
+    }
+
+    // indicators/summary: {btc:{rsi:{value},macd:{signal},movingAverages:{cross},bollingerBands:{percentB}}}
+    // Normalize to uppercase keys + flat field names for renderSignals
+    if (state.indicators) {
+      ['btc','eth','sol'].forEach(function(sym) {
+        var d = state.indicators[sym];
+        if (!d) return;
+        // uppercase alias
+        state.indicators[sym.toUpperCase()] = {
+          rsi:      d.rsi ? d.rsi.value : null,
+          macd:     d.macd ? d.macd.signal : null,
+          smaCross: d.movingAverages ? d.movingAverages.cross : null,
+          bbPercB:  d.bollingerBands ? d.bollingerBands.percentB : null,
+          composite: d.composite ? d.composite.signal : null,
+          raw: d
+        };
+      });
+    }
+
+    // movers: {gainers:[{name,symbol,price,price_change_percentage_24h}], losers:[...]}
+    // already correct shape
+
+    // news: {articles:[{title,url,source,sentiment,publishedAt}]}
+    // merge finance + crypto news
+    if (!state.news) {
+      var allArticles = [];
+      if (state.newsFinance && state.newsFinance.articles) {
+        allArticles = allArticles.concat(state.newsFinance.articles.slice(0, 10));
+      }
+      if (state.newsCrypto && state.newsCrypto.articles) {
+        allArticles = allArticles.concat(state.newsCrypto.articles.slice(0, 8));
+      }
+      state.news = { articles: allArticles };
+    }
+
+    // commodities: {oil:{latest:{date,value}}, copper:{latest:{date,value}}}
+    // already correct shape
+
+    // regime: our API uses cycleStage, creditSpread as number — normalize field names
+    if (state.regime) {
+      state.regime.cycle         = state.regime.cycleStage || state.regime.cycle;
+      state.regime.phase         = state.regime.cycleStage || state.regime.phase;
+      state.regime.businessCycle = state.regime.cycleStage;
+      // creditSpread is a float (e.g. 3.22%) — convert to bps for display
+      if (state.regime.creditSpread && state.regime.creditSpread < 50) {
+        state.regime.creditSpreadBps = Math.round(state.regime.creditSpread * 100);
+        state.regime.creditSpread = state.regime.creditSpreadBps;
+      }
+    }
+
+    // halving: already correct — phase, daysSinceHalving, daysToNextHalving, cycleProgressPct
   }
 
   /* ─────────────────────────────────────────────────────────
@@ -1062,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetchOne('/api/indicators/funding',        'funding'),
       fetchOne('/api/indicators/daily-brief',    'brief'),
     ];
-    Promise.all(calls).then(function() { renderAll(); });
+    Promise.all(calls).then(function() { normalizeState(); renderAll(); });
   }
 
   /* ─────────────────────────────────────────────────────────
