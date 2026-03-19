@@ -12,25 +12,84 @@
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
 
-      <!-- AI Integration -->
+      <!-- AI Chat -->
       <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: AI typing animation -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 overflow-hidden relative">
-          <div class="flex items-center gap-2 mb-2">
+        <div class="demo-area h-44 rounded-xl bg-black/40 border border-white/8 p-3 overflow-hidden relative flex flex-col gap-2" id="demo-ai-chat">
+          <div class="flex items-center gap-2 border-b border-white/5 pb-2 mb-1">
             <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-            <span class="text-[10px] font-mono text-text-muted uppercase tracking-wider">AI Agent</span>
+            <span class="text-[10px] font-mono text-text-muted uppercase tracking-wider">AI Assistant</span>
+            <div class="ml-auto flex gap-1">
+              <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+            </div>
           </div>
-          <div class="ai-typing font-mono text-xs text-accent-2 leading-relaxed"></div>
-          <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/30 to-transparent"></div>
+          <div class="chat-messages flex flex-col gap-2 overflow-hidden flex-1"></div>
         </div>
         <div>
-          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">AI Integration</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Embed intelligence into your existing product — LLMs, on-device ML, and smart automation that actually ships.</p>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">AI Chat & Assistants</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Custom AI assistants and chat interfaces embedded into your product — powered by the latest LLMs, trained on your data.</p>
         </div>
         <div class="flex flex-wrap gap-2 mt-auto">
-          {['LLMs', 'Agents', 'On-Device ML'].map(t => (
+          {['GPT-4', 'Claude', 'Fine-tuning', 'RAG'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Agentic AI -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <div class="demo-area h-44 rounded-xl bg-black/40 border border-white/8 overflow-hidden relative flex items-center justify-center" id="demo-agents">
+          <div class="agents-canvas w-full h-full relative">
+            <!-- Central orchestrator -->
+            <div class="agent-node absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <div class="w-12 h-12 rounded-full border-2 border-accent-2/60 bg-accent-2/10 flex items-center justify-center relative">
+                <svg class="w-5 h-5 text-accent-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+                </svg>
+                <div class="absolute inset-0 rounded-full border border-accent-2/30 animate-ping opacity-40"></div>
+              </div>
+              <div class="text-[8px] font-mono text-accent-2 text-center mt-1">Orchestrator</div>
+            </div>
+            <!-- Sub-agents -->
+            <div class="agent-node absolute" style="top: 12%; left: 15%;">
+              <div class="w-9 h-9 rounded-full border border-accent-1/50 bg-accent-1/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+              </div>
+              <div class="text-[7px] font-mono text-text-muted text-center mt-1">Research</div>
+            </div>
+            <div class="agent-node absolute" style="top: 12%; right: 15%;">
+              <div class="w-9 h-9 rounded-full border border-accent-4/50 bg-accent-4/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
+              </div>
+              <div class="text-[7px] font-mono text-text-muted text-center mt-1">Coder</div>
+            </div>
+            <div class="agent-node absolute" style="bottom: 12%; left: 15%;">
+              <div class="w-9 h-9 rounded-full border border-green-500/50 bg-green-500/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+              </div>
+              <div class="text-[7px] font-mono text-text-muted text-center mt-1">Comms</div>
+            </div>
+            <div class="agent-node absolute" style="bottom: 12%; right: 15%;">
+              <div class="w-9 h-9 rounded-full border border-yellow-500/50 bg-yellow-500/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+              </div>
+              <div class="text-[7px] font-mono text-text-muted text-center mt-1">Analytics</div>
+            </div>
+            <!-- SVG lines connecting nodes -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" id="agent-lines">
+              <!-- Lines drawn by JS -->
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Agentic AI Systems</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Multi-agent pipelines that research, reason, and act autonomously. Automate complex workflows end-to-end.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Multi-agent', 'Automation', 'Pipelines'].map(t => (
             <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
           ))}
         </div>
@@ -38,140 +97,158 @@
 
       <!-- iOS & Android -->
       <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: phone frame with animated screen -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center overflow-hidden relative">
-          <div class="phone-demo flex gap-3 items-end">
-            <!-- Phone -->
-            <div class="w-8 h-14 rounded-lg border border-indigo-500/40 bg-indigo-500/10 flex flex-col overflow-hidden">
-              <div class="w-3 h-0.5 rounded-full bg-indigo-400/60 mx-auto mt-1.5"></div>
-              <div class="flex-1 m-0.5 rounded-md bg-indigo-500/20 flex items-center justify-center">
-                <div class="w-3 h-3 rounded-sm bg-indigo-400/60 animate-pulse"></div>
+        <div class="demo-area h-44 rounded-xl bg-black/40 border border-white/8 overflow-hidden relative flex items-center justify-center gap-6 px-4" id="demo-mobile">
+          <!-- iOS Phone -->
+          <div class="phone-frame flex-shrink-0 w-16 h-32 rounded-2xl border border-indigo-500/40 bg-black/60 overflow-hidden flex flex-col relative shadow-lg shadow-indigo-500/10">
+            <!-- Notch -->
+            <div class="w-6 h-1.5 bg-black rounded-full mx-auto mt-1.5"></div>
+            <!-- Screen content -->
+            <div class="flex-1 mx-1 mb-1 rounded-xl bg-gradient-to-b from-indigo-950 to-black overflow-hidden p-1.5">
+              <!-- Status bar -->
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-[5px] font-mono text-white/60">9:41</span>
+                <div class="flex gap-0.5">
+                  <div class="w-1.5 h-1 bg-white/40 rounded-sm"></div>
+                  <div class="w-1 h-1 bg-white/40 rounded-full"></div>
+                </div>
+              </div>
+              <!-- App content -->
+              <div class="space-y-1">
+                <div class="h-5 rounded-md bg-indigo-500/30 flex items-center px-1.5 gap-1">
+                  <div class="w-2 h-2 rounded-sm bg-indigo-400/60"></div>
+                  <div class="flex-1 h-1 bg-white/20 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-0.5">
+                  <div class="h-7 rounded bg-indigo-500/20"></div>
+                  <div class="h-7 rounded bg-purple-500/20"></div>
+                </div>
+                <div class="h-2 bg-white/10 rounded-full w-3/4"></div>
+                <div class="h-2 bg-white/8 rounded-full w-1/2"></div>
+                <div class="h-4 rounded bg-gradient-to-r from-indigo-500/40 to-purple-500/40 mt-1 flex items-center justify-center">
+                  <div class="w-3 h-1 bg-white/40 rounded-full"></div>
+                </div>
               </div>
             </div>
-            <!-- Ping -->
-            <div class="relative mb-2">
-              <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
-              <div class="absolute inset-0 w-2 h-2 rounded-full bg-indigo-400 animate-ping opacity-60"></div>
+            <!-- Home bar -->
+            <div class="w-6 h-0.5 bg-white/30 rounded-full mx-auto mb-1"></div>
+          </div>
+
+          <!-- Android Phone -->
+          <div class="phone-frame flex-shrink-0 w-16 h-32 rounded-xl border border-pink-500/40 bg-black/60 overflow-hidden flex flex-col relative shadow-lg shadow-pink-500/10">
+            <!-- Camera bar -->
+            <div class="flex justify-center pt-1 pb-0.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-white/30"></div>
             </div>
-            <!-- Tablet -->
-            <div class="w-12 h-10 rounded-lg border border-purple-500/40 bg-purple-500/10 flex flex-col overflow-hidden">
-              <div class="flex-1 m-0.5 rounded-md bg-purple-500/20 grid grid-cols-2 gap-0.5 p-0.5">
-                <div class="rounded-sm bg-purple-400/40"></div>
-                <div class="rounded-sm bg-purple-400/20"></div>
-                <div class="rounded-sm bg-purple-400/20"></div>
-                <div class="rounded-sm bg-purple-400/40"></div>
+            <!-- Screen -->
+            <div class="flex-1 mx-1 mb-1 rounded-lg bg-gradient-to-b from-pink-950 to-black overflow-hidden p-1.5">
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-[5px] font-mono text-white/60">12:00</span>
+                <div class="flex gap-0.5">
+                  <div class="w-1.5 h-1 bg-white/40 rounded-sm"></div>
+                </div>
+              </div>
+              <div class="space-y-1">
+                <div class="h-2 bg-white/10 rounded-full w-2/3"></div>
+                <div class="grid grid-cols-3 gap-0.5 mt-1">
+                  {[1,2,3,4,5,6].map(() => (
+                    <div class="h-4 rounded bg-pink-500/20 flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-sm bg-pink-400/40"></div>
+                    </div>
+                  ))}
+                </div>
+                <div class="h-6 rounded bg-gradient-to-r from-pink-500/30 to-accent-4/30 flex items-center px-1.5 gap-1 mt-1">
+                  <div class="w-2 h-2 rounded-full bg-pink-400/60"></div>
+                  <div class="flex-1 h-1 bg-white/20 rounded-full"></div>
+                </div>
               </div>
             </div>
+            <!-- Nav bar -->
+            <div class="flex justify-center gap-2 pb-1">
+              <div class="w-3 h-0.5 bg-white/20 rounded-full"></div>
+              <div class="w-1.5 h-1.5 bg-white/20 rounded-full"></div>
+              <div class="w-1.5 h-1.5 bg-white/20" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+            </div>
+          </div>
+
+          <!-- Shared data ping -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+            <div class="relative">
+              <div class="w-2 h-2 rounded-full bg-accent-2"></div>
+              <div class="absolute inset-0 w-2 h-2 rounded-full bg-accent-2 animate-ping opacity-50"></div>
+            </div>
+            <div class="text-[7px] font-mono text-text-muted">sync</div>
           </div>
         </div>
         <div>
           <h3 class="font-heading font-bold text-lg text-text-primary mb-2">iOS & Android Apps</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Native mobile apps built to platform standards — from a single Rust core with Swift and Kotlin frontends.</p>
+          <p class="text-text-secondary text-sm leading-relaxed">Native apps for both platforms from a single Rust core — share business logic, keep native UI. Fast, offline-first, beautiful.</p>
         </div>
         <div class="flex flex-wrap gap-2 mt-auto">
-          {['Swift', 'Kotlin', 'Rust Core'].map(t => (
+          {['Swift', 'Kotlin', 'Rust Core', 'Offline-first'].map(t => (
             <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
           ))}
         </div>
       </div>
 
-      <!-- Web3 & Crypto -->
+      <!-- E-commerce Web App -->
       <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: animated blockchain nodes -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center overflow-hidden relative">
-          <div class="blockchain-demo flex items-center gap-2">
-            {[0,1,2,3,4].map((i) => (
-              <div class="flex items-center gap-2">
-                <div class="w-5 h-5 rounded border border-purple-500/60 bg-purple-500/20 flex items-center justify-center"
-                  style={"animation: pulse 2s ease-in-out " + (i * 0.3) + "s infinite;"}>
-                  <div class="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
-                </div>
-                {i < 4 && <div class="w-3 h-px bg-gradient-to-r from-purple-500/60 to-pink-500/60"></div>}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Web3 & Crypto</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Wallets, crypto payment gateways, trading systems, and on-chain execution. Solana and Ethereum native.</p>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-auto">
-          {['Solana', 'Ethereum', 'Smart Contracts'].map(t => (
-            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
-          ))}
-        </div>
-      </div>
-
-      <!-- Rapid MVP -->
-      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: progress bar filling -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-4 flex flex-col justify-center gap-3 overflow-hidden">
-          <div class="flex justify-between items-center">
-            <span class="text-[10px] font-mono text-text-muted">Idea → MVP</span>
-            <span class="text-[10px] font-mono text-accent-2 mvp-timer">0d</span>
-          </div>
-          <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
-            <div class="mvp-bar h-full rounded-full bg-gradient-to-r from-accent-1 to-accent-4" style="width: 0%; transition: width 2s ease;"></div>
-          </div>
-          <div class="flex gap-2">
-            {['Scope', 'Design', 'Build', 'Ship'].map((s, i) => (
-              <div class="flex-1 text-center">
-                <div class={"mvp-step w-full h-1 rounded-full mb-1 " + (i === 0 ? "bg-accent-1" : "bg-white/10")}></div>
-                <span class="text-[8px] font-mono text-text-muted">{s}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Rapid MVP</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Idea to testable product in weeks, not months. We scope tight, cut scope fat, and ship fast.</p>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-auto">
-          {['Fast', 'Lean', 'Shippable'].map(t => (
-            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
-          ))}
-        </div>
-      </div>
-
-      <!-- Backend & APIs -->
-      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: request/response animation -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 overflow-hidden font-mono text-[9px] leading-relaxed">
-          <div class="api-lines text-text-muted space-y-0.5">
-            <div class="text-green-400">POST /api/v1/deploy</div>
-            <div class="text-text-muted">→ 200 OK · 42ms</div>
-            <div class="text-accent-2">GET  /api/v1/status</div>
-            <div class="text-text-muted">→ 200 OK · 8ms</div>
-            <div class="text-accent-3 api-blink">▋</div>
-          </div>
-        </div>
-        <div>
-          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Backend & APIs</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Scalable serverless infrastructure, real-time systems, and APIs that don't fall over. AWS native.</p>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-auto">
-          {['AWS', 'Serverless', 'Real-time'].map(t => (
-            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
-          ))}
-        </div>
-      </div>
-
-      <!-- FinTech -->
-      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
-        <!-- Mini demo: chart animation -->
-        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 flex items-end gap-1 overflow-hidden">
-          {[40, 65, 45, 80, 60, 90, 70, 95, 75, 100].map((h, i) => (
-            <div class="flex-1 rounded-t-sm chart-bar"
-              style={"background: linear-gradient(to top, #6366f1, #ec4899); height: " + h + "%; opacity: 0.7; animation: chart-grow 1s ease " + (i * 0.08) + "s both;"}>
+        <div class="demo-area h-44 rounded-xl bg-black/40 border border-white/8 overflow-hidden relative flex flex-col" id="demo-ecomm">
+          <!-- Browser chrome -->
+          <div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/5 flex-shrink-0">
+            <div class="w-2 h-2 rounded-full bg-red-400/60"></div>
+            <div class="w-2 h-2 rounded-full bg-yellow-400/60"></div>
+            <div class="w-2 h-2 rounded-full bg-green-400/60"></div>
+            <div class="flex-1 mx-2 h-3 rounded bg-white/5 flex items-center px-2">
+              <span class="text-[7px] font-mono text-text-muted">shop.shiv.rocks</span>
             </div>
-          ))}
+          </div>
+          <!-- Store UI -->
+          <div class="flex-1 p-2 overflow-hidden">
+            <!-- Nav bar -->
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex gap-2">
+                <div class="h-1.5 w-8 bg-white/20 rounded-full"></div>
+                <div class="h-1.5 w-6 bg-white/10 rounded-full"></div>
+                <div class="h-1.5 w-8 bg-white/10 rounded-full"></div>
+              </div>
+              <div class="flex gap-1.5 items-center">
+                <div class="w-4 h-4 rounded bg-accent-3/20 flex items-center justify-center">
+                  <svg class="w-2.5 h-2.5 text-accent-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg>
+                </div>
+                <div class="text-[7px] font-mono text-accent-3 ecomm-cart">3</div>
+              </div>
+            </div>
+            <!-- Product grid -->
+            <div class="grid grid-cols-3 gap-1.5">
+              {[
+                {c: 'from-indigo-500/30 to-purple-500/20', p: '0.5 ETH'},
+                {c: 'from-pink-500/30 to-accent-4/20', p: '1.2 ETH'},
+                {c: 'from-cyan-500/30 to-indigo-500/20', p: '0.3 ETH'},
+              ].map((item, i) => (
+                <div class="rounded-lg overflow-hidden border border-white/8 product-card-mini" data-i={i}>
+                  <div class={"h-10 bg-gradient-to-br " + item.c}></div>
+                  <div class="p-1">
+                    <div class="h-1 bg-white/20 rounded-full w-3/4 mb-0.5"></div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-[6px] font-mono text-accent-2">{item.p}</span>
+                      <div class="w-3 h-2 rounded bg-accent-2/30"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <!-- Add to cart animation area -->
+            <div class="mt-1.5 h-4 rounded bg-gradient-to-r from-accent-1/20 to-accent-3/20 border border-accent-2/20 flex items-center justify-center">
+              <span class="text-[7px] font-mono text-accent-2 ecomm-status">Checkout with ETH or SOL</span>
+            </div>
+          </div>
         </div>
         <div>
-          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">FinTech & Banking</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">Secure, high-performance financial apps. We've built for private banks and consumer fintech alike.</p>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Web Apps & E-Commerce</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Full-stack web platforms, stores, and dashboards — with traditional or crypto payment rails baked in.</p>
         </div>
         <div class="flex flex-wrap gap-2 mt-auto">
-          {['Secure', 'Compliant', 'High-perf'].map(t => (
+          {['Next.js', 'Astro', 'Stripe', 'Web3 Payments'].map(t => (
             <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
           ))}
         </div>
@@ -181,86 +258,176 @@
   </div>
 </section>
 
-<style>
-  @keyframes chart-grow {
-    from { transform: scaleY(0); transform-origin: bottom; }
-    to { transform: scaleY(1); transform-origin: bottom; }
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  .api-blink { animation: blink 1s step-end infinite; }
-</style>
-
 <script>
-  // AI typing demo
-  const aiLines = [
-    '> Analysing user data...',
-    '> Pattern detected',
-    '> Generating response...',
-    '> Done. ✓',
+  // ---- AI Chat Demo ----
+  const chatConversation = [
+    { role: 'user', text: 'Summarise last week\'s sales' },
+    { role: 'ai',   text: 'Revenue up 24% vs prior week. Top SKU: Pro Plan. 3 churns detected.' },
+    { role: 'user', text: 'Why did those users churn?' },
+    { role: 'ai',   text: 'Analysing patterns... Likely cause: onboarding drop-off at step 3.' },
+    { role: 'user', text: 'Suggest a fix' },
+    { role: 'ai',   text: 'Add a contextual tooltip on step 3. I\'ve drafted the copy ✓' },
   ];
 
-  function runAiDemo(el: HTMLElement) {
-    let lineIndex = 0;
-    let charIndex = 0;
-    el.textContent = '';
+  function initChatDemo(container: HTMLElement) {
+    const msgBox = container.querySelector('.chat-messages') as HTMLElement;
+    if (!msgBox) return;
+    msgBox.innerHTML = '';
+    let i = 0;
 
-    function typeNext() {
-      if (lineIndex >= aiLines.length) {
+    function addMessage() {
+      if (i >= chatConversation.length) {
         setTimeout(() => {
-          el.textContent = '';
-          lineIndex = 0;
-          charIndex = 0;
-          typeNext();
-        }, 2000);
+          msgBox.innerHTML = '';
+          i = 0;
+          addMessage();
+        }, 3000);
         return;
       }
-      const line = aiLines[lineIndex];
-      if (charIndex <= line.length) {
-        el.textContent = aiLines.slice(0, lineIndex).join('\n') + (lineIndex > 0 ? '\n' : '') + line.substring(0, charIndex);
-        charIndex++;
-        setTimeout(typeNext, 55);
+      const msg = chatConversation[i];
+      const wrap = document.createElement('div');
+      wrap.className = 'flex ' + (msg.role === 'user' ? 'justify-end' : 'justify-start');
+      const bubble = document.createElement('div');
+      bubble.className = msg.role === 'user'
+        ? 'max-w-[75%] px-2.5 py-1.5 rounded-xl rounded-tr-sm text-[9px] font-mono bg-accent-2/20 text-accent-2 border border-accent-2/20'
+        : 'max-w-[80%] px-2.5 py-1.5 rounded-xl rounded-tl-sm text-[9px] font-mono bg-white/5 text-text-secondary border border-white/8';
+
+      // Typing dots for AI
+      if (msg.role === 'ai') {
+        bubble.innerHTML = '<span class="inline-flex gap-0.5"><span class="w-1 h-1 rounded-full bg-text-muted animate-bounce" style="animation-delay:0s"></span><span class="w-1 h-1 rounded-full bg-text-muted animate-bounce" style="animation-delay:0.15s"></span><span class="w-1 h-1 rounded-full bg-text-muted animate-bounce" style="animation-delay:0.3s"></span></span>';
+        wrap.appendChild(bubble);
+        msgBox.appendChild(wrap);
+        msgBox.scrollTop = msgBox.scrollHeight;
+        setTimeout(() => {
+          bubble.textContent = msg.text;
+          msgBox.scrollTop = msgBox.scrollHeight;
+          i++;
+          setTimeout(addMessage, 1200);
+        }, 900);
       } else {
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(typeNext, 400);
+        bubble.textContent = msg.text;
+        wrap.appendChild(bubble);
+        msgBox.appendChild(wrap);
+        msgBox.scrollTop = msgBox.scrollHeight;
+        i++;
+        setTimeout(addMessage, 600);
       }
     }
-    typeNext();
+    addMessage();
   }
 
-  // MVP bar animation on scroll into view
-  function runMvpDemo(card: HTMLElement) {
-    const bar = card.querySelector('.mvp-bar') as HTMLElement;
-    const timer = card.querySelector('.mvp-timer') as HTMLElement;
-    if (!bar || !timer) return;
-    bar.style.width = '0%';
-    timer.textContent = '0d';
-    let day = 0;
-    const interval = setInterval(() => {
-      day += 2;
-      const pct = Math.min((day / 42) * 100, 100);
-      bar.style.width = pct + '%';
-      timer.textContent = day + 'd';
-      if (day >= 42) {
-        clearInterval(interval);
-        timer.textContent = '42d ✓';
+  // ---- Agents Demo — animated data packets ----
+  function initAgentsDemo(container: HTMLElement) {
+    const svg = container.querySelector('#agent-lines') as SVGElement;
+    if (!svg) return;
+    const rect = container.getBoundingClientRect();
+    const W = rect.width || 300;
+    const H = rect.height || 176;
+
+    // Center node
+    const center = { x: W / 2, y: H / 2 };
+    const subs = [
+      { x: W * 0.18, y: H * 0.18 },
+      { x: W * 0.82, y: H * 0.18 },
+      { x: W * 0.18, y: H * 0.82 },
+      { x: W * 0.82, y: H * 0.82 },
+    ];
+    const colors = ['#6366f1', '#ec4899', '#22c55e', '#eab308'];
+
+    // Draw static lines
+    svg.innerHTML = subs.map((s, i) =>
+      `<line x1="${center.x}" y1="${center.y}" x2="${s.x}" y2="${s.y}" stroke="${colors[i]}" stroke-width="0.5" stroke-opacity="0.25" stroke-dasharray="3 3"/>`
+    ).join('');
+
+    // Animate packets
+    let active = 0;
+    function spawnPacket() {
+      const sub = subs[active % subs.length];
+      const color = colors[active % colors.length];
+      const toCenter = active % 2 === 0;
+      const start = toCenter ? sub : center;
+      const end   = toCenter ? center : sub;
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('r', '3');
+      circle.setAttribute('fill', color);
+      circle.setAttribute('cx', String(start.x));
+      circle.setAttribute('cy', String(start.y));
+      svg.appendChild(circle);
+
+      const dur = 800;
+      const startTime = performance.now();
+      function animate(now: number) {
+        const t = Math.min((now - startTime) / dur, 1);
+        const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        circle.setAttribute('cx', String(start.x + (end.x - start.x) * ease));
+        circle.setAttribute('cy', String(start.y + (end.y - start.y) * ease));
+        circle.setAttribute('opacity', String(1 - t * 0.3));
+        if (t < 1) requestAnimationFrame(animate);
+        else circle.remove();
       }
-    }, 80);
+      requestAnimationFrame(animate);
+      active++;
+    }
+
+    const interval = setInterval(spawnPacket, 400);
+    // Store cleanup ref
+    (container as any)._agentInterval = interval;
   }
 
-  // Observe and start demos when in view
+  // ---- E-commerce Demo ----
+  function initEcommDemo(container: HTMLElement) {
+    const status = container.querySelector('.ecomm-status') as HTMLElement;
+    const cart = container.querySelector('.ecomm-cart') as HTMLElement;
+    if (!status || !cart) return;
+
+    const messages = [
+      'Checkout with ETH or SOL',
+      'Connecting wallet...',
+      'Payment confirmed ✓',
+      'Order processing...',
+      'Shipped! Track on-chain ✓',
+    ];
+    let count = 3;
+    let idx = 0;
+
+    const cycle = setInterval(() => {
+      idx = (idx + 1) % messages.length;
+      status.style.opacity = '0';
+      setTimeout(() => {
+        status.textContent = messages[idx];
+        status.style.opacity = '1';
+        if (idx === 2) {
+          count++;
+          cart.textContent = String(count);
+          cart.style.color = '#22c55e';
+          setTimeout(() => { cart.style.color = ''; }, 600);
+        }
+        if (idx === messages.length - 1) { count = 3; cart.textContent = '3'; }
+      }, 300);
+    }, 1800);
+
+    (container as any)._ecommInterval = cycle;
+  }
+
+  // ---- Intersection observer to start demos ----
   const demoObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       const card = entry.target as HTMLElement;
-      const aiEl = card.querySelector('.ai-typing') as HTMLElement;
-      if (aiEl) runAiDemo(aiEl);
-      if (card.querySelector('.mvp-bar')) runMvpDemo(card);
+      const chatEl = card.querySelector('#demo-ai-chat') as HTMLElement;
+      const agentEl = card.querySelector('#demo-agents') as HTMLElement;
+      const ecommEl = card.querySelector('#demo-ecomm') as HTMLElement;
+      if (chatEl) initChatDemo(chatEl);
+      if (agentEl) setTimeout(() => initAgentsDemo(agentEl), 300);
+      if (ecommEl) initEcommDemo(ecommEl);
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.3 });
 
   document.querySelectorAll('.cap-card').forEach((c) => demoObserver.observe(c));
 </script>
+
+<style>
+  .ecomm-status { transition: opacity 0.3s; }
+  .demo-area { will-change: transform; }
+</style>
