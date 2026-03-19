@@ -1,0 +1,798 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARKET TERMINAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --panel: #0d0d14;
+      --border: rgba(255,255,255,0.06);
+      --green: #00ff88;
+      --red: #ff3355;
+      --amber: #ffaa00;
+      --blue: #00aaff;
+      --dim: rgba(255,255,255,0.35);
+      --mid: rgba(255,255,255,0.55);
+      --bright: rgba(255,255,255,0.9);
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--bright);
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      min-height: 100vh;
+    }
+
+    /* ── PASSWORD OVERLAY ── */
+    #auth-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      flex-direction: column; gap: 16px;
+    }
+    #auth-overlay h1 { font-size: 20px; letter-spacing: 0.3em; color: var(--green); }
+    #auth-overlay p { color: var(--dim); font-size: 11px; }
+    #auth-overlay input {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--bright);
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 16px;
+      width: 280px;
+      outline: none;
+      letter-spacing: 0.1em;
+    }
+    #auth-overlay input:focus { border-color: var(--green); }
+    #auth-overlay button {
+      background: var(--green);
+      color: #000;
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 10px 24px;
+      cursor: pointer;
+      width: 280px;
+    }
+    #auth-overlay button:hover { background: #00dd77; }
+    #auth-error { color: var(--red); font-size: 11px; min-height: 16px; }
+
+    /* ── MAIN LAYOUT ── */
+    #app { display: none; flex-direction: column; min-height: 100vh; }
+    #app.visible { display: flex; }
+
+    /* ── HEADER ── */
+    #header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      position: sticky; top: 0; z-index: 100;
+    }
+    #header .logo { color: var(--green); font-size: 13px; font-weight: 700; letter-spacing: 0.3em; }
+    #header .meta { display: flex; gap: 16px; align-items: center; color: var(--dim); font-size: 11px; }
+    #header .clock { color: var(--amber); font-weight: 600; }
+    #refresh-indicator { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+    #refresh-indicator.loading { background: var(--amber); animation: blink 0.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* ── TICKER STRIP ── */
+    #ticker-strip {
+      display: flex; align-items: stretch; gap: 0;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .ticker-item {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 8px 20px;
+      border-right: 1px solid var(--border);
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+    .ticker-symbol { font-size: 10px; color: var(--dim); letter-spacing: 0.15em; }
+    .ticker-price { font-size: 15px; font-weight: 600; color: var(--bright); }
+    .ticker-change { font-size: 11px; }
+    #fear-greed-panel {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 8px 20px;
+      border-right: 1px solid var(--border);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+    #fear-greed-panel .fg-label { font-size: 10px; color: var(--dim); letter-spacing: 0.15em; }
+    #fg-bar-wrap { position: relative; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-top: 4px; }
+    #fg-bar { height: 100%; border-radius: 3px; transition: width 0.5s; }
+    #fg-value { font-size: 15px; font-weight: 600; }
+    #fg-class { font-size: 11px; }
+
+    /* ── CONTENT GRID ── */
+    #content { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+
+    .row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 900px) { .row-2col { grid-template-columns: 1fr; } }
+
+    /* ── PANELS ── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+    }
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .panel-title { font-size: 10px; letter-spacing: 0.2em; color: var(--dim); font-weight: 600; }
+    .panel-badge { font-size: 10px; color: var(--amber); }
+
+    /* ── TABLES ── */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th {
+      font-size: 9px; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.25);
+      padding: 5px 8px;
+      text-align: left; font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table th.r { text-align: right; }
+    .data-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 11px;
+    }
+    .data-table td.r { text-align: right; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .sym { font-weight: 600; color: var(--bright); letter-spacing: 0.05em; }
+    .name-cell { color: var(--mid); font-size: 10px; }
+    .pos { color: var(--green); }
+    .neg { color: var(--red); }
+    .neu { color: var(--amber); }
+
+    /* ── SKELETON ── */
+    .skel { color: rgba(255,255,255,0.15); font-size: 11px; padding: 16px; text-align: center; }
+    .skel-row { height: 20px; background: rgba(255,255,255,0.04); border-radius: 2px; margin: 4px 8px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+    /* ── MACRO ITEMS ── */
+    .macro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .macro-item {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+    .macro-item:nth-child(even) { border-right: none; }
+    .macro-item:nth-last-child(-n+2) { border-bottom: none; }
+    .macro-key { font-size: 9px; letter-spacing: 0.15em; color: var(--dim); margin-bottom: 4px; }
+    .macro-val { font-size: 18px; font-weight: 600; }
+    .macro-sub { font-size: 10px; color: var(--dim); margin-top: 2px; }
+
+    /* ── MOVERS ── */
+    .movers-section { }
+    .movers-label { font-size: 9px; letter-spacing: 0.15em; padding: 6px 12px; border-bottom: 1px solid var(--border); }
+    .movers-label.gain { color: var(--green); }
+    .movers-label.loss { color: var(--red); }
+
+    /* ── SPARKLINE ── */
+    .spark-cell { padding: 0 4px; }
+    .spark-cell svg { display: block; }
+
+    /* ── COMMODITIES ── */
+    .commodity-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .commodity-item:last-child { border-bottom: none; }
+    .commodity-name { font-size: 11px; color: var(--mid); }
+    .commodity-val { font-size: 16px; font-weight: 600; }
+    .commodity-unit { font-size: 9px; color: var(--dim); margin-top: 2px; }
+
+    /* ── YIELD CURVE ── */
+    .yield-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .yield-item:last-child { border-bottom: none; }
+    .yield-spread { color: var(--amber); }
+
+    /* ── NEWS ── */
+    .news-item {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-row { display: flex; align-items: flex-start; gap: 8px; }
+    .news-tag {
+      font-size: 8px; letter-spacing: 0.1em; font-weight: 700;
+      padding: 2px 5px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .news-tag.bullish { background: rgba(0,255,136,0.12); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+    .news-tag.bearish { background: rgba(255,51,85,0.12); color: var(--red); border: 1px solid rgba(255,51,85,0.3); }
+    .news-tag.neutral { background: rgba(255,170,0,0.12); color: var(--amber); border: 1px solid rgba(255,170,0,0.3); }
+    .news-title { font-size: 11px; color: var(--mid); line-height: 1.4; }
+    .news-title a { color: inherit; text-decoration: none; }
+    .news-title a:hover { color: var(--bright); }
+    .news-source { font-size: 9px; color: rgba(255,255,255,0.2); margin-top: 2px; }
+
+    /* ── SCROLLABLE PANELS ── */
+    .panel-body { overflow: hidden; }
+    .panel-body.scrollable { max-height: 280px; overflow-y: auto; }
+    .panel-body.scrollable::-webkit-scrollbar { width: 3px; }
+    .panel-body.scrollable::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+    .panel-body.news-body { max-height: 320px; overflow-y: auto; }
+    .panel-body.news-body::-webkit-scrollbar { width: 3px; }
+    .panel-body.news-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+    /* Indices strip inside header area */
+    #indices-strip {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+    }
+    .index-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 16px;
+      border-right: 1px solid var(--border);
+      font-size: 11px;
+    }
+    .index-sym { color: var(--dim); font-size: 10px; }
+    .index-price { font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div id="auth-overlay">
+  <h1>◈ MARKET TERMINAL</h1>
+  <p>SECURE ACCESS REQUIRED</p>
+  <input type="password" id="pass-input" placeholder="Enter access key..." autocomplete="off" />
+  <div id="auth-error"></div>
+  <button id="pass-submit">AUTHENTICATE</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- HEADER -->
+  <div id="header">
+    <div class="logo">◈ MARKET TERMINAL</div>
+    <div class="meta">
+      <span id="indices-inline"></span>
+      <span id="last-updated" style="color:var(--dim);font-size:10px;"></span>
+      <span class="clock" id="clock">--:--:--</span>
+      <span id="refresh-indicator"></span>
+    </div>
+  </div>
+
+  <!-- INDICES STRIP -->
+  <div id="indices-strip"></div>
+
+  <!-- TICKER STRIP -->
+  <div id="ticker-strip">
+    <div class="ticker-item" id="tick-BTC"><div class="ticker-symbol">BTC/USDT</div><div class="ticker-price skel">Loading...</div><div class="ticker-change">—</div></div>
+    <div class="ticker-item" id="tick-ETH"><div class="ticker-symbol">ETH/USDT</div><div class="ticker-price skel">Loading...</div><div class="ticker-change">—</div></div>
+    <div class="ticker-item" id="tick-SOL"><div class="ticker-symbol">SOL/USDT</div><div class="ticker-price skel">Loading...</div><div class="ticker-change">—</div></div>
+    <div class="ticker-item" id="tick-BNB"><div class="ticker-symbol">BNB/USDT</div><div class="ticker-price skel">Loading...</div><div class="ticker-change">—</div></div>
+    <div class="ticker-item" id="tick-XRP"><div class="ticker-symbol">XRP/USDT</div><div class="ticker-price skel">Loading...</div><div class="ticker-change">—</div></div>
+    <div id="fear-greed-panel">
+      <div class="fg-label">FEAR &amp; GREED</div>
+      <div id="fg-value" class="skel">–</div>
+      <div id="fg-class">–</div>
+      <div id="fg-bar-wrap"><div id="fg-bar" style="width:0%;background:var(--amber)"></div></div>
+    </div>
+    <!-- BTC sparkline -->
+    <div class="ticker-item" style="min-width:200px; flex:1;">
+      <div class="ticker-symbol">BTC 14D TREND</div>
+      <div id="btc-sparkline" style="margin-top:4px;">
+        <svg width="180" height="36"><polyline id="spark-line" points="" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="content">
+
+    <!-- ROW 1: Crypto + Stock Watchlist -->
+    <div class="row-2col">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">CRYPTO WATCHLIST</span>
+          <span class="panel-badge" id="crypto-updated">—</span>
+        </div>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>SYM</th>
+                <th class="r">PRICE</th>
+                <th class="r">24H %</th>
+                <th class="r">HIGH</th>
+                <th class="r">LOW</th>
+                <th class="r">VOL</th>
+              </tr>
+            </thead>
+            <tbody id="crypto-table-body">
+              <tr><td colspan="6" class="skel">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">STOCK WATCHLIST</span>
+          <span class="panel-badge" id="stocks-updated">—</span>
+        </div>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>SYM</th>
+                <th class="r">PRICE</th>
+                <th class="r">CHG %</th>
+                <th class="r">HIGH</th>
+                <th class="r">LOW</th>
+                <th class="r">MCAP</th>
+              </tr>
+            </thead>
+            <tbody id="stocks-table-body">
+              <tr><td colspan="6" class="skel">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Macro + Movers -->
+    <div class="row-2col">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">MACRO INDICATORS</span>
+          <span class="panel-badge">FRED/TREASURY</span>
+        </div>
+        <div class="panel-body">
+          <div class="macro-grid" id="macro-grid">
+            <div class="macro-item"><div class="macro-key">CPI INFLATION</div><div class="macro-val skel">—</div><div class="macro-sub">Loading...</div></div>
+            <div class="macro-item"><div class="macro-key">FED FUNDS RATE</div><div class="macro-val skel">—</div><div class="macro-sub">Loading...</div></div>
+            <div class="macro-item"><div class="macro-key">UNEMPLOYMENT</div><div class="macro-val skel">—</div><div class="macro-sub">Loading...</div></div>
+            <div class="macro-item"><div class="macro-key">US GDP (QTR)</div><div class="macro-val skel">—</div><div class="macro-sub">Loading...</div></div>
+          </div>
+          <div style="border-top: 1px solid var(--border);">
+            <div class="yield-item">
+              <div><div style="font-size:9px;color:var(--dim);letter-spacing:0.15em;">2Y TREASURY</div><div id="yield-2y" class="skel" style="font-size:14px;font-weight:600;">—</div></div>
+              <div style="text-align:right;"><div style="font-size:9px;color:var(--dim);letter-spacing:0.15em;">10Y TREASURY</div><div id="yield-10y" class="skel" style="font-size:14px;font-weight:600;">—</div></div>
+            </div>
+            <div style="padding:6px 14px 8px; border-top:1px solid var(--border);">
+              <span style="font-size:9px;color:var(--dim);letter-spacing:0.15em;">SPREAD (10Y-2Y): </span>
+              <span id="yield-spread" class="skel" style="font-size:12px;font-weight:600;">—</span>
+              <span id="yield-label" style="font-size:9px;margin-left:6px;color:var(--dim);">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">MARKET MOVERS</span>
+          <span class="panel-badge">COINGECKO</span>
+        </div>
+        <div class="panel-body scrollable">
+          <div class="movers-label gain">▲ TOP GAINERS</div>
+          <table class="data-table" id="gainers-table">
+            <thead><tr><th>NAME</th><th class="r">PRICE</th><th class="r">24H %</th><th class="r">7D %</th></tr></thead>
+            <tbody id="gainers-body"><tr><td colspan="4" class="skel">Loading...</td></tr></tbody>
+          </table>
+          <div class="movers-label loss" style="border-top:1px solid var(--border);">▼ TOP LOSERS</div>
+          <table class="data-table" id="losers-table">
+            <thead><tr><th>NAME</th><th class="r">PRICE</th><th class="r">24H %</th><th class="r">7D %</th></tr></thead>
+            <tbody id="losers-body"><tr><td colspan="4" class="skel">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Commodities + News -->
+    <div class="row-2col">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">COMMODITIES &amp; FX</span>
+          <span class="panel-badge">FRED</span>
+        </div>
+        <div class="panel-body" id="commodities-body">
+          <div class="skel" style="padding:16px;">Loading...</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">NEWS FEED</span>
+          <span class="panel-badge" id="news-source-label">SENTIMENT</span>
+        </div>
+        <div class="panel-body news-body" id="news-body">
+          <div class="skel" style="padding:16px;">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<script>
+  // ── AUTH ──
+  const AUTH_KEY = 'dash_token';
+  const AUTH_VAL = 'shivesh2026';
+  const overlay = document.getElementById('auth-overlay');
+  const app = document.getElementById('app');
+
+  function checkAuth() {
+    if (localStorage.getItem(AUTH_KEY) === AUTH_VAL) {
+      overlay.style.display = 'none';
+      app.classList.add('visible');
+      return true;
+    }
+    return false;
+  }
+
+  document.getElementById('pass-submit').addEventListener('click', () => {
+    const val = document.getElementById('pass-input').value;
+    if (val === AUTH_VAL) {
+      localStorage.setItem(AUTH_KEY, val);
+      window.location.reload();
+    } else {
+      document.getElementById('auth-error').textContent = 'ACCESS DENIED — INVALID KEY';
+    }
+  });
+
+  document.getElementById('pass-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('pass-submit').click();
+  });
+
+  if (!checkAuth()) {
+    // show overlay, nothing else
+  } else {
+    init();
+  }
+
+  // ── CLOCK ──
+  function startClock() {
+    function tick() {
+      const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2,'0');
+      const m = String(now.getUTCMinutes()).padStart(2,'0');
+      const s = String(now.getUTCSeconds()).padStart(2,'0');
+      document.getElementById('clock').textContent = h + ':' + m + ':' + s + ' UTC';
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // ── FORMATTERS ──
+  function fmt(n, dec=2) {
+    if (n == null || isNaN(n)) return 'N/A';
+    if (Math.abs(n) >= 1e12) return (n/1e12).toFixed(2) + 'T';
+    if (Math.abs(n) >= 1e9)  return (n/1e9).toFixed(2) + 'B';
+    if (Math.abs(n) >= 1e6)  return (n/1e6).toFixed(2) + 'M';
+    return Number(n).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  }
+
+  function fmtPrice(n) {
+    if (n == null || isNaN(n)) return 'N/A';
+    if (n >= 1000) return '$' + fmt(n, 0);
+    if (n >= 1)    return '$' + fmt(n, 2);
+    return '$' + fmt(n, 4);
+  }
+
+  function changeClass(v) {
+    if (v > 0) return 'pos';
+    if (v < 0) return 'neg';
+    return 'neu';
+  }
+
+  function changeArrow(v) {
+    if (v > 0) return '▲ +';
+    if (v < 0) return '▼ ';
+    return '◆ ';
+  }
+
+  function safe(fn, fallback='N/A') {
+    try { return fn(); } catch { return fallback; }
+  }
+
+  // ── FETCH ──
+  const BASE = 'http://localhost:3001';
+  async function fetchJSON(path) {
+    try {
+      const r = await fetch(BASE + path, { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } catch (e) {
+      console.warn('Failed:', path, e.message);
+      return null;
+    }
+  }
+
+  // ── SPARKLINE ──
+  function drawSparkline(candles) {
+    if (!candles || candles.length < 2) return;
+    const closes = candles.map(c => c.close);
+    const min = Math.min(...closes);
+    const max = Math.max(...closes);
+    const W = 180, H = 36, pad = 2;
+    const xStep = (W - pad*2) / (closes.length - 1);
+    const yRange = max - min || 1;
+    const points = closes.map((v, i) => {
+      const x = pad + i * xStep;
+      const y = H - pad - ((v - min) / yRange) * (H - pad*2);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+    document.getElementById('spark-line').setAttribute('points', points);
+    const isUp = closes[closes.length-1] >= closes[0];
+    document.getElementById('spark-line').style.stroke = isUp ? 'var(--green)' : 'var(--red)';
+  }
+
+  // ── RENDER FUNCTIONS ──
+  function renderCrypto(data) {
+    if (!data || !data.tickers) {
+      document.getElementById('crypto-table-body').innerHTML = '<tr><td colspan="6" style="color:var(--red);padding:12px;">N/A</td></tr>';
+      return;
+    }
+    const tickers = data.tickers;
+    // Update ticker strip
+    tickers.forEach(t => {
+      const el = document.getElementById('tick-' + t.symbol);
+      if (!el) return;
+      const pEl = el.querySelector('.ticker-price');
+      const cEl = el.querySelector('.ticker-change');
+      pEl.textContent = fmtPrice(t.price);
+      pEl.className = 'ticker-price ' + changeClass(t.change24h);
+      cEl.textContent = changeArrow(t.change24h) + Math.abs(t.change24h).toFixed(2) + '%';
+      cEl.className = 'ticker-change ' + changeClass(t.change24h);
+    });
+    // Update badge
+    const upd = new Date(data.updatedAt);
+    document.getElementById('crypto-updated').textContent = upd.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+
+    // Table
+    const rows = tickers.map(t => `
+      <tr>
+        <td class="sym">${t.symbol}</td>
+        <td class="r">${fmtPrice(t.price)}</td>
+        <td class="r ${changeClass(t.change24h)}">${changeArrow(t.change24h)}${Math.abs(t.change24h).toFixed(2)}%</td>
+        <td class="r" style="color:var(--dim)">${fmtPrice(t.high24h)}</td>
+        <td class="r" style="color:var(--dim)">${fmtPrice(t.low24h)}</td>
+        <td class="r" style="color:var(--mid)">${fmt(t.volume24h, 0)}</td>
+      </tr>`).join('');
+    document.getElementById('crypto-table-body').innerHTML = rows;
+  }
+
+  function renderFearGreed(data) {
+    if (!data || !data.data || !data.data[0]) return;
+    const d = data.data[0];
+    const val = parseInt(d.value);
+    const cls = d.value_classification;
+    document.getElementById('fg-value').textContent = val;
+    document.getElementById('fg-class').textContent = cls.toUpperCase();
+    let color;
+    if (val <= 25) color = 'var(--red)';
+    else if (val <= 45) color = 'var(--amber)';
+    else if (val <= 55) color = '#aaaaff';
+    else color = 'var(--green)';
+    document.getElementById('fg-value').className = '';
+    document.getElementById('fg-value').style.cssText = 'font-size:15px;font-weight:600;color:' + color;
+    document.getElementById('fg-class').style.color = color;
+    document.getElementById('fg-bar').style.width = val + '%';
+    document.getElementById('fg-bar').style.background = color;
+  }
+
+  function renderStocks(data) {
+    if (!data || !data.watchlist) {
+      document.getElementById('stocks-table-body').innerHTML = '<tr><td colspan="6" style="color:var(--red);padding:12px;">N/A</td></tr>';
+      return;
+    }
+    const upd = new Date(data.updatedAt);
+    document.getElementById('stocks-updated').textContent = upd.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+    const rows = data.watchlist.map(s => `
+      <tr>
+        <td class="sym">${s.symbol}</td>
+        <td class="r">${fmtPrice(s.price)}</td>
+        <td class="r ${changeClass(s.changePercentage)}">${changeArrow(s.changePercentage)}${Math.abs(s.changePercentage).toFixed(2)}%</td>
+        <td class="r" style="color:var(--dim)">${fmtPrice(s.dayHigh)}</td>
+        <td class="r" style="color:var(--dim)">${fmtPrice(s.dayLow)}</td>
+        <td class="r" style="color:var(--mid)">${s.marketCap ? fmt(s.marketCap, 0) : 'N/A'}</td>
+      </tr>`).join('');
+    document.getElementById('stocks-table-body').innerHTML = rows;
+  }
+
+  function renderIndices(data) {
+    const strip = document.getElementById('indices-strip');
+    if (!data || !data.indices) { strip.innerHTML = ''; return; }
+    strip.innerHTML = data.indices.map(s => `
+      <div class="index-item">
+        <span class="index-sym">${s.symbol}</span>
+        <span class="index-price ${changeClass(s.change)}">${fmtPrice(s.price)}</span>
+        <span class="${changeClass(s.change)}" style="font-size:10px;">${changeArrow(s.change)}${Math.abs(s.changesPercentage).toFixed(2)}%</span>
+      </div>`).join('');
+  }
+
+  function renderMacro(data) {
+    if (!data) return;
+    const grid = document.getElementById('macro-grid');
+    const inf = safe(() => data.inflation.latest.value, '—');
+    const rate = safe(() => data.rates.latest.value, '—');
+    const unemp = safe(() => data.unemployment.latest.value, '—');
+    const gdp = safe(() => {
+      const v = parseFloat(data.gdp.latest.value);
+      return '$' + (v/1000).toFixed(1) + 'T';
+    }, '—');
+    const infDate = safe(() => data.inflation.latest.date.slice(0,7), '');
+    const rateDate = safe(() => data.rates.latest.date.slice(0,7), '');
+    const unempDate = safe(() => data.unemployment.latest.date.slice(0,7), '');
+    const gdpDate = safe(() => data.gdp.latest.date.slice(0,7), '');
+    grid.innerHTML = `
+      <div class="macro-item"><div class="macro-key">CPI INFLATION</div><div class="macro-val">${inf}</div><div class="macro-sub">${infDate}</div></div>
+      <div class="macro-item"><div class="macro-key">FED FUNDS RATE</div><div class="macro-val neu">${rate}%</div><div class="macro-sub">${rateDate}</div></div>
+      <div class="macro-item"><div class="macro-key">UNEMPLOYMENT</div><div class="macro-val">${unemp}%</div><div class="macro-sub">${unempDate}</div></div>
+      <div class="macro-item"><div class="macro-key">US GDP (QTR)</div><div class="macro-val pos">${gdp}</div><div class="macro-sub">${gdpDate}</div></div>`;
+  }
+
+  function renderYield(data) {
+    if (!data) return;
+    const y2 = safe(() => parseFloat(data.twoYear.latest.value), null);
+    const y10 = safe(() => parseFloat(data.tenYear.latest.value), null);
+    document.getElementById('yield-2y').textContent = y2 != null ? y2.toFixed(2) + '%' : 'N/A';
+    document.getElementById('yield-10y').textContent = y10 != null ? y10.toFixed(2) + '%' : 'N/A';
+    if (y2 != null && y10 != null) {
+      const spread = (y10 - y2).toFixed(2);
+      const spreadEl = document.getElementById('yield-spread');
+      spreadEl.textContent = (spread > 0 ? '+' : '') + spread + '%';
+      spreadEl.className = spread > 0 ? 'pos' : 'neg';
+      document.getElementById('yield-label').textContent = spread < 0 ? '⚠ INVERTED' : 'NORMAL';
+      document.getElementById('yield-label').style.color = spread < 0 ? 'var(--red)' : 'var(--green)';
+    }
+  }
+
+  function renderMovers(data) {
+    if (!data) {
+      document.getElementById('gainers-body').innerHTML = '<tr><td colspan="4" style="color:var(--red);padding:12px;">N/A</td></tr>';
+      document.getElementById('losers-body').innerHTML = '<tr><td colspan="4" style="color:var(--red);padding:12px;">N/A</td></tr>';
+      return;
+    }
+    function moverRows(arr, isGain) {
+      if (!arr || arr.length === 0) return '<tr><td colspan="4" style="color:var(--dim);padding:8px;">No data</td></tr>';
+      return arr.slice(0,5).map(m => {
+        const pct24 = m.price_change_percentage_24h;
+        const pct7 = m.price_change_percentage_7d_in_currency;
+        return `<tr>
+          <td><div class="sym" style="font-size:10px;">${m.symbol.toUpperCase()}</div><div class="name-cell">${m.name}</div></td>
+          <td class="r">${fmtPrice(m.current_price)}</td>
+          <td class="r ${changeClass(pct24)}">${changeArrow(pct24)}${Math.abs(pct24).toFixed(2)}%</td>
+          <td class="r ${changeClass(pct7)}">${pct7 != null ? changeArrow(pct7) + Math.abs(pct7).toFixed(2) + '%' : '—'}</td>
+        </tr>`;
+      }).join('');
+    }
+    document.getElementById('gainers-body').innerHTML = moverRows(data.gainers, true);
+    document.getElementById('losers-body').innerHTML = moverRows(data.losers, false);
+  }
+
+  function renderCommodities(data) {
+    const body = document.getElementById('commodities-body');
+    if (!data) { body.innerHTML = '<div class="skel" style="padding:16px;">N/A</div>'; return; }
+    const oilVal = safe(() => data.oil.latest.value, null);
+    const oilDate = safe(() => data.oil.latest.date.slice(0,7), '');
+    const goldVal = safe(() => data.gold.latest ? data.gold.latest.value : null, null);
+    const copperVal = safe(() => data.copper.latest ? data.copper.latest.value : null, null);
+    let html = '';
+    html += `<div class="commodity-item">
+      <div><div class="commodity-name">WTI CRUDE OIL</div><div class="commodity-unit">USD/BBL — ${oilDate}</div></div>
+      <div style="text-align:right;"><div class="commodity-val ${oilVal ? '' : 'neu'}">${oilVal ? '$' + parseFloat(oilVal).toFixed(2) : 'N/A'}</div></div>
+    </div>`;
+    html += `<div class="commodity-item">
+      <div><div class="commodity-name">GOLD</div><div class="commodity-unit">USD/OZ</div></div>
+      <div style="text-align:right;"><div class="commodity-val ${goldVal ? '' : 'neu'}">${goldVal ? '$' + parseFloat(goldVal).toFixed(2) : 'N/A'}</div></div>
+    </div>`;
+    html += `<div class="commodity-item">
+      <div><div class="commodity-name">COPPER</div><div class="commodity-unit">USD/MT</div></div>
+      <div style="text-align:right;"><div class="commodity-val ${copperVal ? '' : 'neu'}">${copperVal ? '$' + parseFloat(copperVal).toFixed(2) : 'N/A'}</div></div>
+    </div>`;
+    // Yield curve mini visual
+    body.innerHTML = html;
+  }
+
+  function renderNews(financeNews, cryptoNews) {
+    const body = document.getElementById('news-body');
+    // Combine and de-dup
+    const all = [];
+    const addArticles = (data, tag) => {
+      if (!data || !data.articles) return;
+      data.articles.forEach(a => all.push({ ...a, _tag: tag }));
+    };
+    addArticles(financeNews, 'finance');
+    addArticles(cryptoNews, 'crypto');
+
+    if (all.length === 0) {
+      body.innerHTML = '<div style="padding:20px;color:var(--dim);font-size:11px;text-align:center;">No news available<br><span style="font-size:9px;color:rgba(255,255,255,0.15);">NEWS_API_KEY not configured</span></div>';
+      return;
+    }
+
+    const html = all.slice(0,20).map(a => {
+      const sentiment = (a.sentiment || 'neutral').toLowerCase();
+      const tagClass = sentiment === 'bullish' ? 'bullish' : sentiment === 'bearish' ? 'bearish' : 'neutral';
+      const tagText = sentiment.toUpperCase();
+      const src = a.source ? a.source.name || a.source || '' : '';
+      const title = a.title || 'No title';
+      const url = a.url || '#';
+      return `<div class="news-item">
+        <div class="news-row">
+          <span class="news-tag ${tagClass}">${tagText}</span>
+          <div>
+            <div class="news-title"><a href="${url}" target="_blank" rel="noopener">${title}</a></div>
+            <div class="news-source">${src}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    body.innerHTML = html;
+  }
+
+  // ── MAIN FETCH & RENDER ──
+  async function loadAll() {
+    const ind = document.getElementById('refresh-indicator');
+    ind.classList.add('loading');
+
+    const [crypto, fearGreed, ohlc, stocks, indices, macro, yieldCurve, commodities, movers, finNews, cryptoNews] = await Promise.all([
+      fetchJSON('/api/crypto/overview'),
+      fetchJSON('/api/crypto/fear-greed'),
+      fetchJSON('/api/crypto/ohlc/BTC?timeframe=1d&limit=14'),
+      fetchJSON('/api/stocks/watchlist'),
+      fetchJSON('/api/stocks/indices'),
+      fetchJSON('/api/macro/summary'),
+      fetchJSON('/api/macro/yield-curve'),
+      fetchJSON('/api/macro/commodities'),
+      fetchJSON('/api/crypto/movers'),
+      fetchJSON('/api/news/finance'),
+      fetchJSON('/api/news/crypto'),
+    ]);
+
+    renderCrypto(crypto);
+    renderFearGreed(fearGreed);
+    drawSparkline(ohlc);
+    renderStocks(stocks);
+    renderIndices(indices);
+    renderMacro(macro);
+    renderYield(yieldCurve);
+    renderCommodities(commodities);
+    renderMovers(movers);
+    renderNews(finNews, cryptoNews);
+
+    const now = new Date();
+    document.getElementById('last-updated').textContent = 'UPD ' + now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+    ind.classList.remove('loading');
+  }
+
+  function init() {
+    startClock();
+    loadAll();
+    setInterval(loadAll, 60000);
+  }
+</script>
+
+</body>
+</html>
