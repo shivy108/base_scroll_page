@@ -70,7 +70,7 @@
     @keyframes pulse-dot { 0%,100%{opacity:1}50%{opacity:.25} }
 
     /* Cards */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 26px; }
     .card-title { font-size: 10px; font-weight: 600; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 5px; }
     .section { margin-bottom: 16px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -104,15 +104,15 @@
     .data-table { width: 100%; border-collapse: collapse; }
     .data-table th { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); text-align: left; padding: 0 0 9px; border-bottom: 1px solid var(--border); }
     .data-table th:not(:first-child), .data-table td:not(:first-child) { text-align: right; }
-    .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.012); }
-    .data-table td { padding: 8px 0; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.025); }
+    .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .data-table td { padding: 8px 0; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); }
     .data-table tr:last-child td { border-bottom: none; }
     .sym { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--text); }
     .price-mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); }
 
     /* Technical Signals */
     .sig-header { display: grid; grid-template-columns: 52px 1fr 1fr 1fr 1fr; gap: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 2px; }
-    .sig-row { display: grid; grid-template-columns: 52px 1fr 1fr 1fr 1fr; gap: 6px; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.025); }
+    .sig-row { display: grid; grid-template-columns: 52px 1fr 1fr 1fr 1fr; gap: 6px; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
     .sig-row:last-child { border-bottom: none; }
     .sig-sym { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--muted); }
     .sig-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
@@ -121,7 +121,7 @@
     .sig-sub { font-size: 9px; color: var(--faint); font-family: 'JetBrains Mono', monospace; }
 
     /* Macro Regime */
-    .regime-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.025); }
+    .regime-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
     .regime-row:last-child { border-bottom: none; }
     .regime-key { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
     .regime-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; }
@@ -132,13 +132,13 @@
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--blue)); border-radius: 2px; transition: width 0.5s ease; }
     .halving-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--faint); font-family: 'JetBrains Mono', monospace; }
     .halving-detail { margin-top: 14px; font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 7px; }
-    .halving-row { display: flex; justify-content: space-between; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.025); }
+    .halving-row { display: flex; justify-content: space-between; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.02); }
     .halving-row:first-child { border-top: none; }
     .halving-row span.hv { font-family: 'JetBrains Mono', monospace; color: var(--text); }
 
     /* News */
     .news-list { display: flex; flex-direction: column; }
-    .news-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.025); }
+    .news-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
     .news-item:last-child { border-bottom: none; }
     .news-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
     .dot-pos { background: var(--green); }
@@ -173,6 +173,28 @@
     .alert-item { display: flex; align-items: center; gap: 5px; }
     .alert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
     .alert-dot.red { background: var(--red); }
+    .alert-dismiss { margin-left: auto; flex-shrink: 0; background: none; border: none; color: var(--amber); cursor: pointer; font-size: 14px; line-height: 1; padding: 0 0 0 6px; opacity: 0.7; }
+    .alert-dismiss:hover { opacity: 1; }
+
+    /* Gold Tracker */
+    .gold-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 26px; display: grid; grid-template-columns: 40% 60%; gap: 32px; }
+    .gold-left { display: flex; flex-direction: column; gap: 14px; }
+    .gold-price-row { display: flex; align-items: baseline; gap: 10px; }
+    .gold-price { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 600; color: var(--text); line-height: 1.1; }
+    .gold-change { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500; }
+    .gold-changes { display: flex; gap: 18px; }
+    .gold-change-item { display: flex; flex-direction: column; gap: 2px; }
+    .gold-change-label { font-size: 10px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.07em; }
+    .gold-change-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; }
+    .gold-signal-badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; width: fit-content; }
+    .gold-source { font-size: 10px; color: var(--faint); font-family: 'JetBrains Mono', monospace; line-height: 1.4; margin-top: 2px; }
+    .gold-divider { width: 1px; background: var(--border); align-self: stretch; display: none; }
+    .gold-right { display: flex; flex-direction: column; gap: 16px; border-left: 1px solid var(--border); padding-left: 32px; }
+    .gold-edit-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+    .gold-section { margin-bottom: 12px; }
+    .gold-section-head { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .gold-section p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    @media (max-width: 900px) { .gold-card { grid-template-columns: 1fr; } .gold-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 24px; } }
 
     /* Brief age */
     .brief-age { font-size: 10px; color: var(--faint); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
@@ -345,6 +367,57 @@
       </div>
     </div>
 
+    <!-- Gold Tracker -->
+    <div class="gold-card section">
+      <div class="gold-left">
+        <div class="card-title" style="margin-bottom:8px">Gold (XAU/USD) <span class="tip-icon" data-tid="gold">ⓘ</span> <span class="panel-ts" id="ts-gold"></span></div>
+        <div class="gold-price-row">
+          <div class="gold-price" id="gold-price"><span class="sk" style="width:120px;height:30px"></span></div>
+          <div class="gold-change mut" id="gold-change24h"></div>
+        </div>
+        <div class="gold-changes">
+          <div class="gold-change-item">
+            <span class="gold-change-label">30d</span>
+            <span class="gold-change-val mut" id="gold-change30d">—</span>
+          </div>
+          <div class="gold-change-item">
+            <span class="gold-change-label">90d</span>
+            <span class="gold-change-val mut" id="gold-change90d">—</span>
+          </div>
+          <div class="gold-change-item">
+            <span class="gold-change-label">From ATH</span>
+            <span class="gold-change-val mut" id="gold-ath">—</span>
+          </div>
+        </div>
+        <div id="gold-signal-wrap"></div>
+        <div id="gold-sparkline" style="margin-top:4px"></div>
+        <div class="gold-source" id="gold-source"></div>
+      </div>
+      <div class="gold-right">
+        <div class="gold-edit-title">Why Gold Matters <span class="tip-icon" data-tid="gold">ⓘ</span></div>
+        <div class="gold-section">
+          <div class="gold-section-head">5,000-year store of value</div>
+          <p>Gold is the oldest financial instrument in human history. Every major civilization has independently converged on it as a unit of wealth. Unlike fiat currency, it can't be printed. Its total supply grows less than 2% per year — making it harder than any government-issued currency.</p>
+        </div>
+        <div class="gold-section">
+          <div class="gold-section-head">Real interest rates: the #1 driver</div>
+          <p>Gold has no yield. When <em style="color:var(--text)">real rates</em> (nominal rate minus inflation) go <strong style="color:var(--red)">negative</strong>, gold beats bonds — why hold a bond yielding less than inflation when gold holds its real value? When real rates <strong style="color:var(--green)">rise</strong>, bonds become attractive again and gold loses appeal. This single relationship explains the majority of gold's price moves.</p>
+        </div>
+        <div class="gold-section">
+          <div class="gold-section-head">What a rising gold price signals</div>
+          <p>Gold going up = one or more of: real rates falling, USD weakening, geopolitical risk rising, or institutional flight to safety. Gold going down = risk-on, dollar strengthening, or confidence in the financial system rising. Watch the ratio: gold up + stocks down = fear. Gold up + stocks up = inflation hedge demand. Gold down + stocks up = pure risk-on.</p>
+        </div>
+        <div class="gold-section">
+          <div class="gold-section-head">Central bank accumulation since 2022</div>
+          <p>China, Russia, India, and dozens of other central banks have been quietly buying gold at record pace since 2022 — partly to reduce USD dependency after Russia's FX reserves were frozen. This is structural, not speculative demand. It creates a persistent floor that didn't exist a decade ago.</p>
+        </div>
+        <div class="gold-section" style="margin-bottom:0">
+          <div class="gold-section-head">Gold vs Bitcoin</div>
+          <p>Both are "hard money" with fixed supply — but gold has 5,000 years of institutional trust and Bitcoin has 15. Central banks hold gold, not BTC. Pension funds hold gold, not BTC (yet). They're not substitutes — they serve different roles. Gold is low-volatility institutional safety. BTC is high-beta digital scarcity. In a portfolio, they complement rather than compete.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- News Feed -->
     <div class="card section">
       <div class="card-title">News Feed <span class="panel-ts" id="ts-news"></span></div>
@@ -368,8 +441,10 @@ document.addEventListener('DOMContentLoaded', function() {
     crypto: null, fearGreed: null, ohlc: null, stocks: null,
     indices: null, macro: null, yieldCurve: null, commodities: null,
     movers: null, newsFinance: null, newsCrypto: null,
-    indicators: null, regime: null, halving: null, funding: null, brief: null
+    indicators: null, regime: null, halving: null, funding: null, brief: null,
+    gold: null
   };
+  var alertDismissed = false;
 
   /* DOM refs */
   var gateEl    = document.getElementById('gate');
@@ -478,6 +553,11 @@ document.addEventListener('DOMContentLoaded', function() {
         title: 'Sector Rotation',
         body:  'As the business cycle progresses, capital flows between sectors systematically. Understanding the current cycle stage tells you which sectors institutional money is likely moving into.',
         rule:  'Early cycle: Financials, Consumer Discretionary. Mid cycle: Technology, Industrials. Late cycle: Energy, Materials, Utilities. Recession: Healthcare, Consumer Staples, Bonds. Follow the money, not the headlines.'
+      },
+      gold: {
+        title: 'Gold (XAU/USD)',
+        body:  'The oldest store of value. Gold rises when real interest rates fall, the dollar weakens, or uncertainty spikes. It\'s a barometer of institutional fear and confidence in fiat currency.',
+        rule:  'Rule of thumb: Gold up + stocks down = flight to safety. Gold up + stocks up = inflation hedge demand. Gold down + stocks up = risk-on, confidence in the system.'
       }
     };
     return tips;
@@ -1028,6 +1108,83 @@ document.addEventListener('DOMContentLoaded', function() {
     body.innerHTML = html;
   }
 
+  function renderGold() {
+    var g = state.gold;
+    if (!g) return;
+
+    var price   = safeGet(g, 'price', null);
+    var chg24   = safeGet(g, 'change24h', null);
+    var chg30   = safeGet(g, 'change30d', null);
+    var chg90   = safeGet(g, 'change90d', null);
+    var pctAth  = safeGet(g, 'pctFromAth', null);
+    var signal  = safeGet(g, 'macroSignal', null);
+    var sigColor= safeGet(g, 'macroColor', null) || '#fbbf24';
+    var source  = safeGet(g, 'source', null);
+    var ohlcv   = safeGet(g, 'ohlcv', null);
+
+    /* Price */
+    var priceEl = document.getElementById('gold-price');
+    if (price !== null) {
+      priceEl.textContent = '$' + Number(price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
+    /* 24h change */
+    var chg24El = document.getElementById('gold-change24h');
+    if (chg24 !== null) {
+      chg24El.textContent = fmtPct(chg24);
+      chg24El.className = 'gold-change ' + pctClass(chg24);
+    }
+
+    /* 30d / 90d / ATH */
+    var c30El = document.getElementById('gold-change30d');
+    if (chg30 !== null) { c30El.textContent = fmtPct(chg30); c30El.className = 'gold-change-val ' + pctClass(chg30); }
+    var c90El = document.getElementById('gold-change90d');
+    if (chg90 !== null) { c90El.textContent = fmtPct(chg90); c90El.className = 'gold-change-val ' + pctClass(chg90); }
+    var athEl = document.getElementById('gold-ath');
+    if (pctAth !== null) {
+      athEl.textContent = '+' + Number(pctAth).toFixed(1) + '% below';
+      athEl.className = 'gold-change-val amb';
+    }
+
+    /* Signal badge */
+    var sigWrap = document.getElementById('gold-signal-wrap');
+    if (signal) {
+      var hexToRgba = function(hex, a) {
+        var r = parseInt(hex.slice(1,3),16), gr = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+        return 'rgba(' + r + ',' + gr + ',' + b + ',' + a + ')';
+      };
+      sigWrap.innerHTML = '<div class="gold-signal-badge" style="background:' + hexToRgba(sigColor, 0.12) + ';color:' + escHtml(sigColor) + ';border:1px solid ' + hexToRgba(sigColor, 0.3) + '">'
+        + escHtml(signal) + '</div>';
+    }
+
+    /* Sparkline — last 30 candles */
+    var sparkEl = document.getElementById('gold-sparkline');
+    if (ohlcv && ohlcv.length) {
+      var closes = ohlcv.slice(-30).map(function(c) { return parseFloat(c.close); }).filter(function(v) { return !isNaN(v) && v > 0; });
+      if (closes.length >= 2) {
+        var W = 200, H = 44, pad = 2;
+        var mn = Math.min.apply(null, closes);
+        var mx = Math.max.apply(null, closes);
+        var rng = mx - mn || 1;
+        var pts = closes.map(function(v, i) {
+          var x = pad + (i / (closes.length - 1)) * (W - pad * 2);
+          var y = H - pad - ((v - mn) / rng) * (H - pad * 2);
+          return x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ');
+        var lineColor = closes[closes.length-1] >= closes[0] ? '#34d399' : '#f87171';
+        sparkEl.innerHTML = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" fill="none" xmlns="http://www.w3.org/2000/svg">'
+          + '<polyline points="' + pts + '" stroke="' + lineColor + '" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+          + '</svg>';
+      }
+    }
+
+    /* Source */
+    var srcEl = document.getElementById('gold-source');
+    if (source) srcEl.textContent = source;
+
+    setTimestamp('ts-gold', null);
+  }
+
   function renderNews() {
     var body = document.getElementById('news-body');
     var all = [];
@@ -1085,6 +1242,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function renderAlerts() {
     var bar = document.getElementById('alert-bar');
     if (!bar) return;
+    if (alertDismissed) { bar.style.display = 'none'; return; }
     var alerts = [];
 
     // RSI extremes
@@ -1122,7 +1280,15 @@ document.addEventListener('DOMContentLoaded', function() {
     bar.innerHTML = '<strong style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;">⚠ Alerts</strong>'
       + alerts.map(function(a) {
           return '<span class="alert-item"><span class="alert-dot ' + (a.dot||'') + '"></span>' + escHtml(a.text) + '</span>';
-        }).join('');
+        }).join('')
+      + '<button class="alert-dismiss" id="alert-dismiss-btn" title="Dismiss">×</button>';
+    var dismissBtn = document.getElementById('alert-dismiss-btn');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', function() {
+        alertDismissed = true;
+        bar.style.display = 'none';
+      });
+    }
   }
 
   function renderAll() {
@@ -1133,6 +1299,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderRegime();
     renderHalving();
     renderFunding();
+    renderGold();
     renderNews();
   }
 
@@ -1288,6 +1455,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetchOne('/api/indicators/halving',        'halving'),
       fetchOne('/api/indicators/funding',        'funding'),
       fetchOne('/api/indicators/daily-brief',    'brief'),
+      fetchOne('/api/macro/gold',                'gold'),
     ];
     Promise.all(calls).then(function() {
       lastFetchTime = new Date();
