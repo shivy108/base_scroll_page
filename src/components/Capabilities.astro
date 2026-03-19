@@ -1,0 +1,266 @@
+---
+---
+
+<section id="capabilities" class="relative py-24 md:py-32 px-6 overflow-hidden">
+  <div class="absolute inset-0 opacity-15 mesh-gradient" style="filter: blur(140px);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="section-header text-center mb-16">
+      <p class="text-accent-3 text-sm uppercase tracking-[0.3em] mb-4 font-mono">What We Can Do For You</p>
+      <h2 class="font-heading font-bold" style="font-size: clamp(2rem, 4vw, 3.5rem);">
+        <span class="scramble" data-text="How We">How We</span> <span class="scramble gradient-text" data-text="Help">Help</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- AI Integration -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: AI typing animation -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 overflow-hidden relative">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            <span class="text-[10px] font-mono text-text-muted uppercase tracking-wider">AI Agent</span>
+          </div>
+          <div class="ai-typing font-mono text-xs text-accent-2 leading-relaxed"></div>
+          <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">AI Integration</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Embed intelligence into your existing product — LLMs, on-device ML, and smart automation that actually ships.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['LLMs', 'Agents', 'On-Device ML'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- iOS & Android -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: phone frame with animated screen -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center overflow-hidden relative">
+          <div class="phone-demo flex gap-3 items-end">
+            <!-- Phone -->
+            <div class="w-8 h-14 rounded-lg border border-indigo-500/40 bg-indigo-500/10 flex flex-col overflow-hidden">
+              <div class="w-3 h-0.5 rounded-full bg-indigo-400/60 mx-auto mt-1.5"></div>
+              <div class="flex-1 m-0.5 rounded-md bg-indigo-500/20 flex items-center justify-center">
+                <div class="w-3 h-3 rounded-sm bg-indigo-400/60 animate-pulse"></div>
+              </div>
+            </div>
+            <!-- Ping -->
+            <div class="relative mb-2">
+              <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+              <div class="absolute inset-0 w-2 h-2 rounded-full bg-indigo-400 animate-ping opacity-60"></div>
+            </div>
+            <!-- Tablet -->
+            <div class="w-12 h-10 rounded-lg border border-purple-500/40 bg-purple-500/10 flex flex-col overflow-hidden">
+              <div class="flex-1 m-0.5 rounded-md bg-purple-500/20 grid grid-cols-2 gap-0.5 p-0.5">
+                <div class="rounded-sm bg-purple-400/40"></div>
+                <div class="rounded-sm bg-purple-400/20"></div>
+                <div class="rounded-sm bg-purple-400/20"></div>
+                <div class="rounded-sm bg-purple-400/40"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">iOS & Android Apps</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Native mobile apps built to platform standards — from a single Rust core with Swift and Kotlin frontends.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Swift', 'Kotlin', 'Rust Core'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Web3 & Crypto -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: animated blockchain nodes -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center overflow-hidden relative">
+          <div class="blockchain-demo flex items-center gap-2">
+            {[0,1,2,3,4].map((i) => (
+              <div class="flex items-center gap-2">
+                <div class="w-5 h-5 rounded border border-purple-500/60 bg-purple-500/20 flex items-center justify-center"
+                  style={"animation: pulse 2s ease-in-out " + (i * 0.3) + "s infinite;"}>
+                  <div class="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
+                </div>
+                {i < 4 && <div class="w-3 h-px bg-gradient-to-r from-purple-500/60 to-pink-500/60"></div>}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Web3 & Crypto</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Wallets, crypto payment gateways, trading systems, and on-chain execution. Solana and Ethereum native.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Solana', 'Ethereum', 'Smart Contracts'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Rapid MVP -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: progress bar filling -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-4 flex flex-col justify-center gap-3 overflow-hidden">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-mono text-text-muted">Idea → MVP</span>
+            <span class="text-[10px] font-mono text-accent-2 mvp-timer">0d</span>
+          </div>
+          <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+            <div class="mvp-bar h-full rounded-full bg-gradient-to-r from-accent-1 to-accent-4" style="width: 0%; transition: width 2s ease;"></div>
+          </div>
+          <div class="flex gap-2">
+            {['Scope', 'Design', 'Build', 'Ship'].map((s, i) => (
+              <div class="flex-1 text-center">
+                <div class={"mvp-step w-full h-1 rounded-full mb-1 " + (i === 0 ? "bg-accent-1" : "bg-white/10")}></div>
+                <span class="text-[8px] font-mono text-text-muted">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Rapid MVP</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Idea to testable product in weeks, not months. We scope tight, cut scope fat, and ship fast.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Fast', 'Lean', 'Shippable'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Backend & APIs -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: request/response animation -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 overflow-hidden font-mono text-[9px] leading-relaxed">
+          <div class="api-lines text-text-muted space-y-0.5">
+            <div class="text-green-400">POST /api/v1/deploy</div>
+            <div class="text-text-muted">→ 200 OK · 42ms</div>
+            <div class="text-accent-2">GET  /api/v1/status</div>
+            <div class="text-text-muted">→ 200 OK · 8ms</div>
+            <div class="text-accent-3 api-blink">▋</div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">Backend & APIs</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Scalable serverless infrastructure, real-time systems, and APIs that don't fall over. AWS native.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['AWS', 'Serverless', 'Real-time'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- FinTech -->
+      <div class="cap-card glow-border glass rounded-2xl p-7 group hover:shadow-2xl transition-all duration-500 flex flex-col gap-5">
+        <!-- Mini demo: chart animation -->
+        <div class="demo-area h-24 rounded-xl bg-black/30 border border-white/5 p-3 flex items-end gap-1 overflow-hidden">
+          {[40, 65, 45, 80, 60, 90, 70, 95, 75, 100].map((h, i) => (
+            <div class="flex-1 rounded-t-sm chart-bar"
+              style={"background: linear-gradient(to top, #6366f1, #ec4899); height: " + h + "%; opacity: 0.7; animation: chart-grow 1s ease " + (i * 0.08) + "s both;"}>
+            </div>
+          ))}
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary mb-2">FinTech & Banking</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">Secure, high-performance financial apps. We've built for private banks and consumer fintech alike.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Secure', 'Compliant', 'High-perf'].map(t => (
+            <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">{t}</span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes chart-grow {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to { transform: scaleY(1); transform-origin: bottom; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .api-blink { animation: blink 1s step-end infinite; }
+</style>
+
+<script>
+  // AI typing demo
+  const aiLines = [
+    '> Analysing user data...',
+    '> Pattern detected',
+    '> Generating response...',
+    '> Done. ✓',
+  ];
+
+  function runAiDemo(el: HTMLElement) {
+    let lineIndex = 0;
+    let charIndex = 0;
+    el.textContent = '';
+
+    function typeNext() {
+      if (lineIndex >= aiLines.length) {
+        setTimeout(() => {
+          el.textContent = '';
+          lineIndex = 0;
+          charIndex = 0;
+          typeNext();
+        }, 2000);
+        return;
+      }
+      const line = aiLines[lineIndex];
+      if (charIndex <= line.length) {
+        el.textContent = aiLines.slice(0, lineIndex).join('\n') + (lineIndex > 0 ? '\n' : '') + line.substring(0, charIndex);
+        charIndex++;
+        setTimeout(typeNext, 55);
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeNext, 400);
+      }
+    }
+    typeNext();
+  }
+
+  // MVP bar animation on scroll into view
+  function runMvpDemo(card: HTMLElement) {
+    const bar = card.querySelector('.mvp-bar') as HTMLElement;
+    const timer = card.querySelector('.mvp-timer') as HTMLElement;
+    if (!bar || !timer) return;
+    bar.style.width = '0%';
+    timer.textContent = '0d';
+    let day = 0;
+    const interval = setInterval(() => {
+      day += 2;
+      const pct = Math.min((day / 42) * 100, 100);
+      bar.style.width = pct + '%';
+      timer.textContent = day + 'd';
+      if (day >= 42) {
+        clearInterval(interval);
+        timer.textContent = '42d ✓';
+      }
+    }, 80);
+  }
+
+  // Observe and start demos when in view
+  const demoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const card = entry.target as HTMLElement;
+      const aiEl = card.querySelector('.ai-typing') as HTMLElement;
+      if (aiEl) runAiDemo(aiEl);
+      if (card.querySelector('.mvp-bar')) runMvpDemo(card);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.cap-card').forEach((c) => demoObserver.observe(c));
+</script>

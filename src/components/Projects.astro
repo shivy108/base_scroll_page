@@ -1,62 +1,81 @@
 ---
-import ProjectCard from './ProjectCard.astro';
-import { projects } from '../data/projects';
 ---
 
-<section id="projects" class="relative py-24 md:py-0">
-  <div class="max-w-7xl mx-auto px-6 md:px-0">
-    <!-- Section header — visible above the horizontal scroll on desktop -->
-    <div class="section-header mb-12 md:mb-0 md:absolute md:top-24 md:left-1/2 md:-translate-x-1/2 md:z-10 text-center md:w-full">
+<section id="projects" class="relative py-24 md:py-32 px-6 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 mesh-gradient" style="filter: blur(120px);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <!-- Section header -->
+    <div class="section-header text-center mb-16">
       <p class="text-accent-2 text-sm uppercase tracking-[0.3em] mb-4 font-mono">Track Record</p>
       <h2 class="font-heading font-bold" style="font-size: clamp(2rem, 4vw, 3.5rem);">
-        <span class="scramble" data-text="Featured">Featured</span> <span class="scramble gradient-text" data-text="Work">Work</span>
+        <span class="scramble" data-text="Companies">Companies</span> <span class="scramble gradient-text" data-text="We've Helped">We've Helped</span>
       </h2>
     </div>
-  </div>
 
-  <!-- Horizontal scroll container (desktop) -->
-  <div id="h-scroll-outer" class="hidden md:block relative" style="height: 500vh;">
-    <div id="h-scroll-inner" class="sticky top-0 h-screen flex items-center overflow-hidden">
-      <div id="h-scroll-track" class="flex gap-8 pl-[20vw] pr-[20vw] will-change-transform">
-        {projects.map((project, i) => (
-          <div class="shrink-0 w-[420px]">
-            <ProjectCard project={project} index={i} />
+    <!-- Minimal company cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- Coutts -->
+      <div class="company-card glass glow-border rounded-2xl p-6 group transition-all duration-500 hover:shadow-2xl">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(6,182,212,0.12);">
+            <svg class="w-5 h-5" style="color: #06b6d4;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+            </svg>
           </div>
-        ))}
+          <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-white/10 text-text-muted">Private Banking</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">Coutts</h3>
+        <p class="text-text-muted text-xs font-mono">Senior iOS Engineer</p>
+        <div class="mt-4 h-px bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
       </div>
+
+      <!-- Finch -->
+      <div class="company-card glass glow-border rounded-2xl p-6 group transition-all duration-500 hover:shadow-2xl">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(34,197,94,0.12);">
+            <svg class="w-5 h-5" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-white/10 text-text-muted">FinTech</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">Finch</h3>
+        <p class="text-text-muted text-xs font-mono">Founding Engineer</p>
+        <div class="mt-4 h-px bg-gradient-to-r from-green-500/30 to-transparent"></div>
+      </div>
+
+      <!-- Solana -->
+      <div class="company-card glass glow-border rounded-2xl p-6 group transition-all duration-500 hover:shadow-2xl">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(153,69,255,0.12);">
+            <svg class="w-5 h-5" style="color: #9945FF;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-white/10 text-text-muted">Web3 / DeFi</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">Solana Bots</h3>
+        <p class="text-text-muted text-xs font-mono">Creator & Architect</p>
+        <div class="mt-4 h-px bg-gradient-to-r from-purple-500/30 to-transparent"></div>
+      </div>
+
+      <!-- iOS & Android -->
+      <div class="company-card glass glow-border rounded-2xl p-6 group transition-all duration-500 hover:shadow-2xl">
+        <div class="flex items-start justify-between mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(99,102,241,0.12);">
+            <svg class="w-5 h-5" style="color: #6366f1;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-white/10 text-text-muted">Mobile</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">iOS & Android</h3>
+        <p class="text-text-muted text-xs font-mono">Native apps, shipped</p>
+        <div class="mt-4 h-px bg-gradient-to-r from-indigo-500/30 to-transparent"></div>
+      </div>
+
     </div>
   </div>
-
-  <!-- Vertical stack (mobile) -->
-  <div class="md:hidden px-6 grid grid-cols-1 gap-6">
-    {projects.map((project, i) => (
-      <ProjectCard project={project} index={i} />
-    ))}
-  </div>
 </section>
-
-<script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
-  const outer = document.getElementById('h-scroll-outer');
-  const track = document.getElementById('h-scroll-track');
-
-  if (outer && track) {
-    const totalWidth = track.scrollWidth - window.innerWidth;
-
-    gsap.to(track, {
-      x: -totalWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: outer,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-        pin: false,
-        invalidateOnRefresh: true,
-      },
-    });
-  }
-</script>
