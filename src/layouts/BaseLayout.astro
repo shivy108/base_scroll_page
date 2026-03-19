@@ -148,18 +148,7 @@ const {
         });
       }
 
-      // ---- Header glass on scroll ----
-      ScrollTrigger.create({
-        start: 100,
-        onEnter: () => {
-          const headerBg = document.getElementById('header-bg');
-          if (headerBg) gsap.to(headerBg, { opacity: 1, duration: 0.3 });
-        },
-        onLeaveBack: () => {
-          const headerBg = document.getElementById('header-bg');
-          if (headerBg) gsap.to(headerBg, { opacity: 0, duration: 0.3 });
-        },
-      });
+
 
       // ---- Hero animations ----
       const heroTl = gsap.timeline({ delay: 0.3 });
@@ -283,45 +272,7 @@ const {
         });
       });
 
-      // ---- Mobile menu ----
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuLines = menuToggle?.querySelectorAll('.menu-line');
 
-      if (menuToggle && mobileMenu) {
-        let isOpen = false;
-        menuToggle.addEventListener('click', () => {
-          isOpen = !isOpen;
-          if (isOpen) {
-            mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
-            mobileMenu.classList.add('pointer-events-auto', 'opacity-100');
-            menuLines?.[0]?.classList.add('rotate-45', 'translate-y-[7px]');
-            menuLines?.[1]?.classList.add('opacity-0');
-            menuLines?.[2]?.classList.add('-rotate-45', '-translate-y-[7px]');
-            lenis.stop();
-          } else {
-            mobileMenu.classList.add('pointer-events-none', 'opacity-0');
-            mobileMenu.classList.remove('pointer-events-auto', 'opacity-100');
-            menuLines?.[0]?.classList.remove('rotate-45', 'translate-y-[7px]');
-            menuLines?.[1]?.classList.remove('opacity-0');
-            menuLines?.[2]?.classList.remove('-rotate-45', '-translate-y-[7px]');
-            lenis.start();
-          }
-        });
-
-        // Close menu when clicking a link
-        mobileMenu.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', () => {
-            isOpen = false;
-            mobileMenu.classList.add('pointer-events-none', 'opacity-0');
-            mobileMenu.classList.remove('pointer-events-auto', 'opacity-100');
-            menuLines?.[0]?.classList.remove('rotate-45', 'translate-y-[7px]');
-            menuLines?.[1]?.classList.remove('opacity-0');
-            menuLines?.[2]?.classList.remove('-rotate-45', '-translate-y-[7px]');
-            lenis.start();
-          });
-        });
-      }
     </script>
   </body>
 </html>
