@@ -491,7 +491,8 @@ document.addEventListener('DOMContentLoaded', function() {
     indices: null, macro: null, yieldCurve: null, commodities: null,
     movers: null, newsFinance: null, newsCrypto: null,
     indicators: null, regime: null, halving: null, funding: null, brief: null,
-    gold: null
+    gold: null,
+    aiSummary: null, aiStocks: null, swissAi: null, aiNews: null, aiLeaders: null
   };
   var alertDismissed = false;
 
@@ -1355,6 +1356,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderFunding();
     renderGold();
     renderNews();
+    renderAiSection(state.aiSummary, state.aiStocks, state.swissAi, state.aiNews, state.aiLeaders);
   }
 
   /* ─────────────────────────────────────────────────────────
