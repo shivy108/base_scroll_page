@@ -418,6 +418,55 @@
       </div>
     </div>
 
+
+    <!-- AI Investments Section -->
+    <div class="card section" id="ai-section">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <div>
+          <div class="card-title" style="margin-bottom:4px;">AI Sector <span class="tip-icon" data-tid="ai">ⓘ</span></div>
+          <div id="ai-sector-signal" style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted);">Loading...</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:9px;color:var(--faint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Sector Momentum</div>
+          <div id="ai-momentum" style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--muted);">—</div>
+        </div>
+      </div>
+
+      <!-- AI Stocks + Switzerland (2 col) -->
+      <div class="grid-2" style="margin-bottom:20px;">
+        <!-- AI Stocks -->
+        <div>
+          <div style="font-size:9px;color:var(--faint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Top AI Companies</div>
+          <table class="data-table">
+            <thead><tr><th>Company</th><th>Role</th><th style="text-align:right">24h%</th></tr></thead>
+            <tbody id="ai-stocks-body"><tr><td colspan="3"><span class="sk" style="width:100%;height:80px;display:block"></span></td></tr></tbody>
+          </table>
+        </div>
+
+        <!-- Switzerland AI -->
+        <div>
+          <div style="font-size:9px;color:var(--faint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">🇨🇭 Switzerland AI Ecosystem</div>
+          <div id="swiss-ai-body" style="font-size:12px;color:var(--muted);line-height:1.7;">Loading...</div>
+        </div>
+      </div>
+
+      <!-- AI News + Thought Leaders (2 col) -->
+      <div class="grid-2">
+        <!-- AI News -->
+        <div>
+          <div style="font-size:9px;color:var(--faint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">AI News Feed <span class="panel-ts" id="ts-ai-news"></span></div>
+          <div class="news-list" id="ai-news-body"><div style="padding:12px 0;text-align:center"><span class="sk" style="width:80%;height:12px;display:block"></span></div></div>
+        </div>
+
+        <!-- Thought Leaders -->
+        <div>
+          <div style="font-size:9px;color:var(--faint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Key Voices to Follow</div>
+          <div id="ai-leaders-body" style="font-size:12px;"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- News Feed -->
     <div class="card section">
       <div class="card-title">News Feed <span class="panel-ts" id="ts-news"></span></div>
@@ -543,6 +592,11 @@ document.addEventListener('DOMContentLoaded', function() {
           ? 'Current stage: ' + cycle + '. The business cycle moves through 4 stages — Early, Mid, Late, and Recession — each with different asset winners.'
           : '4-stage economic framework: Early, Mid, Late, Recession. Different asset classes outperform at each stage.',
         rule:  'Early: Stocks lead (cyclicals, small caps, credit). Mid: Broad strength, peak equity returns. Late: Commodities, energy, defensives. Recession: Bonds, cash, gold, defensive equities. Sector rotation follows this pattern.'
+      },
+      ai: {
+        title: 'AI Investment Sector',
+        body: 'Tracks the top 10 companies driving the AI revolution — from chip makers (NVIDIA, TSMC) to model builders (Microsoft/OpenAI, Google/DeepMind, Meta) to AI platforms (Palantir, Oracle). AI is the dominant investment theme of this decade.',
+        rule: 'Rule of thumb: NVIDIA is the picks-and-shovels play — it wins whoever wins in AI models. When NVDA is up strongly, the whole AI sector is risk-on. Watch NVDA earnings as a sector health indicator.'
       },
       credit: {
         title: 'Credit Spread',
@@ -1455,6 +1509,11 @@ document.addEventListener('DOMContentLoaded', function() {
       fetchOne('/api/indicators/halving',        'halving'),
       fetchOne('/api/indicators/funding',        'funding'),
       fetchOne('/api/indicators/daily-brief',    'brief'),
+      fetchOne('/api/ai/summary',                   'aiSummary'),
+      fetchOne('/api/ai/stocks',                    'aiStocks'),
+      fetchOne('/api/ai/switzerland',               'swissAi'),
+      fetchOne('/api/ai/news',                      'aiNews'),
+      fetchOne('/api/ai/thought-leaders',           'aiLeaders'),
       fetchOne('/api/macro/gold',                'gold'),
     ];
     Promise.all(calls).then(function() {
@@ -1480,4 +1539,109 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </body>
-</html>
+  // ── AI TOOLTIP ──
+  // (injected via buildTips patch below)
+
+  // ── RENDER AI SECTION ──
+  function renderAiSection(summary, stocks, swissAi, aiNews, leaders) {
+    // Sector signal
+    if (summary) {
+      var sigEl = document.getElementById('ai-sector-signal');
+      var momEl = document.getElementById('ai-momentum');
+      if (sigEl) {
+        var sigColor = summary.sectorSignal === 'BULLISH' ? 'var(--green)' : summary.sectorSignal === 'BEARISH' ? 'var(--red)' : 'var(--amber)';
+        sigEl.innerHTML = '<span style="color:' + sigColor + ';font-weight:600;">' + escHtml(summary.sectorSignal) + '</span>'
+          + (summary.topGainer ? ' &nbsp;▲ <span style="color:var(--green)">' + escHtml(summary.topGainer.symbol) + ' +' + (summary.topGainer.change||0).toFixed(2) + '%</span>' : '')
+          + (summary.topLoser  ? ' &nbsp;▼ <span style="color:var(--red)">'   + escHtml(summary.topLoser.symbol)  + ' '  + (summary.topLoser.change||0).toFixed(2)  + '%</span>' : '');
+      }
+      if (momEl) {
+        var m = summary.sectorMomentum || 0;
+        momEl.textContent = (m > 0 ? '+' : '') + m.toFixed(2) + '%';
+        momEl.style.color = m > 0 ? 'var(--green)' : m < 0 ? 'var(--red)' : 'var(--muted)';
+      }
+    }
+
+    // AI Stocks table
+    var tbody = document.getElementById('ai-stocks-body');
+    if (tbody && stocks && stocks.stocks) {
+      tbody.innerHTML = stocks.stocks.map(function(s) {
+        var chg = s.change24h !== null ? parseFloat(s.change24h) : null;
+        return '<tr>'
+          + '<td><div class="sym">' + escHtml(s.symbol) + '</div><div style="font-size:10px;color:var(--faint);">' + escHtml(s.name) + '</div></td>'
+          + '<td style="font-size:10px;color:var(--faint);max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(s.role) + '</td>'
+          + '<td class="price-mono ' + (chg === null ? 'mut' : chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'mut') + '">'
+          + (chg !== null ? (chg > 0 ? '+' : '') + chg.toFixed(2) + '%' : 'N/A') + '</td>'
+          + '</tr>';
+      }).join('');
+    }
+
+    // Switzerland AI
+    var swissEl = document.getElementById('swiss-ai-body');
+    if (swissEl && swissAi) {
+      var html = '<p style="margin-bottom:10px;">' + escHtml(swissAi.overview) + '</p>';
+      html += '<div style="font-size:10px;color:var(--faint);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">Key Players</div>';
+      html += swissAi.keyPlayers.slice(0, 5).map(function(p) {
+        return '<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.025);">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+          + '<span style="color:var(--text);font-weight:500;">' + escHtml(p.name) + '</span>'
+          + '<span style="font-size:9px;color:var(--faint);font-family:JetBrains Mono,monospace;padding:2px 6px;background:rgba(255,255,255,0.04);border-radius:4px;">' + escHtml(p.type) + '</span>'
+          + '</div>'
+          + '<div style="font-size:11px;color:var(--muted);margin-top:2px;">' + escHtml(p.focus) + '</div>'
+          + '</div>';
+      }).join('');
+      if (swissAi.initiatives && swissAi.initiatives.length) {
+        html += '<div style="font-size:10px;color:var(--faint);letter-spacing:0.08em;text-transform:uppercase;margin:10px 0 6px;">National Initiatives</div>';
+        html += swissAi.initiatives.map(function(i) {
+          return '<div style="padding:4px 0;font-size:11px;"><span style="color:var(--amber);">' + escHtml(i.name) + '</span> — ' + escHtml(i.description) + '</div>';
+        }).join('');
+      }
+      swissEl.innerHTML = html;
+    }
+
+    // AI News feed
+    var newsEl = document.getElementById('ai-news-body');
+    if (newsEl && aiNews && aiNews.articles) {
+      if (!aiNews.articles.length) {
+        newsEl.innerHTML = '<div style="padding:12px 0;color:var(--muted);font-size:12px;">No AI news available</div>';
+      } else {
+        newsEl.innerHTML = aiNews.articles.slice(0, 12).map(function(a) {
+          var tagColor = a.relevanceTag === 'AI + Finance' ? 'var(--amber)' : 'var(--blue)';
+          return '<div class="news-item">'
+            + '<div class="news-dot" style="background:' + tagColor + '"></div>'
+            + '<div class="news-text">'
+            + '<a href="' + escHtml(a.url || '#') + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">'
+            + '<div class="news-headline">' + escHtml(a.title || '') + '</div>'
+            + '<div class="news-source">' + escHtml(a.source || '') + (a.relevanceTag ? ' · ' + a.relevanceTag : '') + '</div>'
+            + '</a></div></div>';
+        }).join('');
+        setTimestamp('ts-ai-news', aiNews.updatedAt);
+      }
+    }
+
+    // Thought leaders
+    var leadersEl = document.getElementById('ai-leaders-body');
+    if (leadersEl && leaders && leaders.leaders) {
+      leadersEl.innerHTML = leaders.leaders.slice(0, 6).map(function(l) {
+        return '<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.025);">'
+          + '<div style="display:flex;align-items:center;justify-content:space-between;">'
+          + '<div>'
+          + '<span style="color:var(--text);font-size:12px;font-weight:500;">' + escHtml(l.name) + '</span>'
+          + ' <span style="color:var(--blue);font-size:11px;font-family:JetBrains Mono,monospace;">' + escHtml(l.handle) + '</span>'
+          + '</div>'
+          + '</div>'
+          + '<div style="font-size:11px;color:var(--faint);margin-top:2px;">' + escHtml(l.role) + '</div>'
+          + '<div style="font-size:11px;color:var(--muted);margin-top:2px;">' + escHtml(l.why) + '</div>'
+          + '</div>';
+      }).join('');
+      // RSS feeds
+      if (leaders.rssFeeds) {
+        leadersEl.innerHTML += '<div style="margin-top:12px;font-size:9px;color:var(--faint);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">RSS Feeds</div>'
+          + leaders.rssFeeds.map(function(f) {
+            return '<div style="font-size:10px;padding:2px 0;">'
+              + '<a href="' + escHtml(f.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:none;">' + escHtml(f.name) + ' ↗</a>'
+              + '</div>';
+          }).join('');
+      }
+    }
+  }
+
