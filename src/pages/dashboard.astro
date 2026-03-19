@@ -437,9 +437,12 @@
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-  // ── AUTH ──
+  // ── CONSTANTS (must be at top — const does not hoist) ──
+  const BASE = '';  // API proxied via Caddy at /api/*
   const AUTH_KEY = 'dash_token';
   const AUTH_VAL = 'shivesh2026';
+
+  // ── AUTH ──
   const overlay = document.getElementById('auth-overlay');
   const app = document.getElementById('app');
 
@@ -518,7 +521,6 @@
   }
 
   // ── FETCH ──
-  const BASE = '';  // API proxied via Caddy at /api/*
   async function fetchJSON(path) {
     try {
       const r = await fetch(BASE + path, { cache: 'no-store' });
