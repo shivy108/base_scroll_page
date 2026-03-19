@@ -517,7 +517,7 @@
   }
 
   // ── FETCH ──
-  const BASE = 'http://localhost:3001';
+  const BASE = '';  // API proxied via Caddy at /api/*
   async function fetchJSON(path) {
     try {
       const r = await fetch(BASE + path, { cache: 'no-store' });
