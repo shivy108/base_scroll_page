@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Schedule — Workforce Scheduling App | shiv.rocks" description="Multi-platform workforce scheduling and team management app. Built with Rust, Swift, Kotlin, and AWS.">
+  <Header />
+  <main class="pt-32 pb-20 px-6">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Hero -->
+      <section class="text-center mb-24">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-mono text-text-secondary uppercase tracking-wider mb-8 schedule-hero-item">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Available on iOS & Android
+        </div>
+
+        <h1 class="font-heading font-bold text-5xl md:text-7xl lg:text-8xl mb-6 schedule-hero-item">
+          <span class="gradient-text">Schedule</span>
+        </h1>
+
+        <p class="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed schedule-hero-item">
+          Workforce scheduling and team management — built for teams that need to stay organised, assign tasks, and collaborate in real time.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 schedule-hero-item">
+          <a href="#" class="group inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-accent-1 to-accent-3 text-white font-heading font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent-2/25 hover:scale-[1.02]">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
+          </a>
+          <a href="#" class="group inline-flex items-center gap-3 px-8 py-4 rounded-xl glass text-text-primary font-heading font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/10 hover:scale-[1.02]">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+            Google Play
+          </a>
+        </div>
+      </section>
+
+      <!-- App Preview -->
+      <section class="mb-32">
+        <div class="relative max-w-4xl mx-auto rounded-3xl glass-strong p-1 schedule-reveal">
+          <div class="rounded-[22px] overflow-hidden bg-bg-secondary aspect-video flex items-center justify-center">
+            <div class="text-center">
+              <div class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-accent-1 to-accent-3 flex items-center justify-center">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+              </div>
+              <p class="text-text-muted font-mono text-sm">App screenshots coming soon</p>
+            </div>
+          </div>
+          <!-- Decorative glow -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-accent-1/20 via-accent-3/20 to-accent-5/20 rounded-3xl blur-xl -z-10"></div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="mb-32">
+        <div class="text-center mb-16 section-header">
+          <span class="text-xs font-mono uppercase tracking-[0.3em] text-accent-2 mb-4 block">Features</span>
+          <h2 class="font-heading font-bold text-3xl md:text-5xl">Everything your team needs</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Feature 1 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-accent-1/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-accent-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Team Management</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">Create teams, invite members with 6-character codes, and manage roles. Admins have full control over team settings.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-accent-3/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-accent-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15a2.25 2.25 0 0 1 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Task Scheduling</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">Create, assign, and track tasks with a full lifecycle — from open to completed. Set deadlines, priority, and assignee limits.</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-accent-6/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-accent-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Smart Reminders</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">Never miss a deadline. Push notifications keep your team on track with timely reminders for upcoming and overdue tasks.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Offline First</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">Works without an internet connection. All data is stored locally and syncs when you're back online. No interruptions.</p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Secure by Default</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">End-to-end encryption for auth tokens, secure Keychain storage on iOS, and encrypted preferences on Android. Your data stays yours.</p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card glass rounded-2xl p-8 transition-all duration-500 hover:border-white/20 hover:shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-accent-5/20 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-accent-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-2">Native Experience</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">Built natively for each platform — SwiftUI on iOS, Jetpack Compose on Android. No compromises on performance or feel.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="mb-32">
+        <div class="text-center mb-16 section-header">
+          <span class="text-xs font-mono uppercase tracking-[0.3em] text-accent-2 mb-4 block">Under the Hood</span>
+          <h2 class="font-heading font-bold text-3xl md:text-5xl">Built different</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div class="tech-card text-center glass rounded-2xl p-8">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-orange-500/20 flex items-center justify-center">
+              <span class="text-2xl font-bold text-orange-400 font-mono">Rs</span>
+            </div>
+            <h3 class="font-heading font-bold mb-2">Rust Core</h3>
+            <p class="text-text-secondary text-sm">Shared business logic and SQLite storage, compiled to native binaries via UniFFI for both platforms.</p>
+          </div>
+
+          <div class="tech-card text-center glass rounded-2xl p-8">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold mb-2">Native Frontends</h3>
+            <p class="text-text-secondary text-sm">SwiftUI + TCA on iOS, Jetpack Compose + Komposable Architecture on Android. No cross-platform frameworks.</p>
+          </div>
+
+          <div class="tech-card text-center glass rounded-2xl p-8">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+              <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold mb-2">Serverless Backend</h3>
+            <p class="text-text-secondary text-sm">AWS Lambda, DynamoDB, Cognito, and SNS. Scales automatically, costs nothing at rest.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Legal links -->
+      <section class="text-center">
+        <div class="flex items-center justify-center gap-6 text-sm font-mono text-text-muted">
+          <a href="/privacy" class="hover:text-text-primary transition-colors duration-300">Privacy Policy</a>
+          <span class="text-white/10">|</span>
+          <a href="/terms" class="hover:text-text-primary transition-colors duration-300">Terms of Service</a>
+          <span class="text-white/10">|</span>
+          <a href="mailto:support@shiv.rocks" class="hover:text-text-primary transition-colors duration-300">Support</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero stagger animation
+  const heroTl = gsap.timeline({ delay: 0.3 });
+  gsap.utils.toArray<HTMLElement>('.schedule-hero-item').forEach((el, i) => {
+    heroTl.from(el, { opacity: 0, y: 30, duration: 0.7, ease: 'power3.out' }, i * 0.15);
+  });
+
+  // App preview reveal
+  gsap.from('.schedule-reveal', {
+    opacity: 0,
+    y: 60,
+    scale: 0.97,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.schedule-reveal', start: 'top 80%' },
+  });
+
+  // Feature cards
+  gsap.utils.toArray<HTMLElement>('.feature-card').forEach((card, i) => {
+    gsap.from(card, {
+      opacity: 0, y: 50, scale: 0.95, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' },
+      delay: i * 0.08,
+    });
+  });
+
+  // Tech cards
+  gsap.utils.toArray<HTMLElement>('.tech-card').forEach((card, i) => {
+    gsap.from(card, {
+      opacity: 0, y: 50, scale: 0.95, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' },
+      delay: i * 0.1,
+    });
+  });
+
+  // Section headers
+  gsap.utils.toArray<HTMLElement>('.section-header').forEach((el) => {
+    gsap.from(el, {
+      opacity: 0, y: 60, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reverse' },
+    });
+  });
+</script>

@@ -1,0 +1,97 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+---
+
+<div
+  class="project-card group relative overflow-hidden rounded-2xl glass cursor-default transition-all duration-500 hover:shadow-2xl hover:border-white/20"
+  data-index={index}
+  style={`--accent: ${project.accentColor};`}
+>
+  <!-- Gradient abstract background -->
+  <div class="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-700">
+    <div
+      class="absolute inset-0"
+      style={`background: radial-gradient(circle at 20% 80%, ${project.accentColor}40 0%, transparent 50%), radial-gradient(circle at 80% 20%, ${project.accentColor}25 0%, transparent 50%);`}
+    ></div>
+  </div>
+
+  <!-- Animated gradient orb -->
+  <div
+    class="absolute -top-20 -right-20 w-60 h-60 rounded-full opacity-10 group-hover:opacity-20 transition-all duration-700 group-hover:scale-110"
+    style={`background: radial-gradient(circle, ${project.accentColor}, transparent 70%);`}
+  ></div>
+
+  <!-- Content -->
+  <div class="relative z-10 h-full flex flex-col p-8 md:p-10">
+    <!-- Top: Icon + Category -->
+    <div class="flex items-start justify-between mb-8">
+      <div
+        class="w-14 h-14 rounded-xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110"
+        style={`background: ${project.accentColor}20;`}
+      >
+        {project.icon === 'bank' && (
+          <svg class="w-7 h-7" style={`color: ${project.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+          </svg>
+        )}
+        {project.icon === 'rocket' && (
+          <svg class="w-7 h-7" style={`color: ${project.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+          </svg>
+        )}
+        {project.icon === 'calendar' && (
+          <svg class="w-7 h-7" style={`color: ${project.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+          </svg>
+        )}
+        {project.icon === 'bot' && (
+          <svg class="w-7 h-7" style={`color: ${project.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+          </svg>
+        )}
+      </div>
+
+      <!-- Category badge -->
+      <span class="px-3 py-1 text-[10px] font-mono uppercase tracking-wider rounded-full border border-white/10 bg-white/5 text-text-secondary">
+        {project.category}
+      </span>
+    </div>
+
+    <!-- Middle: Title + Role -->
+    <div class="mb-4">
+      <h3 class="font-heading font-bold text-2xl mb-1 text-text-primary group-hover:gradient-text transition-all duration-300">
+        {project.title}
+      </h3>
+      <p class="text-sm font-mono" style={`color: ${project.accentColor};`}>
+        {project.role}
+      </p>
+    </div>
+
+    <!-- Description -->
+    <p class="text-text-secondary text-sm leading-relaxed mb-auto pb-6">
+      {project.description}
+    </p>
+
+    <!-- Tech stack -->
+    <div class="flex flex-wrap gap-2">
+      {project.tech.map((t) => (
+        <span class="px-2.5 py-1 text-[11px] font-mono bg-white/5 rounded-md border border-white/10 text-text-secondary">
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- Accent glow on hover -->
+  <div
+    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+    style={`box-shadow: inset 0 0 80px -20px ${project.accentColor}33, 0 0 40px -20px ${project.accentColor}22;`}
+  ></div>
+</div>

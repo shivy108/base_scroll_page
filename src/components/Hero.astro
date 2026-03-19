@@ -1,0 +1,54 @@
+---
+---
+
+<section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- Animated mesh gradient background -->
+  <div
+    id="mesh-gradient"
+    class="absolute inset-0 opacity-30 mesh-gradient"
+    style="filter: blur(100px);"
+  ></div>
+
+  <!-- Dot grid overlay -->
+  <div class="absolute inset-0 opacity-[0.05] dot-grid"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6">
+    <p class="hero-label text-text-muted text-sm uppercase tracking-[0.3em] mb-6 font-mono">
+      Mobile & AI Engineering
+    </p>
+
+    <h1 class="hero-title font-display leading-none mb-8" style="font-size: clamp(3.5rem, 9vw, 9rem);">
+      <span class="text-text-primary">shiv</span><span class="gradient-text">.</span><span class="gradient-text">rocks</span>
+    </h1>
+
+    <p class="hero-subtitle text-text-secondary font-heading font-light max-w-2xl mx-auto mb-14" style="font-size: clamp(1.05rem, 1.8vw, 1.35rem);">
+      Building world-class mobile experiences with React Native, native iOS, and AI-powered solutions.
+    </p>
+
+    <!-- CTA buttons -->
+    <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href="#projects"
+        class="group relative px-8 py-4 overflow-hidden rounded-xl"
+        data-magnetic="0.2"
+      >
+        <span class="absolute inset-0 bg-gradient-to-r from-accent-1 via-accent-3 to-accent-4 transition-transform duration-500 group-hover:scale-105"></span>
+        <span class="relative font-heading font-semibold text-white text-sm tracking-wide">See Our Work</span>
+      </a>
+      <a
+        href="#contact"
+        class="glass px-8 py-4 rounded-xl font-heading font-medium text-text-primary text-sm tracking-wide hover:bg-white/10 transition-colors duration-300"
+        data-magnetic="0.2"
+      >
+        Start a Project
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div id="scroll-indicator" class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+    <span class="text-text-muted text-xs uppercase tracking-[0.2em] font-mono">Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-accent-2 to-transparent animate-pulse"></div>
+  </div>
+</section>

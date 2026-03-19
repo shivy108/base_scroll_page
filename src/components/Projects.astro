@@ -1,0 +1,23 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+
+<section id="projects" class="relative py-24 md:py-40 px-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section header -->
+    <div class="section-header mb-16 md:mb-20 text-center">
+      <p class="text-accent-2 text-sm uppercase tracking-[0.3em] mb-4 font-mono">Track Record</p>
+      <h2 class="font-heading font-bold" style="font-size: clamp(2rem, 4vw, 3.5rem);">
+        Featured <span class="gradient-text">Work</span>
+      </h2>
+    </div>
+
+    <!-- 3-column equal grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {projects.map((project, i) => (
+        <ProjectCard project={project} index={i} />
+      ))}
+    </div>
+  </div>
+</section>

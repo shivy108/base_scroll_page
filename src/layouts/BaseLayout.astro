@@ -1,0 +1,304 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "shiv.rocks | Mobile & AI Engineering",
+  description = "Mobile development specialist — React Native, native iOS, AI integration, and full-stack solutions."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="google-site-verification" content="fw2mLPLbDwf4euR_w2ApimbxNMG1Jwo9dbGU0CMWvWU" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/me.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Custom cursor (desktop only) -->
+    <div
+      id="cursor"
+      class="fixed w-5 h-5 rounded-full border-2 border-accent-2 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+      style="top: 0; left: 0;"
+    ></div>
+    <div
+      id="cursor-dot"
+      class="fixed w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[9999] hidden md:block"
+      style="top: 0; left: 0;"
+    ></div>
+
+    <!-- Grain overlay -->
+    <div class="grain fixed inset-0 pointer-events-none z-[9998] opacity-[0.03]"></div>
+
+    <slot />
+
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import Lenis from 'lenis';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Smooth scroll
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+          if (href) {
+            const target = document.querySelector(href);
+            if (target) {
+              lenis.scrollTo(target as HTMLElement, { offset: -80 });
+            }
+          }
+        });
+      });
+
+      // ---- Custom cursor ----
+      const cursor = document.getElementById('cursor');
+      const cursorDot = document.getElementById('cursor-dot');
+
+      if (cursor && cursorDot) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          cursorDot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+        });
+
+        function animateCursor() {
+          cursorX += (mouseX - cursorX) * 0.15;
+          cursorY += (mouseY - cursorY) * 0.15;
+          cursor!.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Scale cursor on interactive elements
+        document.querySelectorAll('a, button, .project-card').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            cursor!.style.width = '50px';
+            cursor!.style.height = '50px';
+            cursor!.style.borderColor = 'rgba(168, 85, 247, 0.5)';
+            cursor!.style.transition = 'width 0.3s, height 0.3s, border-color 0.3s';
+          });
+          el.addEventListener('mouseleave', () => {
+            cursor!.style.width = '20px';
+            cursor!.style.height = '20px';
+            cursor!.style.borderColor = '';
+            cursor!.style.transition = 'width 0.3s, height 0.3s, border-color 0.3s';
+          });
+        });
+      }
+
+      // ---- Header glass on scroll ----
+      ScrollTrigger.create({
+        start: 100,
+        onEnter: () => {
+          const headerBg = document.getElementById('header-bg');
+          if (headerBg) gsap.to(headerBg, { opacity: 1, duration: 0.3 });
+        },
+        onLeaveBack: () => {
+          const headerBg = document.getElementById('header-bg');
+          if (headerBg) gsap.to(headerBg, { opacity: 0, duration: 0.3 });
+        },
+      });
+
+      // ---- Hero animations ----
+      const heroTl = gsap.timeline({ delay: 0.3 });
+      heroTl
+        .from('.hero-label', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' })
+        .from('.hero-title', { opacity: 0, y: 40, duration: 1, ease: 'power3.out' }, '-=0.5')
+        .from('.hero-subtitle', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+        .from('.hero-cta', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+        .from('#scroll-indicator', { opacity: 0, duration: 0.6 }, '-=0.3');
+
+      // Mesh gradient parallax
+      gsap.to('#mesh-gradient', {
+        yPercent: 30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+
+      // ---- Service cards scroll reveal ----
+      gsap.utils.toArray<HTMLElement>('.service-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 60,
+          scale: 0.95,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          delay: i * 0.12,
+        });
+      });
+
+      // ---- Project cards scroll reveal ----
+      gsap.utils.toArray<HTMLElement>('.project-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 80,
+          scale: 0.95,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          delay: i * 0.08,
+        });
+      });
+
+      // ---- Section headers reveal ----
+      gsap.utils.toArray<HTMLElement>('.section-header').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 60,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      });
+
+      // ---- Contact section reveal ----
+      gsap.from('#contact-content', {
+        opacity: 0,
+        scale: 0.9,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#contact',
+          start: 'top 70%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      // ---- Contact cards stagger ----
+      gsap.utils.toArray<HTMLElement>('.contact-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 40,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          delay: i * 0.15,
+        });
+      });
+
+      // ---- Magnetic elements ----
+      document.querySelectorAll('[data-magnetic]').forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        const strength = parseFloat(htmlEl.dataset.magnetic || '0.3');
+
+        htmlEl.addEventListener('mousemove', (e: MouseEvent) => {
+          const rect = htmlEl.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(htmlEl, {
+            x: x * strength,
+            y: y * strength,
+            duration: 0.4,
+            ease: 'power2.out',
+          });
+        });
+
+        htmlEl.addEventListener('mouseleave', () => {
+          gsap.to(htmlEl, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+        });
+      });
+
+      // ---- Mobile menu ----
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuLines = menuToggle?.querySelectorAll('.menu-line');
+
+      if (menuToggle && mobileMenu) {
+        let isOpen = false;
+        menuToggle.addEventListener('click', () => {
+          isOpen = !isOpen;
+          if (isOpen) {
+            mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
+            mobileMenu.classList.add('pointer-events-auto', 'opacity-100');
+            menuLines?.[0]?.classList.add('rotate-45', 'translate-y-[7px]');
+            menuLines?.[1]?.classList.add('opacity-0');
+            menuLines?.[2]?.classList.add('-rotate-45', '-translate-y-[7px]');
+            lenis.stop();
+          } else {
+            mobileMenu.classList.add('pointer-events-none', 'opacity-0');
+            mobileMenu.classList.remove('pointer-events-auto', 'opacity-100');
+            menuLines?.[0]?.classList.remove('rotate-45', 'translate-y-[7px]');
+            menuLines?.[1]?.classList.remove('opacity-0');
+            menuLines?.[2]?.classList.remove('-rotate-45', '-translate-y-[7px]');
+            lenis.start();
+          }
+        });
+
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            isOpen = false;
+            mobileMenu.classList.add('pointer-events-none', 'opacity-0');
+            mobileMenu.classList.remove('pointer-events-auto', 'opacity-100');
+            menuLines?.[0]?.classList.remove('rotate-45', 'translate-y-[7px]');
+            menuLines?.[1]?.classList.remove('opacity-0');
+            menuLines?.[2]?.classList.remove('-rotate-45', '-translate-y-[7px]');
+            lenis.start();
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

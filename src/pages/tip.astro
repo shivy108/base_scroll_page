@@ -1,0 +1,494 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Tip | shiv.rocks" description="Send a crypto tip via Solana or Ethereum">
+  <main class="relative min-h-screen flex items-center justify-center px-6 py-16">
+    <!-- Mesh gradient background -->
+    <div class="absolute inset-0 opacity-20 mesh-gradient" style="filter: blur(120px);"></div>
+
+    <div class="relative z-10 w-full max-w-md">
+      <!-- Glass card -->
+      <div class="glass-strong rounded-3xl p-8 md:p-10">
+        <!-- Title -->
+        <div class="text-center mb-8">
+          <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2">
+            Buy me a coffee <span class="inline-block">&#9749;</span>
+          </h1>
+          <p class="text-text-secondary text-sm font-heading">Support the work with crypto</p>
+        </div>
+
+        <!-- Chain toggle -->
+        <div class="flex rounded-xl overflow-hidden border border-white/10 mb-6">
+          <button
+            id="tab-solana"
+            class="chain-tab flex-1 py-3 text-sm font-heading font-medium transition-all duration-300 bg-white/10 text-text-primary"
+            data-chain="solana"
+          >
+            &#9678; Solana
+          </button>
+          <button
+            id="tab-ethereum"
+            class="chain-tab flex-1 py-3 text-sm font-heading font-medium transition-all duration-300 text-text-muted hover:text-text-secondary"
+            data-chain="ethereum"
+          >
+            &#9671; Ethereum
+          </button>
+        </div>
+
+        <!-- Amount presets -->
+        <div class="mb-6">
+          <p class="text-text-muted text-xs font-mono uppercase tracking-wider mb-3">Amount</p>
+          <div id="amount-buttons" class="grid grid-cols-4 gap-2">
+            <!-- Populated by JS -->
+          </div>
+          <!-- Custom amount input (hidden by default) -->
+          <div id="custom-input-wrap" class="hidden mt-2">
+            <input
+              id="custom-amount"
+              type="number"
+              step="any"
+              min="0"
+              placeholder="Enter amount"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-text-primary font-mono text-sm focus:outline-none focus:border-accent-2/50 transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Connect / Send button area -->
+        <div id="wallet-area">
+          <button
+            id="btn-connect"
+            class="w-full py-4 rounded-xl font-heading font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-accent-1 via-accent-2 to-accent-3 hover:opacity-90 text-white cursor-pointer"
+          >
+            Connect Wallet
+          </button>
+        </div>
+
+        <!-- Connected state (hidden by default) -->
+        <div id="connected-area" class="hidden">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+              <span id="wallet-address" class="text-text-secondary text-xs font-mono"></span>
+            </div>
+            <button id="btn-disconnect" class="text-text-muted text-xs font-mono hover:text-accent-5 transition-colors cursor-pointer">
+              Disconnect
+            </button>
+          </div>
+          <button
+            id="btn-send"
+            class="w-full py-4 rounded-xl font-heading font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-accent-1 via-accent-2 to-accent-3 hover:opacity-90 text-white cursor-pointer"
+          >
+            Send
+          </button>
+        </div>
+
+        <!-- Status area -->
+        <div id="status-area" class="mt-4 hidden">
+          <div id="status-message" class="text-sm font-mono text-center py-3 px-4 rounded-xl"></div>
+        </div>
+
+        <!-- Install wallet prompt -->
+        <div id="install-prompt" class="mt-4 hidden">
+          <div class="text-center text-sm">
+            <p class="text-text-muted mb-2">Wallet not detected</p>
+            <a id="install-link" href="#" target="_blank" rel="noreferrer" class="text-accent-2 hover:text-accent-3 font-mono text-xs transition-colors">
+              Install wallet &nearr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    import {
+      Connection,
+      PublicKey,
+      Transaction,
+      SystemProgram,
+      LAMPORTS_PER_SOL,
+    } from '@solana/web3.js';
+    import { BrowserProvider, parseEther } from 'ethers';
+
+    // --- Config ---
+    const RECEIVING_ETH = '0x1F245dDDa00707747E8F268Cdae4Ae27BFe8F422';
+    const RECEIVING_SOL = '4KuDHi53eVxKuiEn1XzEkxeZczzheYuDU2W6Q7bHBVfk';
+
+    const PRESETS: Record<string, number[]> = {
+      solana: [0.05, 0.1, 0.5, 1],
+      ethereum: [0.005, 0.01, 0.05, 0.1],
+    };
+
+    const UNITS: Record<string, string> = {
+      solana: 'SOL',
+      ethereum: 'ETH',
+    };
+
+    // --- State ---
+    let chain: 'solana' | 'ethereum' = 'solana';
+    let selectedAmount: number | null = null;
+    let isCustom = false;
+    let connectedAddress: string | null = null;
+
+    // --- Elements ---
+    const tabSolana = document.getElementById('tab-solana')!;
+    const tabEthereum = document.getElementById('tab-ethereum')!;
+    const amountButtons = document.getElementById('amount-buttons')!;
+    const customInputWrap = document.getElementById('custom-input-wrap')!;
+    const customAmountInput = document.getElementById('custom-amount') as HTMLInputElement;
+    const btnConnect = document.getElementById('btn-connect')!;
+    const walletArea = document.getElementById('wallet-area')!;
+    const connectedArea = document.getElementById('connected-area')!;
+    const walletAddress = document.getElementById('wallet-address')!;
+    const btnDisconnect = document.getElementById('btn-disconnect')!;
+    const btnSend = document.getElementById('btn-send')!;
+    const statusArea = document.getElementById('status-area')!;
+    const statusMessage = document.getElementById('status-message')!;
+    const installPrompt = document.getElementById('install-prompt')!;
+    const installLink = document.getElementById('install-link') as HTMLAnchorElement;
+
+    // --- Helpers ---
+    function truncateAddress(addr: string): string {
+      return addr.slice(0, 6) + '...' + addr.slice(-4);
+    }
+
+    function showStatus(msg: string, type: 'info' | 'success' | 'error') {
+      statusArea.classList.remove('hidden');
+      statusMessage.textContent = msg;
+      statusMessage.className = 'text-sm font-mono text-center py-3 px-4 rounded-xl';
+      if (type === 'success') {
+        statusMessage.classList.add('bg-green-500/10', 'text-green-400');
+      } else if (type === 'error') {
+        statusMessage.classList.add('bg-red-500/10', 'text-red-400');
+      } else {
+        statusMessage.classList.add('bg-white/5', 'text-text-secondary');
+      }
+    }
+
+    function showStatusWithLink(msg: string, url: string, linkText: string) {
+      statusArea.classList.remove('hidden');
+      statusMessage.className = 'text-sm font-mono text-center py-3 px-4 rounded-xl bg-green-500/10 text-green-400';
+      statusMessage.innerHTML = `${msg} <a href="${url}" target="_blank" rel="noreferrer" class="underline hover:text-green-300">${linkText} &nearr;</a>`;
+    }
+
+    function clearStatus() {
+      statusArea.classList.add('hidden');
+      statusMessage.textContent = '';
+    }
+
+    function setButtonLoading(btn: HTMLElement, loading: boolean, text: string) {
+      if (loading) {
+        btn.innerHTML = `<span class="inline-flex items-center gap-2"><svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>${text}</span>`;
+        btn.classList.add('opacity-70', 'pointer-events-none');
+      } else {
+        btn.textContent = text;
+        btn.classList.remove('opacity-70', 'pointer-events-none');
+      }
+    }
+
+    // --- Amount buttons ---
+    function renderAmounts() {
+      const presets = PRESETS[chain];
+      const unit = UNITS[chain];
+      amountButtons.innerHTML = '';
+
+      presets.forEach((amt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'amount-btn py-2.5 rounded-xl text-sm font-mono transition-all duration-200 cursor-pointer border border-white/10 hover:border-accent-2/40 text-text-secondary hover:text-text-primary';
+        btn.textContent = `${amt} ${unit}`;
+        btn.dataset.amount = String(amt);
+        if (i === 1 && !isCustom && selectedAmount === null) {
+          // Default select second option
+          selectedAmount = amt;
+          btn.classList.add('bg-accent-2/20', 'border-accent-2/40', 'text-text-primary');
+          btn.classList.remove('border-white/10', 'text-text-secondary');
+        }
+        btn.addEventListener('click', () => selectAmount(amt));
+        amountButtons.appendChild(btn);
+      });
+
+      // Custom button
+      const customBtn = document.createElement('button');
+      customBtn.className = 'amount-btn py-2.5 rounded-xl text-sm font-mono transition-all duration-200 cursor-pointer border border-white/10 hover:border-accent-2/40 text-text-secondary hover:text-text-primary';
+      customBtn.textContent = 'Custom';
+      customBtn.addEventListener('click', () => {
+        isCustom = true;
+        selectedAmount = null;
+        highlightAmountButton(null);
+        customBtn.classList.add('bg-accent-2/20', 'border-accent-2/40', 'text-text-primary');
+        customBtn.classList.remove('border-white/10', 'text-text-secondary');
+        customInputWrap.classList.remove('hidden');
+        customAmountInput.focus();
+      });
+      amountButtons.appendChild(customBtn);
+
+      // Re-highlight if amount matches
+      if (selectedAmount !== null && !isCustom) {
+        highlightAmountButton(selectedAmount);
+      }
+
+      if (!isCustom) {
+        customInputWrap.classList.add('hidden');
+      }
+
+      updateSendButton();
+    }
+
+    function selectAmount(amt: number) {
+      isCustom = false;
+      selectedAmount = amt;
+      customInputWrap.classList.add('hidden');
+      highlightAmountButton(amt);
+      updateSendButton();
+    }
+
+    function highlightAmountButton(amt: number | null) {
+      amountButtons.querySelectorAll('.amount-btn').forEach((btn) => {
+        const el = btn as HTMLElement;
+        const isMatch = amt !== null && el.dataset.amount === String(amt);
+        if (isMatch) {
+          el.classList.add('bg-accent-2/20', 'border-accent-2/40', 'text-text-primary');
+          el.classList.remove('border-white/10', 'text-text-secondary');
+        } else {
+          el.classList.remove('bg-accent-2/20', 'border-accent-2/40', 'text-text-primary');
+          el.classList.add('border-white/10', 'text-text-secondary');
+        }
+      });
+    }
+
+    customAmountInput.addEventListener('input', () => {
+      const val = parseFloat(customAmountInput.value);
+      selectedAmount = isNaN(val) || val <= 0 ? null : val;
+      updateSendButton();
+    });
+
+    function getAmount(): number | null {
+      if (isCustom) {
+        const val = parseFloat(customAmountInput.value);
+        return isNaN(val) || val <= 0 ? null : val;
+      }
+      return selectedAmount;
+    }
+
+    function updateSendButton() {
+      const amt = getAmount();
+      const unit = UNITS[chain];
+      if (amt !== null) {
+        btnSend.textContent = `Send ${amt} ${unit}`;
+      } else {
+        btnSend.textContent = `Send ${unit}`;
+      }
+    }
+
+    // --- Chain tabs ---
+    function switchChain(newChain: 'solana' | 'ethereum') {
+      if (chain === newChain) return;
+      chain = newChain;
+      selectedAmount = null;
+      isCustom = false;
+
+      // Update tabs
+      const tabs = [tabSolana, tabEthereum];
+      tabs.forEach((tab) => {
+        if (tab.dataset.chain === chain) {
+          tab.classList.add('bg-white/10', 'text-text-primary');
+          tab.classList.remove('text-text-muted');
+        } else {
+          tab.classList.remove('bg-white/10', 'text-text-primary');
+          tab.classList.add('text-text-muted');
+        }
+      });
+
+      // Disconnect if switching chains
+      disconnect();
+      clearStatus();
+      installPrompt.classList.add('hidden');
+      renderAmounts();
+    }
+
+    tabSolana.addEventListener('click', () => switchChain('solana'));
+    tabEthereum.addEventListener('click', () => switchChain('ethereum'));
+
+    // --- Wallet connection ---
+    function disconnect() {
+      connectedAddress = null;
+      walletArea.classList.remove('hidden');
+      connectedArea.classList.add('hidden');
+    }
+
+    function showConnected(address: string) {
+      connectedAddress = address;
+      walletAddress.textContent = truncateAddress(address);
+      walletArea.classList.add('hidden');
+      connectedArea.classList.remove('hidden');
+      installPrompt.classList.add('hidden');
+      updateSendButton();
+    }
+
+    btnDisconnect.addEventListener('click', () => {
+      disconnect();
+      clearStatus();
+    });
+
+    // Connect wallet
+    btnConnect.addEventListener('click', async () => {
+      clearStatus();
+      installPrompt.classList.add('hidden');
+
+      if (chain === 'solana') {
+        await connectSolana();
+      } else {
+        await connectEthereum();
+      }
+    });
+
+    async function connectSolana() {
+      const provider = (window as any).phantom?.solana;
+      if (!provider?.isPhantom) {
+        installPrompt.classList.remove('hidden');
+        installLink.href = 'https://phantom.app/';
+        installLink.textContent = 'Install Phantom wallet';
+        return;
+      }
+
+      try {
+        setButtonLoading(btnConnect, true, 'Connecting...');
+        const resp = await provider.connect();
+        const pubkey = resp.publicKey.toString();
+        showConnected(pubkey);
+      } catch (err: any) {
+        if (err.code === 4001 || err.message?.includes('reject')) {
+          showStatus('Connection rejected', 'error');
+        } else {
+          showStatus('Failed to connect', 'error');
+        }
+      } finally {
+        setButtonLoading(btnConnect, false, 'Connect Wallet');
+      }
+    }
+
+    async function connectEthereum() {
+      const provider = (window as any).ethereum;
+      if (!provider) {
+        installPrompt.classList.remove('hidden');
+        installLink.href = 'https://metamask.io/';
+        installLink.textContent = 'Install MetaMask wallet';
+        return;
+      }
+
+      try {
+        setButtonLoading(btnConnect, true, 'Connecting...');
+        const accounts = await provider.request({ method: 'eth_requestAccounts' });
+        if (accounts.length > 0) {
+          showConnected(accounts[0]);
+        }
+      } catch (err: any) {
+        if (err.code === 4001) {
+          showStatus('Connection rejected', 'error');
+        } else {
+          showStatus('Failed to connect', 'error');
+        }
+      } finally {
+        setButtonLoading(btnConnect, false, 'Connect Wallet');
+      }
+    }
+
+    // --- Send transaction ---
+    btnSend.addEventListener('click', async () => {
+      const amount = getAmount();
+      if (!amount || amount <= 0) {
+        showStatus('Please enter a valid amount', 'error');
+        return;
+      }
+
+      clearStatus();
+
+      if (chain === 'solana') {
+        await sendSolana(amount);
+      } else {
+        await sendEthereum(amount);
+      }
+    });
+
+    async function sendSolana(amount: number) {
+      const provider = (window as any).phantom?.solana;
+      if (!provider) return;
+
+      try {
+        setButtonLoading(btnSend, true, 'Sending...');
+        showStatus('Preparing transaction...', 'info');
+
+        const connection = new Connection('https://api.mainnet-beta.solana.com');
+        const tx = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: provider.publicKey,
+            toPubkey: new PublicKey(RECEIVING_SOL),
+            lamports: Math.round(amount * LAMPORTS_PER_SOL),
+          })
+        );
+        tx.feePayer = provider.publicKey;
+        tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+
+        showStatus('Please confirm in your wallet...', 'info');
+        const { signature } = await provider.signAndSendTransaction(tx);
+
+        showStatus('Confirming transaction...', 'info');
+        await connection.confirmTransaction(signature, 'confirmed');
+
+        const url = `https://solscan.io/tx/${signature}`;
+        showStatusWithLink('Transaction confirmed!', url, 'View on Solscan');
+      } catch (err: any) {
+        if (err.code === 4001 || err.message?.includes('reject') || err.message?.includes('denied')) {
+          showStatus('Transaction rejected', 'error');
+        } else if (err.message?.includes('insufficient')) {
+          showStatus('Insufficient funds', 'error');
+        } else {
+          showStatus(err.message || 'Transaction failed', 'error');
+        }
+      } finally {
+        setButtonLoading(btnSend, false, `Send ${amount} ${UNITS[chain]}`);
+      }
+    }
+
+    async function sendEthereum(amount: number) {
+      const ethWindow = (window as any).ethereum;
+      if (!ethWindow) return;
+
+      try {
+        setButtonLoading(btnSend, true, 'Sending...');
+        showStatus('Preparing transaction...', 'info');
+
+        const ethProvider = new BrowserProvider(ethWindow);
+        const signer = await ethProvider.getSigner();
+
+        showStatus('Please confirm in your wallet...', 'info');
+        const tx = await signer.sendTransaction({
+          to: RECEIVING_ETH,
+          value: parseEther(amount.toString()),
+        });
+
+        showStatus('Confirming transaction...', 'info');
+        await tx.wait();
+
+        const url = `https://etherscan.io/tx/${tx.hash}`;
+        showStatusWithLink('Transaction confirmed!', url, 'View on Etherscan');
+      } catch (err: any) {
+        if (err.code === 'ACTION_REJECTED' || err.code === 4001) {
+          showStatus('Transaction rejected', 'error');
+        } else if (err.message?.includes('insufficient')) {
+          showStatus('Insufficient funds', 'error');
+        } else {
+          showStatus(err.message || 'Transaction failed', 'error');
+        }
+      } finally {
+        setButtonLoading(btnSend, false, `Send ${amount} ${UNITS[chain]}`);
+      }
+    }
+
+    // --- Init ---
+    renderAmounts();
+  </script>
+</BaseLayout>

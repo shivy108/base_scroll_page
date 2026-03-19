@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Privacy Policy — Schedule | shiv.rocks" description="Privacy Policy for Schedule, a workforce scheduling and team management application.">
+  <Header />
+  <main class="pt-32 pb-20 px-6">
+    <article class="max-w-3xl mx-auto">
+
+      <div class="mb-12">
+        <a href="/schedule" class="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors duration-300 mb-8">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Schedule
+        </a>
+        <h1 class="font-heading font-bold text-4xl md:text-5xl mb-3">Privacy Policy</h1>
+        <p class="text-text-muted font-mono text-sm">Effective Date: March 7, 2026</p>
+      </div>
+
+      <div class="legal-content space-y-8 text-text-secondary leading-relaxed">
+        <p>Schedule ("we", "our", "us") is a workforce scheduling and team management application. This Privacy Policy explains how we collect, use, and protect your information.</p>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">1. Information We Collect</h2>
+          <p><strong class="text-text-primary">Account Information:</strong> When you create an account, we collect your email address, display name, and an encrypted password (managed by AWS Cognito).</p>
+          <p class="mt-2"><strong class="text-text-primary">Team & Task Data:</strong> We store team memberships, task assignments, task details, schedules, and related activity you create within the app.</p>
+          <p class="mt-2"><strong class="text-text-primary">Device Tokens:</strong> If you enable push notifications, we collect your device token solely to deliver notifications.</p>
+          <p class="mt-2"><strong class="text-text-primary">Authentication Tokens:</strong> We store session tokens locally on your device (iOS Keychain / Android EncryptedSharedPreferences) to keep you signed in.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">2. Information We Do NOT Collect</h2>
+          <ul class="list-disc list-inside space-y-1 ml-2">
+            <li>Location data</li>
+            <li>Contacts or calendar data</li>
+            <li>Device advertising identifiers (IDFA / Android Advertising ID)</li>
+            <li>Analytics, telemetry, or behavioral tracking data</li>
+            <li>Photos, camera, or microphone data</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">3. How We Use Your Information</h2>
+          <ul class="list-disc list-inside space-y-1 ml-2">
+            <li><strong class="text-text-primary">Authentication:</strong> To verify your identity and maintain your session.</li>
+            <li><strong class="text-text-primary">App Functionality:</strong> To provide team management, task scheduling, and assignment features.</li>
+            <li><strong class="text-text-primary">Push Notifications:</strong> To send task reminders and team updates (if enabled).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">4. Data Storage & Security</h2>
+          <p>Your data is stored on AWS infrastructure (DynamoDB, Cognito) in the US East (N. Virginia) region. All API communication uses HTTPS encryption. Authentication tokens are stored securely using platform-native secure storage (iOS Keychain, Android EncryptedSharedPreferences).</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">5. Data Sharing</h2>
+          <p>We do not sell, rent, or share your personal information with third parties. Your data is only visible to:</p>
+          <ul class="list-disc list-inside space-y-1 ml-2 mt-2">
+            <li>Other members of teams you have joined (team-related data only).</li>
+            <li>AWS infrastructure services that host the application (as a data processor).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">6. Third-Party Services</h2>
+          <ul class="list-disc list-inside space-y-1 ml-2">
+            <li><strong class="text-text-primary">AWS Cognito:</strong> User authentication and account management.</li>
+            <li><strong class="text-text-primary">Apple Sign-In / Google Sign-In:</strong> Optional social authentication (only if you choose to use it).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">7. Data Retention</h2>
+          <p>We retain your data for as long as your account is active. When you delete your account, we permanently remove your user profile, authentication credentials, and team memberships. Task data you created may persist in team records for other members.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">8. Your Rights</h2>
+          <p>You have the right to:</p>
+          <ul class="list-disc list-inside space-y-1 ml-2 mt-2">
+            <li><strong class="text-text-primary">Access:</strong> View your profile information within the app.</li>
+            <li><strong class="text-text-primary">Correction:</strong> Update your display name at any time.</li>
+            <li><strong class="text-text-primary">Deletion:</strong> Delete your account from Settings, which removes your personal data from our servers.</li>
+            <li><strong class="text-text-primary">Portability:</strong> Contact us to request a copy of your data.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">9. Children's Privacy</h2>
+          <p>Schedule is not directed at children under 13. We do not knowingly collect personal information from children under 13.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">10. Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time. We will notify you of significant changes through the app or by email.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading font-bold text-xl text-text-primary mb-3">11. Contact Us</h2>
+          <p>If you have questions about this Privacy Policy, contact us at: <a href="mailto:privacy@shiv.rocks" class="text-accent-2 hover:text-accent-3 transition-colors">privacy@shiv.rocks</a></p>
+        </section>
+      </div>
+
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
