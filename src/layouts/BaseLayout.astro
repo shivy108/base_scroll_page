@@ -14,6 +14,7 @@ const {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="view-transition" content="same-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="google-site-verification" content="fw2mLPLbDwf4euR_w2ApimbxNMG1Jwo9dbGU0CMWvWU" />
@@ -34,6 +35,23 @@ const {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <style>
+      @keyframes page-fade-in {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes page-fade-out {
+        from { opacity: 1; transform: translateY(0); }
+        to   { opacity: 0; transform: translateY(-16px); }
+      }
+      ::view-transition-old(root) {
+        animation: page-fade-out 0.3s ease forwards;
+      }
+      ::view-transition-new(root) {
+        animation: page-fade-in 0.3s ease forwards;
+      }
+    </style>
   </head>
   <body>
     <!-- Scroll progress bar -->
