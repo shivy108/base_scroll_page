@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 ---
 
-<BaseLayout title="Tip | shiv.rocks" description="Send a crypto tip via Solana or Ethereum">
+<BaseLayout title="Pay | shiv.rocks" description="Initiate a project payment or retainer via crypto">
   <main class="relative min-h-screen flex items-center justify-center px-6 py-16">
     <!-- Mesh gradient background -->
     <div class="absolute inset-0 opacity-20 mesh-gradient" style="filter: blur(120px);"></div>
@@ -13,10 +13,30 @@ import '../styles/global.css';
       <div class="glass-strong rounded-3xl p-8 md:p-10">
         <!-- Title -->
         <div class="text-center mb-8">
+          <p class="text-text-muted text-xs font-mono uppercase tracking-[0.3em] mb-3">shiv.rocks</p>
           <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2">
-            Buy me a coffee <span class="inline-block">&#9749;</span>
+            Pay for Services
           </h1>
-          <p class="text-text-secondary text-sm font-heading">Support the work with crypto</p>
+          <p class="text-text-secondary text-sm font-heading">Initiate a project deposit or retainer via crypto</p>
+        </div>
+
+        <!-- Service presets info -->
+        <div class="mb-6 p-4 rounded-xl border border-white/10 bg-white/5">
+          <p class="text-text-muted text-xs font-mono uppercase tracking-wider mb-2">Engagement Tiers</p>
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-mono">
+              <span class="text-text-secondary">Discovery &amp; Scoping</span>
+              <span class="text-text-primary">from 0.5 ETH</span>
+            </div>
+            <div class="flex justify-between text-xs font-mono">
+              <span class="text-text-secondary">MVP Build</span>
+              <span class="text-text-primary">from 2 ETH</span>
+            </div>
+            <div class="flex justify-between text-xs font-mono">
+              <span class="text-text-secondary">Monthly Retainer</span>
+              <span class="text-text-primary">from 1 ETH / mo</span>
+            </div>
+          </div>
         </div>
 
         <!-- Chain toggle -->
@@ -26,14 +46,14 @@ import '../styles/global.css';
             class="chain-tab flex-1 py-3 text-sm font-heading font-medium transition-all duration-300 bg-white/10 text-text-primary"
             data-chain="solana"
           >
-            &#9678; Solana
+            ◎ Solana
           </button>
           <button
             id="tab-ethereum"
             class="chain-tab flex-1 py-3 text-sm font-heading font-medium transition-all duration-300 text-text-muted hover:text-text-secondary"
             data-chain="ethereum"
           >
-            &#9671; Ethereum
+            ◇ Ethereum
           </button>
         </div>
 
@@ -81,7 +101,7 @@ import '../styles/global.css';
             id="btn-send"
             class="w-full py-4 rounded-xl font-heading font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-accent-1 via-accent-2 to-accent-3 hover:opacity-90 text-white cursor-pointer"
           >
-            Send
+            Send Payment
           </button>
         </div>
 
@@ -99,6 +119,11 @@ import '../styles/global.css';
             </a>
           </div>
         </div>
+
+        <!-- Footer note -->
+        <p class="text-text-muted text-xs font-mono text-center mt-6">
+          Payments are non-refundable. <a href="mailto:shiveshdindayal@gmail.com" class="text-accent-2 hover:text-accent-3 transition-colors">Contact us</a> first to scope your project.
+        </p>
       </div>
     </div>
   </main>
@@ -115,11 +140,11 @@ import '../styles/global.css';
 
     // --- Config ---
     const RECEIVING_ETH = '0x1F245dDDa00707747E8F268Cdae4Ae27BFe8F422';
-    const RECEIVING_SOL = '4KuDHi53eVxKuiEn1XzEkxeZczzheYuDU2W6Q7bHBVfk';
+    const RECEIVING_SOL = '5ssVY3syAunzNkWUce4G3w86fJJkq6k5sgay2RUjGSLw';
 
     const PRESETS: Record<string, number[]> = {
-      solana: [0.05, 0.1, 0.5, 1],
-      ethereum: [0.005, 0.01, 0.05, 0.1],
+      solana: [5, 10, 25, 50],
+      ethereum: [0.5, 1, 2, 5],
     };
 
     const UNITS: Record<string, string> = {
@@ -201,7 +226,6 @@ import '../styles/global.css';
         btn.textContent = `${amt} ${unit}`;
         btn.dataset.amount = String(amt);
         if (i === 1 && !isCustom && selectedAmount === null) {
-          // Default select second option
           selectedAmount = amt;
           btn.classList.add('bg-accent-2/20', 'border-accent-2/40', 'text-text-primary');
           btn.classList.remove('border-white/10', 'text-text-secondary');
@@ -225,7 +249,6 @@ import '../styles/global.css';
       });
       amountButtons.appendChild(customBtn);
 
-      // Re-highlight if amount matches
       if (selectedAmount !== null && !isCustom) {
         highlightAmountButton(selectedAmount);
       }
@@ -279,7 +302,7 @@ import '../styles/global.css';
       if (amt !== null) {
         btnSend.textContent = `Send ${amt} ${unit}`;
       } else {
-        btnSend.textContent = `Send ${unit}`;
+        btnSend.textContent = `Send Payment`;
       }
     }
 
@@ -290,10 +313,9 @@ import '../styles/global.css';
       selectedAmount = null;
       isCustom = false;
 
-      // Update tabs
       const tabs = [tabSolana, tabEthereum];
       tabs.forEach((tab) => {
-        if (tab.dataset.chain === chain) {
+        if ((tab as HTMLElement).dataset.chain === chain) {
           tab.classList.add('bg-white/10', 'text-text-primary');
           tab.classList.remove('text-text-muted');
         } else {
@@ -302,7 +324,6 @@ import '../styles/global.css';
         }
       });
 
-      // Disconnect if switching chains
       disconnect();
       clearStatus();
       installPrompt.classList.add('hidden');
@@ -333,7 +354,6 @@ import '../styles/global.css';
       clearStatus();
     });
 
-    // Connect wallet
     btnConnect.addEventListener('click', async () => {
       clearStatus();
       installPrompt.classList.add('hidden');
@@ -400,7 +420,7 @@ import '../styles/global.css';
     btnSend.addEventListener('click', async () => {
       const amount = getAmount();
       if (!amount || amount <= 0) {
-        showStatus('Please enter a valid amount', 'error');
+        showStatus('Please select or enter an amount', 'error');
         return;
       }
 
@@ -439,7 +459,7 @@ import '../styles/global.css';
         await connection.confirmTransaction(signature, 'confirmed');
 
         const url = `https://solscan.io/tx/${signature}`;
-        showStatusWithLink('Transaction confirmed!', url, 'View on Solscan');
+        showStatusWithLink('Payment confirmed!', url, 'View on Solscan');
       } catch (err: any) {
         if (err.code === 4001 || err.message?.includes('reject') || err.message?.includes('denied')) {
           showStatus('Transaction rejected', 'error');
@@ -449,7 +469,7 @@ import '../styles/global.css';
           showStatus(err.message || 'Transaction failed', 'error');
         }
       } finally {
-        setButtonLoading(btnSend, false, `Send ${amount} ${UNITS[chain]}`);
+        setButtonLoading(btnSend, false, `Send ${getAmount()} ${UNITS[chain]}`);
       }
     }
 
@@ -474,7 +494,7 @@ import '../styles/global.css';
         await tx.wait();
 
         const url = `https://etherscan.io/tx/${tx.hash}`;
-        showStatusWithLink('Transaction confirmed!', url, 'View on Etherscan');
+        showStatusWithLink('Payment confirmed!', url, 'View on Etherscan');
       } catch (err: any) {
         if (err.code === 'ACTION_REJECTED' || err.code === 4001) {
           showStatus('Transaction rejected', 'error');
@@ -484,7 +504,7 @@ import '../styles/global.css';
           showStatus(err.message || 'Transaction failed', 'error');
         }
       } finally {
-        setButtonLoading(btnSend, false, `Send ${amount} ${UNITS[chain]}`);
+        setButtonLoading(btnSend, false, `Send ${getAmount()} ${UNITS[chain]}`);
       }
     }
 
