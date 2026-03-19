@@ -308,6 +308,37 @@
   <!-- MAIN CONTENT -->
   <div id="content">
 
+    <!-- DAILY BRIEF -->
+    <div id="daily-brief-panel" style="margin:0;border-bottom:1px solid var(--border);padding:14px 16px;background:rgba(0,0,0,0.2);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:9px;color:var(--dim);letter-spacing:0.2em;">◈ DAILY AI BRIEF</span>
+          <span id="brief-mood" style="font-size:10px;font-weight:700;letter-spacing:0.15em;padding:2px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);">—</span>
+        </div>
+        <span id="brief-time" style="font-size:9px;color:var(--dim);">—</span>
+      </div>
+      <div id="brief-headline" style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Loading daily brief...</div>
+      <div id="brief-summary" style="font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:10px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:9px;color:var(--dim);letter-spacing:0.15em;margin-bottom:6px;">▲ OPPORTUNITIES</div>
+          <div id="brief-opportunities" style="font-size:10px;color:var(--green);line-height:1.8;"></div>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--dim);letter-spacing:0.15em;margin-bottom:6px;">▼ RISKS</div>
+          <div id="brief-risks" style="font-size:10px;color:var(--red);line-height:1.8;"></div>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--dim);letter-spacing:0.15em;margin-bottom:6px;">◉ WATCHLIST</div>
+          <div id="brief-watchlist" style="font-size:10px;color:var(--amber);line-height:1.8;"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;color:var(--dim);" id="brief-macro">—</div>
+        <div style="font-size:10px;color:var(--dim);" id="brief-crypto">—</div>
+      </div>
+    </div>
+
     <!-- ROW 1: Crypto + Stock Watchlist -->
     <div class="row-2col">
       <div class="panel">
@@ -904,12 +935,49 @@
         Extreme values (&gt;0.1% or &lt;-0.05%) signal potential reversal.
       </div>`;
   }
+  // ── RENDER DAILY BRIEF ──
+  function renderBrief(brief) {
+    if (!brief) return;
+    const el = (id) => document.getElementById(id);
+    if (!el('brief-headline')) return;
+
+    el('brief-mood').textContent = brief.mood || '—';
+    el('brief-mood').style.color = brief.moodColor || '#888';
+    el('brief-mood').style.borderColor = (brief.moodColor || '#888') + '40';
+    el('brief-headline').textContent = brief.headline || '—';
+    el('brief-headline').style.color = brief.moodColor || 'var(--text)';
+    el('brief-summary').textContent = brief.summary || '';
+    el('brief-macro').textContent = '📊 ' + (brief.macroNote || '—');
+    el('brief-crypto').textContent = '₿ ' + (brief.cryptoNote || '—');
+
+    if (brief.generatedAt) {
+      const d = new Date(brief.generatedAt);
+      el('brief-time').textContent = 'Generated ' + d.toLocaleString('en-US', { timeZone: 'Europe/Zurich', hour12: false, month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' Zurich';
+    }
+
+    if (brief.opportunities?.length) {
+      el('brief-opportunities').innerHTML = brief.opportunities.map(o =>
+        `<div title="${o.detail}">· ${o.title} <span style="color:var(--dim);font-size:9px;">[${o.type}]</span></div>`
+      ).join('');
+    }
+    if (brief.risks?.length) {
+      el('brief-risks').innerHTML = brief.risks.map(r =>
+        `<div title="${r.detail}">· ${r.title}</div>`
+      ).join('');
+    }
+    if (brief.watchlist?.length) {
+      el('brief-watchlist').innerHTML = brief.watchlist.map(w =>
+        `<div>· ${w.asset} <span style="color:${w.signal?.includes('BUY') ? 'var(--green)' : w.signal?.includes('SELL') ? 'var(--red)' : 'var(--dim)'}">${w.signal}</span></div>`
+      ).join('');
+    }
+  }
+
   // ── MAIN FETCH & RENDER ──
   async function loadAll() {
     const ind = document.getElementById('refresh-indicator');
     ind.classList.add('loading');
 
-    const [crypto, fearGreed, ohlc, stocks, indices, macro, yieldCurve, commodities, movers, finNews, cryptoNews, taData, regime, halving, funding] = await Promise.all([
+    const [crypto, fearGreed, ohlc, stocks, indices, macro, yieldCurve, commodities, movers, finNews, cryptoNews, taData, regime, halving, funding, brief] = await Promise.all([
       fetchJSON('/api/crypto/overview'),
       fetchJSON('/api/crypto/fear-greed'),
       fetchJSON('/api/crypto/ohlc/BTC?timeframe=1d&limit=14'),
@@ -925,6 +993,7 @@
       fetchJSON('/api/indicators/regime'),
       fetchJSON('/api/indicators/halving'),
       fetchJSON('/api/indicators/funding'),
+      fetchJSON('/api/indicators/daily-brief'),
     ]);
 
     renderCrypto(crypto);
@@ -941,6 +1010,7 @@
     renderRegime(regime);
     renderHalving(halving);
     renderFunding(funding);
+    renderBrief(brief);
 
     const now = new Date();
     document.getElementById('last-updated').textContent = 'UPD ' + now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
