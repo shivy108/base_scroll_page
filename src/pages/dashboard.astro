@@ -436,6 +436,7 @@
 </div><!-- /app -->
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
   // ── AUTH ──
   const AUTH_KEY = 'dash_token';
   const AUTH_VAL = 'shivesh2026';
@@ -443,18 +444,20 @@
   const app = document.getElementById('app');
 
   function checkAuth() {
-    if (localStorage.getItem(AUTH_KEY) === AUTH_VAL) {
-      overlay.style.display = 'none';
-      app.classList.add('visible');
-      return true;
-    }
+    try {
+      if (localStorage.getItem(AUTH_KEY) === AUTH_VAL) {
+        overlay.style.display = 'none';
+        app.classList.add('visible');
+        return true;
+      }
+    } catch(e) {}
     return false;
   }
 
   document.getElementById('pass-submit').addEventListener('click', () => {
     const val = document.getElementById('pass-input').value;
     if (val === AUTH_VAL) {
-      localStorage.setItem(AUTH_KEY, val);
+      try { localStorage.setItem(AUTH_KEY, val); } catch(e) {}
       window.location.reload();
     } else {
       document.getElementById('auth-error').textContent = 'ACCESS DENIED — INVALID KEY';
@@ -465,9 +468,7 @@
     if (e.key === 'Enter') document.getElementById('pass-submit').click();
   });
 
-  if (!checkAuth()) {
-    // show overlay, nothing else
-  } else {
+  if (checkAuth()) {
     init();
   }
 
@@ -792,6 +793,8 @@
     loadAll();
     setInterval(loadAll, 300000);
   }
+
+  }); // end DOMContentLoaded
 </script>
 
 </body>
