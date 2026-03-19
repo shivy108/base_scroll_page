@@ -23,12 +23,7 @@ const services = [
   },
 ];
 
-const stats = [
-  { value: 10, suffix: '+', label: 'Years Experience' },
-  { value: 50, suffix: '+', label: 'Apps Shipped' },
-  { value: 3, suffix: '', label: 'Chains Supported' },
-  { value: 100, suffix: 'M+', label: 'Users Reached' },
-];
+
 ---
 
 <section id="services" class="relative py-24 md:py-40 px-6">
@@ -39,23 +34,6 @@ const stats = [
       <h2 class="font-heading font-bold" style="font-size: clamp(2rem, 4vw, 3.5rem);">
         Core <span class="gradient-text">Expertise</span>
       </h2>
-    </div>
-
-    <!-- Stats row -->
-    <div class="stats-row grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-      {stats.map((stat) => (
-        <div class="text-center p-6 glass rounded-2xl">
-          <div
-            class="font-display text-4xl md:text-5xl gradient-text mb-1"
-            style="font-variant-numeric: tabular-nums;"
-            data-target={stat.value}
-            data-suffix={stat.suffix}
-          >
-            0{stat.suffix}
-          </div>
-          <div class="text-text-muted text-xs font-mono uppercase tracking-wider">{stat.label}</div>
-        </div>
-      ))}
     </div>
 
     <!-- Service cards -->
