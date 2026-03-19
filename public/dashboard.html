@@ -164,6 +164,20 @@
     .tg { color: var(--green); font-weight: 500; }
     .tr { color: var(--red); font-weight: 500; }
 
+    /* Panel timestamps */
+    .panel-ts { font-size: 9px; color: var(--faint); font-family: 'JetBrains Mono', monospace; float: right; margin-top: -1px; }
+    .panel-ts.stale { color: var(--amber); }
+
+    /* Alert banner */
+    #alert-bar { display: none; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); border-radius: 10px; padding: 10px 16px; margin-bottom: 14px; font-size: 12px; color: var(--amber); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .alert-item { display: flex; align-items: center; gap: 5px; }
+    .alert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+    .alert-dot.red { background: var(--red); }
+
+    /* Brief age */
+    .brief-age { font-size: 10px; color: var(--faint); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+    .brief-age.stale { color: var(--amber); }
+
     /* Utils */
     .pos { color: var(--green); }
     .neg { color: var(--red); }
@@ -217,6 +231,9 @@
   </header>
 
   <main>
+
+    <!-- Alert Bar -->
+    <div id="alert-bar"></div>
 
     <!-- Daily Brief -->
     <div class="brief-card section">
@@ -282,14 +299,14 @@
     <!-- Watchlists -->
     <div class="grid-2 section">
       <div class="card">
-        <div class="card-title">Crypto Watchlist</div>
+        <div class="card-title">Crypto Watchlist <span class="panel-ts" id="ts-crypto"></span></div>
         <table class="data-table">
           <thead><tr><th>Symbol</th><th>Price</th><th>24h %</th></tr></thead>
           <tbody id="tb-crypto"><tr><td colspan="3"><span class="sk" style="width:100%;height:80px;display:block"></span></td></tr></tbody>
         </table>
       </div>
       <div class="card">
-        <div class="card-title">Stock Watchlist</div>
+        <div class="card-title">Stock Watchlist <span class="panel-ts" id="ts-stocks"></span></div>
         <table class="data-table">
           <thead><tr><th>Symbol</th><th>Price</th><th>24h %</th></tr></thead>
           <tbody id="tb-stocks"><tr><td colspan="3"><span class="sk" style="width:100%;height:80px;display:block"></span></td></tr></tbody>
@@ -300,7 +317,7 @@
     <!-- Technicals + Macro Regime -->
     <div class="grid-2 section">
       <div class="card">
-        <div class="card-title">Technical Signals</div>
+        <div class="card-title">Technical Signals <span class="panel-ts" id="ts-signals"></span></div>
         <div class="sig-header">
           <div></div>
           <div class="sig-col-label">RSI <span class="tip-icon" data-tid="rsi">ⓘ</span></div>
@@ -311,7 +328,7 @@
         <div id="signals-body"><div style="padding:20px 0;text-align:center"><span class="sk" style="width:80%;height:14px"></span></div></div>
       </div>
       <div class="card">
-        <div class="card-title">Macro Regime</div>
+        <div class="card-title">Macro Regime <span class="panel-ts" id="ts-regime"></span></div>
         <div id="regime-body"><div style="padding:20px 0;text-align:center"><span class="sk" style="width:80%;height:14px"></span></div></div>
       </div>
     </div>
@@ -319,18 +336,18 @@
     <!-- Halving + Funding -->
     <div class="grid-2 section">
       <div class="card">
-        <div class="card-title">BTC Halving Cycle <span class="tip-icon" data-tid="halving">ⓘ</span></div>
+        <div class="card-title">BTC Halving Cycle <span class="tip-icon" data-tid="halving">ⓘ</span> <span class="panel-ts" id="ts-halving"></span></div>
         <div id="halving-body"><div style="padding:20px 0;text-align:center"><span class="sk" style="width:80%;height:14px"></span></div></div>
       </div>
       <div class="card">
-        <div class="card-title">Funding Rates <span class="tip-icon" data-tid="funding">ⓘ</span></div>
+        <div class="card-title">Funding Rates <span class="tip-icon" data-tid="funding">ⓘ</span> <span class="panel-ts" id="ts-funding"></span></div>
         <div id="funding-body"><div style="padding:20px 0;text-align:center"><span class="sk" style="width:80%;height:14px"></span></div></div>
       </div>
     </div>
 
     <!-- News Feed -->
     <div class="card section">
-      <div class="card-title">News Feed</div>
+      <div class="card-title">News Feed <span class="panel-ts" id="ts-news"></span></div>
       <div class="news-list" id="news-body"><div style="padding:20px 0;text-align:center"><span class="sk" style="width:60%;height:14px"></span></div></div>
     </div>
 
@@ -469,6 +486,11 @@ document.addEventListener('DOMContentLoaded', function() {
   /* ─────────────────────────────────────────────────────────
      UTILITY FUNCTIONS
   ───────────────────────────────────────────────────────── */
+  function escHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   function safeGet(obj, key, fallback) {
     if (!obj) return fallback;
     var parts = key.split('.');
@@ -593,16 +615,20 @@ document.addEventListener('DOMContentLoaded', function() {
      AUTH
   ───────────────────────────────────────────────────────── */
   function checkAuth() {
-    if (localStorage.getItem(TOKEN_KEY) === TOKEN_VAL) {
-      gateEl.style.display = 'none';
-      appEl.style.display  = 'block';
-      startApp();
-    }
+    try {
+      var stored = JSON.parse(localStorage.getItem(TOKEN_KEY) || '{}');
+      if (stored.v === TOKEN_VAL && stored.exp > Date.now()) {
+        gateEl.style.display = 'none';
+        appEl.style.display  = 'block';
+        startApp();
+      }
+    } catch(e) {}
   }
 
   function tryAuth() {
     if (gateInput.value === TOKEN_VAL) {
-      localStorage.setItem(TOKEN_KEY, TOKEN_VAL);
+      var exp = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      try { localStorage.setItem(TOKEN_KEY, JSON.stringify({v: TOKEN_VAL, exp: exp})); } catch(e) {}
       gateEl.style.display = 'none';
       appEl.style.display  = 'block';
       gateError.style.display = 'none';
@@ -665,15 +691,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function itemText(x) {
       if (!x) return '';
-      if (typeof x === 'string') return x;
-      // opportunities: {title, detail, type}
-      if (x.title && x.detail) return '<strong>' + x.title + '</strong><span style="color:var(--muted);font-size:12px;"> — ' + x.detail + '</span>';
-      if (x.title) return x.title;
-      // risks: {title, detail}
-      if (x.detail) return x.detail;
-      // watchlist: {asset, signal, reason}
-      if (x.asset) return '<strong>' + x.asset + '</strong> <span style="color:var(--muted);font-size:12px;">' + (x.signal||'') + (x.reason ? ' — ' + x.reason : '') + '</span>';
-      return JSON.stringify(x);
+      if (typeof x === 'string') return escHtml(x);
+      if (x.title && x.detail) return '<strong>' + escHtml(x.title) + '</strong><span style="color:var(--muted);font-size:12px;"> — ' + escHtml(x.detail) + '</span>';
+      if (x.title) return escHtml(x.title);
+      if (x.detail) return escHtml(x.detail);
+      if (x.asset) return '<strong>' + escHtml(x.asset) + '</strong> <span style="color:var(--muted);font-size:12px;">' + escHtml(x.signal||'') + (x.reason ? ' — ' + escHtml(x.reason) : '') + '</span>';
+      return escHtml(JSON.stringify(x));
     }
     function fillList(id, arr) {
       var ul = document.getElementById(id);
@@ -686,7 +709,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var ts = safeGet(b, 'generatedAt', null) || safeGet(b, 'generated_at', null) || safeGet(b, 'timestamp', null);
     if (ts) {
-      document.getElementById('brief-ts').textContent = 'Generated ' + new Date(ts).toUTCString().replace(' GMT', ' UTC');
+      var genDate = new Date(ts);
+      var now = new Date();
+      var ageHrs = Math.round((now - genDate) / 3600000);
+      var ageStr = ageHrs < 1 ? 'just now' : ageHrs === 1 ? '1 hour ago' : ageHrs + ' hours ago';
+      var tsEl = document.getElementById('brief-ts');
+      tsEl.textContent = 'Generated ' + genDate.toLocaleString('en-GB', {timeZone:'Europe/Zurich', hour:'2-digit', minute:'2-digit', day:'2-digit', month:'short'}) + ' Zurich · ' + ageStr + ' · Refreshes each morning at 07:00';
+      tsEl.style.color = ageHrs > 18 ? 'var(--amber)' : 'var(--faint)';
     }
   }
 
@@ -809,7 +838,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var price = safeGet(coin,'price',null) || safeGet(coin,'lastPrice',null) || safeGet(coin,'current_price',null);
         var chg   = safeGet(coin,'change24h',null) || safeGet(coin,'priceChangePercent',null) || safeGet(coin,'price_change_percentage_24h',null);
         var pct   = chg !== null ? parseFloat(chg) : null;
-        html += '<tr><td class="sym">' + sym + '</td>'
+        html += '<tr><td class="sym">' + escHtml(sym) + '</td>'
               + '<td class="price-mono">' + fmtPrice(price) + '</td>'
               + '<td class="price-mono ' + pctClass(pct) + '">' + fmtPct(pct) + '</td></tr>';
       });
@@ -826,7 +855,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var price = safeGet(s,'price',null) || safeGet(s,'regularMarketPrice',null) || safeGet(s,'current_price',null);
         var chg   = safeGet(s,'change24h',null) || safeGet(s,'regularMarketChangePercent',null) || safeGet(s,'changesPercentage',null);
         var pct   = chg !== null ? parseFloat(chg) : null;
-        shtml += '<tr><td class="sym">' + sym + '</td>'
+        shtml += '<tr><td class="sym">' + escHtml(sym) + '</td>'
                + '<td class="price-mono">' + fmtPrice(price) + '</td>'
                + '<td class="price-mono ' + pctClass(pct) + '">' + fmtPct(pct) + '</td></tr>';
       });
@@ -944,7 +973,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var pctNum = parseFloat(pct) || 0;
     if (pctNum > 1) pctNum = pctNum / 100;
 
-    var html = '<div class="halving-phase">' + phase + '</div>'
+    var desc = safeGet(h,'description',null);
+    var html = '<div class="halving-phase">' + escHtml(phase) + '</div>'
              + '<div class="progress-track"><div class="progress-fill" style="width:' + Math.min(100, pctNum * 100).toFixed(1) + '%"></div></div>'
              + '<div class="halving-meta"><span>0%</span><span>' + Math.round(pctNum * 100) + '% through cycle</span><span>100%</span></div>'
              + '<div class="halving-detail">';
@@ -954,6 +984,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nextDate)         html += '<div class="halving-row"><span>Expected date</span><span class="hv">' + nextDate + '</span></div>';
     if (blockReward)      html += '<div class="halving-row"><span>Block reward</span><span class="hv">' + blockReward + ' BTC</span></div>';
 
+    if (desc) html += '<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">' + escHtml(desc) + '</div>';
     html += '</div>';
     body.innerHTML = html;
   }
@@ -974,7 +1005,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var r = safeGet(rates, a, null) || safeGet(rates, a.toLowerCase(), null);
       if (r === null && Array.isArray(rates)) {
         for (var i = 0; i < rates.length; i++) {
-          if ((rates[i].symbol || rates[i].asset || '').toUpperCase().includes(a)) { r = rates[i].rate || rates[i].fundingRate; break; }
+          if ((rates[i].symbol || rates[i].asset || '').toUpperCase().includes(a)) { r = rates[i].fundingRate !== undefined ? rates[i].fundingRate : rates[i].rate; break; }
         }
       }
       var rv = r !== null ? parseFloat(r) : null;
@@ -1029,12 +1060,69 @@ document.addEventListener('DOMContentLoaded', function() {
       html += '<div class="news-item">'
             + '<div class="news-dot ' + dotCls + '"></div>'
             + '<div class="news-text">'
-            + '<div class="news-headline">' + headline + '</div>'
-            + (source ? '<div class="news-source">' + source + '</div>' : '')
+            + '<a href="' + escHtml(item.url || '#') + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">'
+            + '<div class="news-headline">' + escHtml(headline) + '</div>'
+            + (source ? '<div class="news-source">' + escHtml(typeof source === 'object' ? (source.name || '') : source) + '</div>' : '')
+            + '</a>'
             + '</div></div>';
     });
 
     body.innerHTML = html;
+  }
+
+  function updateTimestamps() {
+    var now = new Date();
+    var ts = now.toISOString();
+    setTimestamp('ts-crypto',  state.crypto  ? ts : null);
+    setTimestamp('ts-stocks',  state.stocks  ? ts : null);
+    setTimestamp('ts-signals', state.indicators ? ts : null);
+    setTimestamp('ts-regime',  state.regime  ? (state.regime.updatedAt || ts) : null);
+    setTimestamp('ts-halving', ts);
+    setTimestamp('ts-funding', state.funding ? (state.funding.updatedAt || ts) : null);
+    setTimestamp('ts-news',    state.newsFinance ? ts : null);
+  }
+
+  function renderAlerts() {
+    var bar = document.getElementById('alert-bar');
+    if (!bar) return;
+    var alerts = [];
+
+    // RSI extremes
+    if (state.indicators) {
+      ['btc','eth','sol'].forEach(function(sym) {
+        var d = state.indicators[sym.toUpperCase()];
+        if (!d) return;
+        var r = parseFloat(d.rsi);
+        if (r < 25) alerts.push({dot:'red', text: sym.toUpperCase() + ' RSI ' + r.toFixed(0) + ' — Extreme Oversold'});
+        else if (r > 75) alerts.push({dot:'red', text: sym.toUpperCase() + ' RSI ' + r.toFixed(0) + ' — Extreme Overbought'});
+      });
+    }
+
+    // Fear & Greed extremes
+    var fg = state.fearGreed ? state.fearGreed.value : null;
+    if (fg !== null) {
+      if (fg <= 15) alerts.push({dot:'red', text: 'Fear & Greed: ' + fg + ' — Extreme Fear (historically good buy zone)'});
+      else if (fg >= 80) alerts.push({dot:'red', text: 'Fear & Greed: ' + fg + ' — Extreme Greed (be cautious)'});
+    }
+
+    // Yield curve
+    var spread = state.yieldCurve ? state.yieldCurve.spread : null;
+    if (spread !== null && spread < -0.25) {
+      alerts.push({dot:'red', text: 'Yield Curve Inverted (' + spread.toFixed(2) + '%) — Recession signal, historically 12-18 month lead'});
+    }
+
+    // Failed fetches
+    var failed = Object.keys(fetchErrors);
+    if (failed.length > 0) {
+      alerts.push({dot:'', text: failed.length + ' data source(s) unavailable — some panels may show stale data'});
+    }
+
+    if (!alerts.length) { bar.style.display = 'none'; return; }
+    bar.style.display = 'flex';
+    bar.innerHTML = '<strong style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;">⚠ Alerts</strong>'
+      + alerts.map(function(a) {
+          return '<span class="alert-item"><span class="alert-dot ' + (a.dot||'') + '"></span>' + escHtml(a.text) + '</span>';
+        }).join('');
   }
 
   function renderAll() {
@@ -1159,11 +1247,27 @@ document.addEventListener('DOMContentLoaded', function() {
   /* ─────────────────────────────────────────────────────────
      DATA FETCHING
   ───────────────────────────────────────────────────────── */
+  var fetchErrors = {};
+  var lastFetchTime = null;
+
+  function setTimestamp(id, updatedAt) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var ts = updatedAt ? new Date(updatedAt) : new Date();
+    var now = new Date();
+    var ageMin = Math.round((now - ts) / 60000);
+    var label = ageMin < 1 ? 'just now' : ageMin < 60 ? ageMin + 'm ago' : Math.round(ageMin/60) + 'h ago';
+    el.textContent = label;
+    el.className = 'panel-ts' + (ageMin > 15 ? ' stale' : '');
+  }
+
   function fetchOne(url, key) {
     return fetch(url)
-      .then(function(r) { return r.ok ? r.json() : null; })
-      .then(function(data) { if (data) state[key] = data; })
-      .catch(function() {});
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function(data) {
+        if (data) { state[key] = data; delete fetchErrors[key]; }
+      })
+      .catch(function(err) { fetchErrors[key] = err || true; });
   }
 
   function fetchAll() {
@@ -1185,7 +1289,13 @@ document.addEventListener('DOMContentLoaded', function() {
       fetchOne('/api/indicators/funding',        'funding'),
       fetchOne('/api/indicators/daily-brief',    'brief'),
     ];
-    Promise.all(calls).then(function() { normalizeState(); renderAll(); });
+    Promise.all(calls).then(function() {
+      lastFetchTime = new Date();
+      normalizeState();
+      renderAll();
+      updateTimestamps();
+      renderAlerts();
+    });
   }
 
   /* ─────────────────────────────────────────────────────────
