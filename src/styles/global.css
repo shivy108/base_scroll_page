@@ -111,3 +111,95 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* === Futuristic Animations === */
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glitch {
+  0%, 89%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  90% { clip-path: inset(15% 0 65% 0); transform: translate(-4px, 2px); }
+  92% { clip-path: inset(55% 0 25% 0); transform: translate(4px, -2px); }
+  94% { clip-path: inset(5% 0 85% 0); transform: translate(-2px, 1px); }
+  96% { clip-path: inset(75% 0 10% 0); transform: translate(2px, -1px); }
+  98% { clip-path: inset(35% 0 50% 0); transform: translate(-3px, 0px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gradient-rotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+@keyframes scan-line {
+  0% { top: -2px; }
+  100% { top: 100vh; }
+}
+
+@keyframes typewriter-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scroll progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 10000;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+}
+
+/* Scan line */
+.scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.12), transparent);
+  animation: scan-line 10s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Animated gradient border */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle), #6366f1, #a855f7, #ec4899, #06b6d4, #6366f1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  animation: gradient-rotate 3s linear infinite paused;
+  z-index: 0;
+}
+.glow-border:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Float utility */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}

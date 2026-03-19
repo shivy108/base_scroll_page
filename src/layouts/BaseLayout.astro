@@ -36,15 +36,23 @@ const {
     <title>{title}</title>
   </head>
   <body>
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+
     <!-- Custom cursor (desktop only) -->
     <div
       id="cursor"
-      class="fixed w-5 h-5 rounded-full border-2 border-accent-2 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+      class="fixed w-6 h-6 rounded-full border border-accent-2/60 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
       style="top: 0; left: 0;"
     ></div>
     <div
       id="cursor-dot"
       class="fixed w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[9999] hidden md:block"
+      style="top: 0; left: 0;"
+    ></div>
+    <div
+      id="cursor-ring"
+      class="fixed w-10 h-10 rounded-full border border-accent-3/30 pointer-events-none z-[9998] hidden md:block opacity-0 transition-opacity duration-300"
       style="top: 0; left: 0;"
     ></div>
 
@@ -71,6 +79,12 @@ const {
       gsap.ticker.add((time) => lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
 
+      // Scroll progress bar
+      const progressBar = document.getElementById('scroll-progress');
+      lenis.on('scroll', ({ progress }: { progress: number }) => {
+        if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+      });
+
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', (e) => {
@@ -88,12 +102,15 @@ const {
       // ---- Custom cursor ----
       const cursor = document.getElementById('cursor');
       const cursorDot = document.getElementById('cursor-dot');
+      const cursorRing = document.getElementById('cursor-ring');
 
       if (cursor && cursorDot) {
         let mouseX = 0;
         let mouseY = 0;
         let cursorX = 0;
         let cursorY = 0;
+        let ringX = 0;
+        let ringY = 0;
 
         document.addEventListener('mousemove', (e) => {
           mouseX = e.clientX;
@@ -104,7 +121,10 @@ const {
         function animateCursor() {
           cursorX += (mouseX - cursorX) * 0.15;
           cursorY += (mouseY - cursorY) * 0.15;
-          cursor!.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+          ringX += (mouseX - ringX) * 0.08;
+          ringY += (mouseY - ringY) * 0.08;
+          cursor!.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+          if (cursorRing) cursorRing.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
           requestAnimationFrame(animateCursor);
         }
         animateCursor();
@@ -112,16 +132,18 @@ const {
         // Scale cursor on interactive elements
         document.querySelectorAll('a, button, .project-card').forEach((el) => {
           el.addEventListener('mouseenter', () => {
-            cursor!.style.width = '50px';
-            cursor!.style.height = '50px';
-            cursor!.style.borderColor = 'rgba(168, 85, 247, 0.5)';
+            cursor!.style.width = '56px';
+            cursor!.style.height = '56px';
+            cursor!.style.borderColor = 'rgba(168, 85, 247, 0.7)';
             cursor!.style.transition = 'width 0.3s, height 0.3s, border-color 0.3s';
+            if (cursorRing) cursorRing.style.opacity = '1';
           });
           el.addEventListener('mouseleave', () => {
-            cursor!.style.width = '20px';
-            cursor!.style.height = '20px';
+            cursor!.style.width = '24px';
+            cursor!.style.height = '24px';
             cursor!.style.borderColor = '';
             cursor!.style.transition = 'width 0.3s, height 0.3s, border-color 0.3s';
+            if (cursorRing) cursorRing.style.opacity = '0';
           });
         });
       }

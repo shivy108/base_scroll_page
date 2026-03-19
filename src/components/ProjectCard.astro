@@ -10,7 +10,7 @@ const { project, index } = Astro.props;
 ---
 
 <div
-  class="project-card group relative overflow-hidden rounded-2xl glass cursor-default transition-all duration-500 hover:shadow-2xl hover:border-white/20"
+  class="project-card glow-border group relative overflow-hidden rounded-2xl glass cursor-default transition-all duration-500 hover:shadow-2xl hover:border-white/20"
   data-index={index}
   style={`--accent: ${project.accentColor};`}
 >
@@ -95,3 +95,23 @@ const { project, index } = Astro.props;
     style={`box-shadow: inset 0 0 80px -20px ${project.accentColor}33, 0 0 40px -20px ${project.accentColor}22;`}
   ></div>
 </div>
+
+
+<script>
+  document.querySelectorAll('.project-card').forEach((card) => {
+    const el = card as HTMLElement;
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `perspective(1000px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = 'transform 0.5s ease';
+      el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+    el.addEventListener('mouseenter', () => {
+      el.style.transition = 'transform 0.1s ease-out';
+    });
+  });
+</script>
