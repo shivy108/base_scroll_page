@@ -2,44 +2,26 @@
 ---
 
 <!-- Floating Action Button Nav -->
-<nav id="fab-nav" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3">
+<!-- Desktop: bottom-center | Mobile: bottom-left -->
+<nav id="fab-nav" class="fixed bottom-8 z-50 flex flex-col items-end md:items-center
+  left-6 md:left-1/2 md:-translate-x-1/2">
 
-  <!-- Nav items (fan up when open) -->
-  <div id="fab-items" class="flex flex-col items-center gap-3 pointer-events-none">
+  <!-- Nav items -->
+  <div id="fab-items" class="flex flex-col items-start md:items-center gap-2 mb-3 pointer-events-none">
 
-    <a href="mailto:info@shiv.rocks" data-fab-item class="fab-item opacity-0 translate-y-8 scale-90"
-      style="transition: opacity 0.3s, transform 0.3s; transition-delay: 0s;">
-      <div class="fab-link glass-strong flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 hover:border-accent-2/40 transition-all duration-300 group whitespace-nowrap">
-        <svg class="w-4 h-4 text-accent-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+    <a href="#services" data-fab-item class="fab-item"
+      style="opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.25s, transform 0.25s;">
+      <div class="fab-link glass-strong flex items-center gap-3 px-4 py-2.5 rounded-full border border-white/10 hover:border-accent-2/50 transition-all duration-300 group whitespace-nowrap">
+        <svg class="w-4 h-4 text-accent-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
         </svg>
-        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Contact</span>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Services</span>
       </div>
     </a>
 
-    <a href="/tip" data-fab-item class="fab-item opacity-0 translate-y-8 scale-90"
-      style="transition: opacity 0.3s, transform 0.3s; transition-delay: 0s;">
-      <div class="fab-link glass-strong flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 hover:border-accent-3/40 transition-all duration-300 group whitespace-nowrap">
-        <svg class="w-4 h-4 text-accent-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75" />
-        </svg>
-        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Pay</span>
-      </div>
-    </a>
-
-    <a href="#contact" data-fab-item class="fab-item opacity-0 translate-y-8 scale-90"
-      style="transition: opacity 0.3s, transform 0.3s; transition-delay: 0s;">
-      <div class="fab-link glass-strong flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 hover:border-accent-4/40 transition-all duration-300 group whitespace-nowrap">
-        <svg class="w-4 h-4 text-accent-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-        </svg>
-        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Work with us</span>
-      </div>
-    </a>
-
-    <a href="#projects" data-fab-item class="fab-item opacity-0 translate-y-8 scale-90"
-      style="transition: opacity 0.3s, transform 0.3s; transition-delay: 0s;">
-      <div class="fab-link glass-strong flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 hover:border-accent-1/40 transition-all duration-300 group whitespace-nowrap">
+    <a href="#projects" data-fab-item class="fab-item"
+      style="opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.25s, transform 0.25s;">
+      <div class="fab-link glass-strong flex items-center gap-3 px-4 py-2.5 rounded-full border border-white/10 hover:border-accent-1/50 transition-all duration-300 group whitespace-nowrap">
         <svg class="w-4 h-4 text-accent-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
         </svg>
@@ -47,13 +29,33 @@
       </div>
     </a>
 
-    <a href="#services" data-fab-item class="fab-item opacity-0 translate-y-8 scale-90"
-      style="transition: opacity 0.3s, transform 0.3s; transition-delay: 0s;">
-      <div class="fab-link glass-strong flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 hover:border-accent-2/40 transition-all duration-300 group whitespace-nowrap">
-        <svg class="w-4 h-4 text-accent-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+    <a href="#contact" data-fab-item class="fab-item"
+      style="opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.25s, transform 0.25s;">
+      <div class="fab-link glass-strong flex items-center gap-3 px-4 py-2.5 rounded-full border border-white/10 hover:border-accent-4/50 transition-all duration-300 group whitespace-nowrap">
+        <svg class="w-4 h-4 text-accent-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
         </svg>
-        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Services</span>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Work with us</span>
+      </div>
+    </a>
+
+    <a href="/tip" data-fab-item class="fab-item"
+      style="opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.25s, transform 0.25s;">
+      <div class="fab-link glass-strong flex items-center gap-3 px-4 py-2.5 rounded-full border border-white/10 hover:border-accent-3/50 transition-all duration-300 group whitespace-nowrap">
+        <svg class="w-4 h-4 text-accent-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75" />
+        </svg>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Pay</span>
+      </div>
+    </a>
+
+    <a href="mailto:info@shiv.rocks" data-fab-item class="fab-item"
+      style="opacity: 0; transform: translateY(12px) scale(0.9); transition: opacity 0.25s, transform 0.25s;">
+      <div class="fab-link glass-strong flex items-center gap-3 px-4 py-2.5 rounded-full border border-white/10 hover:border-accent-6/50 transition-all duration-300 group whitespace-nowrap">
+        <svg class="w-4 h-4 text-accent-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+        </svg>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-secondary group-hover:text-text-primary transition-colors">Contact</span>
       </div>
     </a>
 
@@ -62,24 +64,19 @@
   <!-- FAB trigger button -->
   <button
     id="fab-trigger"
-    class="relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 group"
+    class="relative w-14 h-14 rounded-full flex items-center justify-center group"
     aria-label="Toggle navigation"
     aria-expanded="false"
   >
-    <!-- Glow ring -->
     <span class="absolute inset-0 rounded-full bg-gradient-to-br from-accent-1 via-accent-3 to-accent-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300"></span>
-    <!-- Pulse ring -->
-    <span class="fab-pulse absolute inset-0 rounded-full bg-gradient-to-br from-accent-1 to-accent-4 opacity-30 scale-100"></span>
-    <!-- Icon container -->
+    <span class="fab-pulse absolute inset-0 rounded-full bg-gradient-to-br from-accent-1 to-accent-4 opacity-30"></span>
     <span class="relative z-10 w-5 h-5">
-      <!-- Hamburger icon -->
-      <span id="fab-icon-open" class="absolute inset-0 flex flex-col justify-center items-center gap-[5px] transition-all duration-300">
-        <span class="w-5 h-[1.5px] bg-white rounded-full transition-all duration-300"></span>
-        <span class="w-3.5 h-[1.5px] bg-white rounded-full transition-all duration-300 self-start"></span>
-        <span class="w-5 h-[1.5px] bg-white rounded-full transition-all duration-300"></span>
+      <span id="fab-icon-open" class="absolute inset-0 flex flex-col justify-center items-center gap-[5px]" style="transition: opacity 0.3s, transform 0.3s;">
+        <span class="w-5 h-[1.5px] bg-white rounded-full"></span>
+        <span class="w-3.5 h-[1.5px] bg-white rounded-full self-start"></span>
+        <span class="w-5 h-[1.5px] bg-white rounded-full"></span>
       </span>
-      <!-- Close icon -->
-      <span id="fab-icon-close" class="absolute inset-0 flex items-center justify-center opacity-0 rotate-90 transition-all duration-300">
+      <span id="fab-icon-close" class="absolute inset-0 flex items-center justify-center" style="opacity: 0; transform: rotate(90deg); transition: opacity 0.3s, transform 0.3s;">
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
@@ -89,15 +86,15 @@
 
 </nav>
 
-<!-- Backdrop blur overlay -->
-<div id="fab-backdrop" class="fixed inset-0 z-40 pointer-events-none opacity-0 transition-opacity duration-300"
-  style="background: rgba(10,10,15,0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);">
+<!-- Backdrop -->
+<div id="fab-backdrop" class="fixed inset-0 z-40 pointer-events-none opacity-0"
+  style="background: rgba(10,10,15,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: opacity 0.3s;">
 </div>
 
 <style>
   @keyframes fab-pulse {
     0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.5); opacity: 0; }
+    50% { transform: scale(1.6); opacity: 0; }
   }
   .fab-pulse {
     animation: fab-pulse 3s ease-out infinite;
@@ -117,26 +114,20 @@
   function openMenu() {
     isOpen = true;
     trigger.setAttribute('aria-expanded', 'true');
-
-    // Show backdrop
     backdrop.style.pointerEvents = 'auto';
     backdrop.style.opacity = '1';
-
-    // Enable pointer events on items container
     fabItems.style.pointerEvents = 'auto';
 
-    // Stagger items from bottom (last item = Services = first visible = farthest up)
-    // Items are in DOM order: Contact, Pay, Work with us, Work, Services
-    // We want Services at top, so reverse stagger
+    // Stagger in bottom-to-top (last item in DOM = Contact = shows last = farthest up)
+    // Items order in DOM: Services(0), Work(1), Work with us(2), Pay(3), Contact(4)
+    // Reverse stagger so Services animates in last (top position)
     items.forEach((item, i) => {
-      const delay = (items.length - 1 - i) * 60;
       setTimeout(() => {
         item.style.opacity = '1';
         item.style.transform = 'translateY(0) scale(1)';
-      }, delay);
+      }, i * 55);
     });
 
-    // Morph icon
     iconOpen.style.opacity = '0';
     iconOpen.style.transform = 'rotate(-90deg) scale(0.5)';
     iconClose.style.opacity = '1';
@@ -146,48 +137,28 @@
   function closeMenu() {
     isOpen = false;
     trigger.setAttribute('aria-expanded', 'false');
-
-    // Hide backdrop
     backdrop.style.pointerEvents = 'none';
     backdrop.style.opacity = '0';
 
-    // Stagger close (top to bottom = reverse order)
     items.forEach((item, i) => {
-      const delay = i * 40;
       setTimeout(() => {
         item.style.opacity = '0';
-        item.style.transform = 'translateY(8px) scale(0.9)';
-      }, delay);
+        item.style.transform = 'translateY(12px) scale(0.9)';
+      }, i * 35);
     });
 
-    // Disable pointer events after animation
     setTimeout(() => {
       fabItems.style.pointerEvents = 'none';
-    }, items.length * 40 + 300);
+    }, items.length * 35 + 250);
 
-    // Morph icon back
     iconOpen.style.opacity = '1';
     iconOpen.style.transform = 'rotate(0deg) scale(1)';
     iconClose.style.opacity = '0';
     iconClose.style.transform = 'rotate(90deg)';
   }
 
-  trigger.addEventListener('click', () => {
-    isOpen ? closeMenu() : openMenu();
-  });
-
-  // Close on backdrop click
+  trigger.addEventListener('click', () => isOpen ? closeMenu() : openMenu());
   backdrop.addEventListener('click', closeMenu);
-
-  // Close on nav item click
-  items.forEach((item) => {
-    item.addEventListener('click', () => {
-      setTimeout(closeMenu, 150);
-    });
-  });
-
-  // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) closeMenu();
-  });
+  items.forEach((item) => item.addEventListener('click', () => setTimeout(closeMenu, 120)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) closeMenu(); });
 </script>
