@@ -25,5 +25,9 @@ npm run build
 echo "🚀 Deploying to $DEPLOY_DIR..."
 rsync -av --delete "$REPO_DIR/dist/" "$DEPLOY_DIR/"
 
+# dashboard.html is served directly by Caddy (bypasses Astro bundler)
+# Keep it in sync from public/ since Astro copies public/ to dist/
+echo "📊 Dashboard HTML is included via public/dashboard.html → dist/"
+
 echo ""
 echo "✅ Deployed successfully → https://shiv.rocks"
