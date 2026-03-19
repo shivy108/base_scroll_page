@@ -663,10 +663,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('brief-headline').textContent = safeGet(b, 'headline', safeGet(b, 'title', 'Market update'));
     document.getElementById('brief-summary').textContent  = safeGet(b, 'summary', safeGet(b, 'description', ''));
 
+    function itemText(x) {
+      if (!x) return '';
+      if (typeof x === 'string') return x;
+      // opportunities: {title, detail, type}
+      if (x.title && x.detail) return '<strong>' + x.title + '</strong><span style="color:var(--muted);font-size:12px;"> — ' + x.detail + '</span>';
+      if (x.title) return x.title;
+      // risks: {title, detail}
+      if (x.detail) return x.detail;
+      // watchlist: {asset, signal, reason}
+      if (x.asset) return '<strong>' + x.asset + '</strong> <span style="color:var(--muted);font-size:12px;">' + (x.signal||'') + (x.reason ? ' — ' + x.reason : '') + '</span>';
+      return JSON.stringify(x);
+    }
     function fillList(id, arr) {
       var ul = document.getElementById(id);
-      if (!arr || !arr.length) { ul.innerHTML = '<li>—</li>'; return; }
-      ul.innerHTML = arr.map(function(x) { return '<li>' + x + '</li>'; }).join('');
+      if (!arr || !arr.length) { ul.innerHTML = '<li style="color:var(--muted)">—</li>'; return; }
+      ul.innerHTML = arr.map(function(x) { return '<li>' + itemText(x) + '</li>'; }).join('');
     }
     fillList('brief-opps',  safeGet(b, 'opportunities', null) || safeGet(b, 'bullish_points', []));
     fillList('brief-risks', safeGet(b, 'risks', null)         || safeGet(b, 'bearish_points', []));
